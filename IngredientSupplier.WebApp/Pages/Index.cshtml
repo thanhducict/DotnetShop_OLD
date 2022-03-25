@@ -2,9 +2,21 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    Layout = "_LayoutLandingPage";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<partial name="_Carousel" />
+
+<div class="container">
+    <h2 class="text-center display-3 mt-3 mb-3">Ingredients of the week</h2>
+    <h4 class="text-center display-6 mb-5">Our weekly selection - just for you!</h4>
+
+    <div class="row">
+        @foreach (var ingredient in Model.IngredientsOfTheWeek)
+        {
+            <partial name="_IngredientCard" model="ingredient" />
+        }
+    </div>
 </div>
+
+<partial name="_Slogan" />

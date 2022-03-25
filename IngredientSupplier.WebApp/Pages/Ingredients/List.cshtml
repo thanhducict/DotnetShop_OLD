@@ -1,0 +1,11 @@
+﻿@page
+@model IngredientSupplier.WebApp.Pages.Ingredients.ListModel
+@{
+}
+
+<h1>@Model.CurrentCategory</h1>
+
+@foreach (var ingredient in Model.Ingredients)
+{
+    <partial name="_IngredientCard" model="ingredient" />
+}

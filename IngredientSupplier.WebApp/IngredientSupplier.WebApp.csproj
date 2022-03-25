@@ -19,4 +19,8 @@
     <ProjectReference Include="..\IngredientSupplier.Migrations.SqlServer\IngredientSupplier.Migrations.SqlServer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\Ingredients\" />
+  </ItemGroup>
+
 </Project>

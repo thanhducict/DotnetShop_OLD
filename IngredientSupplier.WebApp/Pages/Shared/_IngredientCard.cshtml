@@ -1,0 +1,18 @@
+﻿@using IngredientSupplier.Domain
+@model Ingredient
+
+<div class="col-sm-4 col-lg-4 col-md-4">
+<div class="card">
+    <img src="@Model.ImageThumbnailUrl" class="card-img-top">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Price.ToString("c")</h5>
+        <h3>
+            <a asp-page="/Ingredients/Details" asp-route-id="@Model.IngredientId">
+                @Model.Name
+            </a>
+        </h3>
+        <p class="card-text">@Model.ShortDescription</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>
+</div>

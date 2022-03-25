@@ -1,19 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using IngredientSupplier.Data;
+using IngredientSupplier.Domain;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace IngredientSupplier.WebApp.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly IIngredientRepository _ingredientRepository;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IEnumerable<Ingredient> IngredientsOfTheWeek { get; set; }
+
+        public IndexModel(IIngredientRepository ingredientRepository)
         {
-            _logger = logger;
+            _ingredientRepository = ingredientRepository;
         }
 
         public void OnGet()
         {
-
+            IngredientsOfTheWeek = _ingredientRepository.IngredientsOfTheWeek;
         }
     }
 }

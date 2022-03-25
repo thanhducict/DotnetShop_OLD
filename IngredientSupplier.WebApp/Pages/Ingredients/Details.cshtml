@@ -1,0 +1,16 @@
+﻿@page
+@model IngredientSupplier.WebApp.Pages.Ingredients.DetailsModel
+
+<h2>@Model.Ingredient.Name</h2>
+
+<div class="thumbnail">
+    <img alt="@Model.Ingredient.Name" src="@Model.Ingredient.ImageUrl">
+    <div class="caption-full">
+        <h3 class="pull-right">@Model.Ingredient.Price</h3>
+        <h3>
+            <a href="#">@Model.Ingredient.Name</a>
+        </h3>
+        <h4>@Model.Ingredient.ShortDescription</h4>
+        <p>@Model.Ingredient.LongDescription</p>
+    </div>
+</div>

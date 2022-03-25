@@ -28,9 +28,9 @@ namespace IngredientSupplier.Data
             }
         }
 
-        public Ingredient GetIngredientById(int pieId)
+        public Ingredient GetIngredientById(int IngredientId)
         {
-            return _context.Ingredients.FirstOrDefault(p => p.IngredientId == pieId);
+            return _context.Ingredients.FirstOrDefault(p => p.IngredientId == IngredientId);
         }
     }
 }

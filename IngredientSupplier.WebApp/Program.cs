@@ -9,6 +9,8 @@ var enviroiment = builder.Environment;
 // Add services to the container.
 services.AddRazorPages();
 services.AddControllersWithViews();
+services.AddHttpContextAccessor();
+services.AddSession();
 
 services.AddScoped<IIngredientRepository, IngredientRepository>();
 services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -53,7 +55,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession(); // place this before UseRouting
 app.UseRouting();
 
 app.UseAuthorization();
@@ -62,7 +64,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
         name: "MyArea",
-        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+        pattern: "{area:exists}/{controller=Ingredients}/{action=List}/{id?}");
     endpoints.MapRazorPages();
 });
 
