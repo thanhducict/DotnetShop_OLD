@@ -23,8 +23,13 @@
                             <a class="nav-link text-dark" asp-page="/Index">Home</a>
                         </li>
                         @await Component.InvokeAsync("CategoryMenu")
-                        @await Component.InvokeAsync("ShoppingCartSummary")
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-page="/Contact">Contact</a>
+                        </li>
                     </ul>
+                    <div style="list-style: none;">
+                        @await Component.InvokeAsync("ShoppingCartSummary")
+                    </div>
                 </div>
             </div>
         </nav>
