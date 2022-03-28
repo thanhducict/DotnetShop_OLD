@@ -68,4 +68,18 @@ app.UseEndpoints(endpoints =>
     endpoints.MapRazorPages();
 });
 
+using (var scope = app.Services.CreateScope())
+{
+    var scopedProvider = scope.ServiceProvider;
+    try
+    {
+        var context = scopedProvider.GetRequiredService<DotnetShopDbContext>();
+        await DotnetShopSeed.SeedAsync(context);
+    }
+    catch (Exception ex)
+    {
+        app.Logger.LogError(ex, "An error occurred seeding the DB.");
+    }
+}
+
 app.Run();

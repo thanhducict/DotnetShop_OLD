@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Builds", "Builds", "{09516305-900A-4ACA-83FE-F89E06FEF381}"
 	ProjectSection(SolutionItems) = preProject
-		setup.cmd = setup.cmd
+		setupDB.cmd = setupDB.cmd
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.Domain", "DotnetShop.Domain\DotnetShop.Domain.csproj", "{924A0D65-F079-4D65-93FF-EA6376315120}"

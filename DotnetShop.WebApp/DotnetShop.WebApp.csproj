@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\Ingredients\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DotnetShop.Data\DotnetShop.Data.csproj" />
     <ProjectReference Include="..\DotnetShop.Migrations.Sqlite\DotnetShop.Migrations.Sqlite.csproj" />
     <ProjectReference Include="..\DotnetShop.Migrations.SqlServer\DotnetShop.Migrations.SqlServer.csproj" />

@@ -1,5 +1,7 @@
 @echo off
 
+echo "Execute Db migrations and model seed data"
+
 rem echo === Sqlite Migrations ===
 if exist DotnetShop.Migrations.Sqlite\Migrations\ (
 	rmdir DotnetShop.Data.Migrations.Sqlite\Migrations /s /q
