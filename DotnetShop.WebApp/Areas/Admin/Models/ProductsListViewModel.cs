@@ -1,6 +1,6 @@
 ﻿using DotnetShop.Domain;
 
-namespace ProductSupplier.WebApp.Areas.Admin.Models
+namespace DotnetShop.WebApp.Areas.Admin.Models
 {
     public class ProductsListViewModel
     {

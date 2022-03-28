@@ -3,7 +3,7 @@ using DotnetShop.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ProductSupplier.WebApp.Pages.Products
+namespace DotnetShop.WebApp.Pages.Products
 {
     public class DetailsModel : PageModel
     {

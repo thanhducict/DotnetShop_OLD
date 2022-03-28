@@ -1,8 +1,8 @@
 ﻿using DotnetShop.Data;
-using ProductSupplier.WebApp.Areas.Admin.Models;
+using DotnetShop.WebApp.Areas.Admin.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ProductSupplier.WebApp.Areas.Admin.Controllers
+namespace DotnetShop.WebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ProductsController : Controller
@@ -22,7 +22,6 @@ namespace ProductSupplier.WebApp.Areas.Admin.Controllers
             var productListViewModel = new ProductsListViewModel();
             productListViewModel.Products = _productRepository.AllProducts;
 
-            productListViewModel.CurrentCategory = "Beverage";
             return View(productListViewModel);
         }
 

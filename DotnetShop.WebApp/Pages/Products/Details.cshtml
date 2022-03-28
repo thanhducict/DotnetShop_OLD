@@ -1,5 +1,5 @@
 ﻿@page
-@model ProductSupplier.WebApp.Pages.Products.DetailsModel
+@model DotnetShop.WebApp.Pages.Products.DetailsModel
 
 <h2>@Model.Product.Name</h2>
 
@@ -12,5 +12,10 @@
         </h3>
         <h4>@Model.Product.ShortDescription</h4>
         <p>@Model.Product.LongDescription</p>
+        <div>
+            <a class="btn btn-primary" 
+                asp-page-handler="AddToShoppingCart"
+                asp-route-productId="@Model.Product.ProductId">Add to cart</a>
+        </div>
     </div>
 </div>

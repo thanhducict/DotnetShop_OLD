@@ -1,4 +1,5 @@
 using DotnetShop.Data;
+using DotnetShop.WebApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ services.AddSession();
 
 services.AddScoped<IProductRepository, ProductRepository>();
 services.AddScoped<ICategoryRepository, CategoryRepository>();
+services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
 
 string dbPath, connectionString;
 var provider = configuration.GetValue<string>("DatabaseProvider");

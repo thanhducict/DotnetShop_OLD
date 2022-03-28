@@ -47,7 +47,7 @@ namespace DotnetShop.Data
                     CategoryId = 1,
                     ImageUrl = "/images/Products/Kudu Purple Sweatshirt HD.png",
                     InStock = true,
-                    IsProductOfTheWeek = true,
+                    IsProductOfTheWeek = false,
                     ImageThumbnailUrl = "/images/Products/Kudu Purple Sweatshirt.png"
                 },
                 new Product
@@ -103,7 +103,7 @@ namespace DotnetShop.Data
                     CategoryId = 1,
                     ImageUrl = "/images/Products/Prism White T-Shirt HD.png",
                     InStock = true,
-                    IsProductOfTheWeek = false,
+                    IsProductOfTheWeek = true,
                     ImageThumbnailUrl = "/images/Products/Prism White T-Shirt.png"
                 },
                 new Product
@@ -201,7 +201,7 @@ namespace DotnetShop.Data
                     CategoryId = 3,
                     ImageUrl = "/images/Products/Roslyn Red Badge HD.png",
                     InStock = false,
-                    IsProductOfTheWeek = false,
+                    IsProductOfTheWeek = true,
                     ImageThumbnailUrl = "/images/Products/Roslyn Red Badge.png"
                 }
             };

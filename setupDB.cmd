@@ -1,6 +1,8 @@
-@echo off
+﻿@echo off
 
-echo "Execute Db migrations and model seed data"
+echo ╔═════════════════════════════════════════════╗
+echo ║  Execute Db migrations and model seed data  ║
+echo ╚═════════════════════════════════════════════╝
 
 rem echo === Sqlite Migrations ===
 if exist DotnetShop.Migrations.Sqlite\Migrations\ (

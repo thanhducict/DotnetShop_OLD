@@ -12,7 +12,10 @@
                 </a>
             </h3>
             <p class="card-text">@Model.ShortDescription</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <a class="btn btn-primary"
+                asp-page="ShoppingCart"
+                asp-page-handler="AddToShoppingCart"
+                asp-route-productId="@Model.ProductId">Add to cart</a>
         </div>
     </div>
 </div>

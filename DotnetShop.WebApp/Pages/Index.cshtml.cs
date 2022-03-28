@@ -2,7 +2,7 @@
 using DotnetShop.Domain;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ProductSupplier.WebApp.Pages
+namespace DotnetShop.WebApp.Pages
 {
     public class IndexModel : PageModel
     {
@@ -19,5 +19,7 @@ namespace ProductSupplier.WebApp.Pages
         {
             ProductsOfTheWeek = _productRepository.ProductsOfTheWeek;
         }
+
+
     }
 }

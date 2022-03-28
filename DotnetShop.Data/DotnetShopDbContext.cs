@@ -13,6 +13,7 @@ namespace DotnetShop.Data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,7 +34,7 @@ namespace DotnetShop.Data
                 CategoryId = 1,
                 ImageUrl = "/images/Products/Kudu Purple Sweatshirt HD.png",
                 InStock = true,
-                IsProductOfTheWeek = true,
+                IsProductOfTheWeek = false,
                 ImageThumbnailUrl = "/images/Products/Kudu Purple Sweatshirt.png"
             });
 
@@ -93,7 +94,7 @@ namespace DotnetShop.Data
                 CategoryId = 1,
                 ImageUrl = "/images/Products/Prism White T-Shirt HD.png",
                 InStock = true,
-                IsProductOfTheWeek = false,
+                IsProductOfTheWeek = true,
                 ImageThumbnailUrl = "/images/Products/Prism White T-Shirt.png"
             });
 
@@ -199,7 +200,7 @@ namespace DotnetShop.Data
                 CategoryId = 3,
                 ImageUrl = "/images/Products/Roslyn Red Badge HD.png",
                 InStock = false,
-                IsProductOfTheWeek = false,
+                IsProductOfTheWeek = true,
                 ImageThumbnailUrl = "/images/Products/Roslyn Red Badge.png"
             });
         }
