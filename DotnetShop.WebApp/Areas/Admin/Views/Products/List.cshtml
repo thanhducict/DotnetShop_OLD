@@ -1,0 +1,26 @@
+﻿@model ProductsListViewModel
+
+<h1>@Model.CurrentCategory</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.Products)
+        {
+            <tr>
+                <th scope="row">@product.ProductId</th>
+                <td>@product.Name</td>
+                <td>@product.Price</td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>
+

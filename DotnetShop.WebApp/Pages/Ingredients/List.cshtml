@@ -1,0 +1,11 @@
+﻿@page
+@model ProductSupplier.WebApp.Pages.Products.ListModel
+@{
+}
+
+<h1>@Model.CurrentCategory</h1>
+
+@foreach (var product in Model.Products)
+{
+    <partial name="_ProductCard" model="product" />
+}
