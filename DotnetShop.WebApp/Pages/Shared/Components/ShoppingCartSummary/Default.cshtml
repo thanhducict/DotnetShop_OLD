@@ -1,13 +1,13 @@
-﻿@model ShoppingCartViewModel
+﻿@model ShoppingCartSummaryViewModel
 
-@if (Model.ShoppingCart.ShoppingCartItems.Count > 0)
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-page="/ShoppingCart">
-            Cart
+<li class="nav-item">
+    <a class="nav-link text-dark" asp-page="/ShoppingCart">
+        Cart
+        @if (Model.ShoppingCart.ShoppingCartItems.Count > 0)
+        {
             <span class="badge rounded-pill bg-success">
                 @Model.ShoppingCart.ShoppingCartItems.Count
             </span>
-        </a>
-    </li>
-}
+        }
+    </a>
+</li>
