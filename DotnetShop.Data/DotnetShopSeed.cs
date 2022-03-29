@@ -1,5 +1,6 @@
 ﻿using DotnetShop.Domain;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace DotnetShop.Data
 {
@@ -8,37 +9,47 @@ namespace DotnetShop.Data
         /// <summary>
         /// Seed data at runtime.
         /// </summary>
-        public static async Task SeedAsync(DotnetShopDbContext context)
+        public static async Task SeedAsync(DotnetShopDbContext context, ILogger logger)
         {
             await context.Database.EnsureCreatedAsync();
 
-            if (!await context.Categories.AnyAsync())
+            try
             {
-                await context.Categories.AddRangeAsync(PopulateSampleCategories());
+                // This won't run because Categories data was added during Model Seed
+                if (!await context.Categories.AnyAsync())
+                {
+                    await context.Categories.AddRangeAsync(PopulateSampleCategories());
+                    await context.SaveChangesAsync();
+                }
+                // Products data will be added at runtime
+                if (!await context.Products.AnyAsync())
+                {
+                    await context.Products.AddRangeAsync(PopulateSampleProducts());
+                    await context.SaveChangesAsync();
+                }
             }
-            if (!await context.Products.AnyAsync())
+            catch (Exception ex)
             {
-                await context.Products.AddRangeAsync(PopulateSampleProducts());
+                logger.LogError(ex.Message);
+                throw;
             }
-
-            await context.SaveChangesAsync();
         }
 
         private static IEnumerable<Category> PopulateSampleCategories()
         {
             return new List<Category> {
-                new Category { CategoryId = 1, CategoryName = "Shirt" },
-                new Category { CategoryId = 2, CategoryName = "Cup" },
-                new Category { CategoryId = 3, CategoryName = "Badge" }
+                new Category { CategoryName = "Shirt" },
+                new Category { CategoryName = "Cup" },
+                new Category { CategoryName = "Badge" }
             };
         }
 
         private static IEnumerable<Product> PopulateSampleProducts()
         {
             return new List<Product> {
+                // identity_insert is set to off so there will be no ProductId
                 new Product
                 {
-                    ProductId = 1,
                     Name = "Kudu Purple Sweatshirt",
                     Price = 15.95M,
                     ShortDescription = "Our famous shirt!",
@@ -52,7 +63,6 @@ namespace DotnetShop.Data
                 },
                 new Product
                 {
-                    ProductId = 2,
                     Name = ".NET Blue Sweatshirt",
                     Price = 18.95M,
                     ShortDescription = "You'll love it!",
@@ -66,7 +76,6 @@ namespace DotnetShop.Data
                 },
                 new Product
                 {
-                    ProductId = 3,
                     Name = ".NET Bot Black Sweatshirt",
                     Price = 18.95M,
                     ShortDescription = "Best seller in year.",
@@ -80,7 +89,6 @@ namespace DotnetShop.Data
                 },
                 new Product
                 {
-                    ProductId = 4,
                     Name = ".NET Foundation Sweatshirt",
                     Price = 17.95M,
                     ShortDescription = "A summer classic!",
@@ -94,7 +102,6 @@ namespace DotnetShop.Data
                 },
                 new Product
                 {
-                    ProductId = 5,
                     Name = "Prism White T-Shirt",
                     Price = 18.95M,
                     ShortDescription = "Welcome summer!",
@@ -108,7 +115,6 @@ namespace DotnetShop.Data
                 },
                 new Product
                 {
-                    ProductId = 6,
                     Name = "Roslyn Red T-Shirt",
                     Price = 17.95M,
                     ShortDescription = "A summer favorite.",
@@ -122,7 +128,6 @@ namespace DotnetShop.Data
                 },
                 new Product
                 {
-                    ProductId = 7,
                     Name = "Cup<T> T-Shirt",
                     Price = 19.95M,
                     ShortDescription = "Simple the best!",
@@ -136,7 +141,6 @@ namespace DotnetShop.Data
                 },
                 new Product
                 {
-                    ProductId = 8,
                     Name = "Cup<T> White Mug",
                     Price = 10.95M,
                     ShortDescription = "A new designed cup.",
@@ -150,7 +154,6 @@ namespace DotnetShop.Data
                 },
                 new Product
                 {
-                    ProductId = 9,
                     Name = ".NET Black White Mug",
                     Price = 10.95M,
                     ShortDescription = "A classic design cup.",
@@ -164,7 +167,6 @@ namespace DotnetShop.Data
                 },
                 new Product
                 {
-                    ProductId = 10,
                     Name = "Cup<T> Badge",
                     Price = 4.95M,
                     ShortDescription = "A geeky badge!",
@@ -178,7 +180,6 @@ namespace DotnetShop.Data
                 },
                 new Product
                 {
-                    ProductId = 11,
                     Name = "NET Foundation Badge",
                     Price = 3.95M,
                     ShortDescription = "You'll love it!",
@@ -192,7 +193,6 @@ namespace DotnetShop.Data
                 },
                 new Product
                 {
-                    ProductId = 12,
                     Name = "Roslyn Red Badge",
                     Price = 3.95M,
                     ShortDescription = "You'll love it!",

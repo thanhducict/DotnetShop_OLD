@@ -70,13 +70,15 @@ app.UseEndpoints(endpoints =>
     endpoints.MapRazorPages();
 });
 
+app.Logger.LogInformation("Seeding Database...");
+
 using (var scope = app.Services.CreateScope())
 {
     var scopedProvider = scope.ServiceProvider;
     try
     {
         var context = scopedProvider.GetRequiredService<DotnetShopDbContext>();
-        await DotnetShopSeed.SeedAsync(context);
+        await DotnetShopSeed.SeedAsync(context, app.Logger);
     }
     catch (Exception ex)
     {
@@ -84,4 +86,5 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+app.Logger.LogInformation("LAUNCHING");
 app.Run();
