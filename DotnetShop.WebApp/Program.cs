@@ -1,5 +1,6 @@
 using DotnetShop.Data;
 using DotnetShop.WebApp.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +16,7 @@ services.AddSession();
 
 services.AddScoped<IProductRepository, ProductRepository>();
 services.AddScoped<ICategoryRepository, CategoryRepository>();
-services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
+services.AddScoped<Cart>(sp => Cart.GetCart(sp));
 
 string dbPath, connectionString;
 var provider = configuration.GetValue<string>("DatabaseProvider");
@@ -45,6 +46,13 @@ services.AddDbContext<DotnetShopDbContext>(
             _ => throw new Exception($"Unsupported provider: {provider}")
         });
 
+services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    options.Password.RequiredLength = 8;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireDigit = true;
+}).AddEntityFrameworkStores<DotnetShopDbContext>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -57,6 +65,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseAuthentication();
 app.UseSession(); // place this before UseRouting
 app.UseRouting();
 

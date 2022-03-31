@@ -1,5 +1,5 @@
 ﻿@page
-@model ShoppingCartModel
+@model CartModel
 @{
     ViewData["Title"] = "Shopping Cart";
 }
@@ -16,7 +16,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var line in Model.ShoppingCart.ShoppingCartItems)
+    @foreach (var line in Model.Cart.CartItems)
     {
         <tr>
             <td class="text-center">@line.Amount</td>
@@ -32,7 +32,7 @@
     <tr>
         <td colspan="3" class="text-right">Total:</td>
         <td class="text-right">
-            @Model.ShoppingCartTotal.ToString("c")
+            @Model.CartTotal.ToString("c")
         </td>
     </tr>
     </tfoot>

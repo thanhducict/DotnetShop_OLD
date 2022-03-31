@@ -1,8 +1,8 @@
 ﻿namespace DotnetShop.WebApp.Models
 {
-    public class ShoppingCartSummaryViewModel
+    public class CartSummaryViewModel
     {
-        public ShoppingCart ShoppingCart { get; set; }
-        public decimal ShoppingCartTotal { get; set; }
+        public Cart Cart { get; set; }
+        public decimal CartTotal { get; set; }
     }
 }

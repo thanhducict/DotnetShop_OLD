@@ -1,52 +1,54 @@
 using DotnetShop.Data;
 using DotnetShop.WebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DotnetShop.WebApp.Pages
 {
-    public class ShoppingCartModel : PageModel
+    [Authorize]
+    public class CartModel : PageModel
     {
         private readonly IProductRepository _productRepository;
-        private readonly ShoppingCart _shoppingCart;
+        private readonly Cart _cart;
 
-        public ShoppingCartModel(IProductRepository ProductRepository, ShoppingCart shoppingCart)
+        public CartModel(IProductRepository ProductRepository, Cart cart)
         {
             _productRepository = ProductRepository;
-            _shoppingCart = shoppingCart;
+            _cart = cart;
         }
 
-        public ShoppingCart ShoppingCart { get; set; }
-        public decimal ShoppingCartTotal { get; set; }
+        public Cart Cart { get; set; }
+        public decimal CartTotal { get; set; }
 
         public void OnGet()
         {
-            var items = _shoppingCart.GetShoppingCartItems();
-            _shoppingCart.ShoppingCartItems = items;
+            var items = _cart.GetCartItems();
+            _cart.CartItems = items;
 
-            ShoppingCart = _shoppingCart;
-            ShoppingCartTotal = _shoppingCart.GetShoppingCartTotal();
+            Cart = _cart;
+            CartTotal = _cart.GetCartTotal();
         }
 
-        public IActionResult OnGetAddToShoppingCart(int productId)
+        public IActionResult OnGetAddToCart(int productId)
         {
             var selectedProduct = _productRepository.AllProducts.FirstOrDefault(p => p.ProductId == productId);
 
             if (selectedProduct != null)
             {
-                _shoppingCart.AddToCart(selectedProduct, 1);
+                _cart.AddToCart(selectedProduct, 1);
             }
 
             return RedirectToPage();
         }
 
-        public IActionResult OnPostRemoveFromShoppingCart(int productId)
+        public IActionResult OnPostRemoveFromCart(int productId)
         {
             var selectedProduct = _productRepository.AllProducts.FirstOrDefault(p => p.ProductId == productId);
 
             if (selectedProduct != null)
             {
-                _shoppingCart.RemoveFromCart(selectedProduct);
+                _cart.RemoveFromCart(selectedProduct);
             }
 
             return RedirectToPage();

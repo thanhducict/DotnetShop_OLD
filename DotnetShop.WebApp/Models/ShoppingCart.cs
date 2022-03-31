@@ -4,20 +4,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DotnetShop.WebApp.Models
 {
-    public class ShoppingCart
+    public class Cart
     {
         private readonly DotnetShopDbContext _context;
 
-        public string ShoppingCartId { get; set; }
+        public string CartId { get; set; }
 
-        public List<ShoppingCartItem> ShoppingCartItems { get; set; }
+        public List<CartItem> CartItems { get; set; }
 
-        private ShoppingCart(DotnetShopDbContext context)
+        private Cart(DotnetShopDbContext context)
         {
             _context = context;
         }
 
-        public static ShoppingCart GetCart(IServiceProvider services)
+        public static Cart GetCart(IServiceProvider services)
         {
             ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
 
@@ -27,29 +27,29 @@ namespace DotnetShop.WebApp.Models
 
             session.SetString("CartId", cartId);
 
-            return new ShoppingCart(context) { ShoppingCartId = cartId };
+            return new Cart(context) { CartId = cartId };
         }
 
         public void AddToCart(Product product, int amount)
         {
-            var shoppingCartItem =
-                    _context.ShoppingCartItems.SingleOrDefault(
-                        s => s.Product.ProductId == product.ProductId && s.ShoppingCartId == ShoppingCartId);
+            var cartItem =
+                    _context.CartItems.SingleOrDefault(
+                        s => s.Product.ProductId == product.ProductId && s.CartId == CartId);
 
-            if (shoppingCartItem == null)
+            if (cartItem == null)
             {
-                shoppingCartItem = new ShoppingCartItem
+                cartItem = new CartItem
                 {
-                    ShoppingCartId = ShoppingCartId,
+                    CartId = CartId,
                     Product = product,
                     Amount = 1
                 };
 
-                _context.ShoppingCartItems.Add(shoppingCartItem);
+                _context.CartItems.Add(cartItem);
             }
             else
             {
-                shoppingCartItem.Amount++;
+                cartItem.Amount++;
             }
 
             _context.SaveChanges();
@@ -57,22 +57,22 @@ namespace DotnetShop.WebApp.Models
 
         public int RemoveFromCart(Product product)
         {
-            var shoppingCartItem =
-                    _context.ShoppingCartItems.SingleOrDefault(
-                        s => s.Product.ProductId == product.ProductId && s.ShoppingCartId == ShoppingCartId);
+            var cartItem =
+                    _context.CartItems.SingleOrDefault(
+                        s => s.Product.ProductId == product.ProductId && s.CartId == CartId);
 
             var localAmount = 0;
 
-            if (shoppingCartItem != null)
+            if (cartItem != null)
             {
-                if (shoppingCartItem.Amount > 1)
+                if (cartItem.Amount > 1)
                 {
-                    shoppingCartItem.Amount--;
-                    localAmount = shoppingCartItem.Amount;
+                    cartItem.Amount--;
+                    localAmount = cartItem.Amount;
                 }
                 else
                 {
-                    _context.ShoppingCartItems.Remove(shoppingCartItem);
+                    _context.CartItems.Remove(cartItem);
                 }
             }
 
@@ -81,11 +81,11 @@ namespace DotnetShop.WebApp.Models
             return localAmount;
         }
 
-        public List<ShoppingCartItem> GetShoppingCartItems()
+        public List<CartItem> GetCartItems()
         {
-            return ShoppingCartItems ??
-                   (ShoppingCartItems =
-                       _context.ShoppingCartItems.Where(c => c.ShoppingCartId == ShoppingCartId)
+            return CartItems ??
+                   (CartItems =
+                       _context.CartItems.Where(c => c.CartId == CartId)
                            .Include(s => s.Product)
                            .ToList());
         }
@@ -93,17 +93,17 @@ namespace DotnetShop.WebApp.Models
         public void ClearCart()
         {
             var cartItems = _context
-                .ShoppingCartItems
-                .Where(cart => cart.ShoppingCartId == ShoppingCartId);
+                .CartItems
+                .Where(cart => cart.CartId == CartId);
 
-            _context.ShoppingCartItems.RemoveRange(cartItems);
+            _context.CartItems.RemoveRange(cartItems);
 
             _context.SaveChanges();
         }
 
-        public decimal GetShoppingCartTotal()
+        public decimal GetCartTotal()
         {
-            var total = _context.ShoppingCartItems.Where(c => c.ShoppingCartId == ShoppingCartId)
+            var total = _context.CartItems.Where(c => c.CartId == CartId)
                 .Select(c => c.Product.Price * c.Amount).Sum();
             return total;
         }

@@ -1,9 +1,10 @@
 ﻿using DotnetShop.Domain;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotnetShop.Data
 {
-    public class DotnetShopDbContext : DbContext
+    public class DotnetShopDbContext : IdentityDbContext
     {
         public DotnetShopDbContext(DbContextOptions<DotnetShopDbContext> options)
             : base(options)
@@ -13,7 +14,7 @@ namespace DotnetShop.Data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

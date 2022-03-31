@@ -26,6 +26,7 @@
                             <a class="nav-link text-dark" asp-controller="Products" asp-action="List">Product</a>
                         </li>
                     </ul>
+                    @await Component.InvokeAsync("LoginPartial")
                 </div>
             </div>
         </nav>

@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model CartSummaryViewModel
+
+@inject SignInManager<IdentityUser> signInManager
+@inject UserManager<IdentityUser> userManager
+
+@if (signInManager.IsSignedIn(User))
+{
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-page="/Cart">
+                Cart
+                <span class="badge rounded-pill bg-success">
+                    @Model.Cart.CartItems.Count
+                </span>
+            </a>
+        </li>
+    </ul>
+}

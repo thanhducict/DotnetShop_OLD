@@ -14,8 +14,8 @@
         <p>@Model.Product.LongDescription</p>
         <div>
             <a class="btn btn-primary" 
-                asp-page="/ShoppingCart"
-                asp-page-handler="AddToShoppingCart"
+                asp-page="/Cart"
+                asp-page-handler="AddToCart"
                 asp-route-productId="@Model.Product.ProductId">Add to cart</a>
         </div>
     </div>

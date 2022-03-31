@@ -1,20 +1,19 @@
 ﻿using DotnetShop.Data;
 using DotnetShop.WebApp.Areas.Admin.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetShop.WebApp.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class ProductsController : Controller
     {
         private readonly IProductRepository _productRepository;
-        private readonly ICategoryRepository _categoryRepository;
 
-        public ProductsController(IProductRepository productRepository,
-            ICategoryRepository categoryRepository)
+        public ProductsController(IProductRepository productRepository)
         {
             _productRepository = productRepository;
-            _categoryRepository = categoryRepository;
         }
 
         public IActionResult List()
@@ -35,4 +34,3 @@ namespace DotnetShop.WebApp.Areas.Admin.Controllers
         }
     }
 }
-
