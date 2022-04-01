@@ -2,10 +2,12 @@
 {
     public class Cart
     {
-        public int CartId { get; set; }
-        public string CartName { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public List<CartItem> CartItems { get; set; }
+    }
 
-        // list shopping cart item, change name to CartItem
+    public class CartItem
+    {
+        public Product Product { get; set; }
+        public int Quantity { get; set; }
     }
 }

@@ -28,9 +28,9 @@ namespace DotnetShop.Data
             }
         }
 
-        public Product GetProductById(int ProductId)
+        public Product GetProductById(int productId)
         {
-            return _context.Products.FirstOrDefault(p => p.ProductId == ProductId);
+            return _context.Products.FirstOrDefault(p => p.ProductId == productId);
         }
     }
 }

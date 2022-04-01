@@ -1,5 +1,6 @@
 using DotnetShop.Data;
-using DotnetShop.WebApp.Models;
+using DotnetShop.Domain;
+using DotnetShop.WebApp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +17,10 @@ services.AddSession();
 
 services.AddScoped<IProductRepository, ProductRepository>();
 services.AddScoped<ICategoryRepository, CategoryRepository>();
-services.AddScoped<Cart>(sp => Cart.GetCart(sp));
+services.AddScoped<ICartService, CartService>();
+services.AddScoped<ICheckoutService, CheckoutService>();
+services.AddScoped<ICustomerRepository, CustomerRepository>();
+services.AddScoped<UserManager<ApplicationUser>>();
 
 string dbPath, connectionString;
 var provider = configuration.GetValue<string>("DatabaseProvider");
@@ -46,7 +50,7 @@ services.AddDbContext<DotnetShopDbContext>(
             _ => throw new Exception($"Unsupported provider: {provider}")
         });
 
-services.AddIdentity<IdentityUser, IdentityRole>(options =>
+services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.Password.RequiredLength = 8;
     options.Password.RequireUppercase = true;

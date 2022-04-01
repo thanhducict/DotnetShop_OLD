@@ -1,8 +1,9 @@
-﻿@using Microsoft.AspNetCore.Identity
-@model CartSummaryViewModel
+﻿@using DotnetShop.Domain
+@using Microsoft.AspNetCore.Identity
+@model int
 
-@inject SignInManager<IdentityUser> signInManager
-@inject UserManager<IdentityUser> userManager
+@inject SignInManager<ApplicationUser> signInManager
+@inject UserManager<ApplicationUser> userManager
 
 @if (signInManager.IsSignedIn(User))
 {
@@ -11,7 +12,7 @@
             <a class="nav-link text-dark" asp-page="/Cart">
                 Cart
                 <span class="badge rounded-pill bg-success">
-                    @Model.Cart.CartItems.Count
+                    @Model
                 </span>
             </a>
         </li>

@@ -32,6 +32,30 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+            <div class="mb-3">
+                <label asp-for="Input.Customer.CustomerName" class="form-label"></label>
+                <input asp-for="Input.Customer.CustomerName" class="form-control" />
+                <span asp-validation-for="Input.Customer.CustomerName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.Customer.Gender" class="form-label"></label>
+                <div class="form-check">
+                    <input asp-for="Input.Customer.Gender" class="form-check-input" type="radio" id="genderMale" value="true" checked>
+                    <label class="form-check-label" asp-for="Input.Customer.Gender">
+                        Male
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="Input.Customer.Gender" class="form-check-input" type="radio" id="genderFemale" value="false">
+                    <label class="form-check-label" asp-for="Input.Customer.Gender">
+                        Female
+                    </label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.Customer.Address" class="form-label"></label>
+                <input asp-for="Input.Customer.Address" class="form-control" />
+            </div>
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
     </div>
@@ -44,7 +68,8 @@
                 {
                     <div>
                         <p>
-                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                            There are no external authentication services configured. See <a
+                            href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
                             for details on setting up this ASP.NET application to support logging in via external services.
                         </p>
                     </div>
@@ -56,7 +81,8 @@
                             <p>
                                 @foreach (var provider in Model.ExternalLogins)
                                 {
-                                    <button type="submit" class="btn btn-default" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    <button type="submit" class="btn btn-default" name="provider" value="@provider.Name"
+                                title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
                                 }
                             </p>
                         </div>
@@ -68,5 +94,5 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+<partial name="_ValidationScriptsPartial" />
 }

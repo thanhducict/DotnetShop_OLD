@@ -1,5 +1,6 @@
 using DotnetShop.Data;
-using DotnetShop.WebApp.Models;
+using DotnetShop.Domain;
+using DotnetShop.WebApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,12 +11,12 @@ namespace DotnetShop.WebApp.Pages
     public class CartModel : PageModel
     {
         private readonly IProductRepository _productRepository;
-        private readonly Cart _cart;
+        private readonly ICartService _cartService;
 
-        public CartModel(IProductRepository ProductRepository, Cart cart)
+        public CartModel(IProductRepository ProductRepository, ICartService cartService)
         {
             _productRepository = ProductRepository;
-            _cart = cart;
+            _cartService = cartService;
         }
 
         public Cart Cart { get; set; }
@@ -23,33 +24,25 @@ namespace DotnetShop.WebApp.Pages
 
         public void OnGet()
         {
-            var items = _cart.GetCartItems();
-            _cart.CartItems = items;
-
-            Cart = _cart;
-            CartTotal = _cart.GetCartTotal();
+            Cart = _cartService.GetCart();
+            CartTotal = _cartService.GetCartTotal();
         }
 
         public IActionResult OnGetAddToCart(int productId)
         {
-            var selectedProduct = _productRepository.AllProducts.FirstOrDefault(p => p.ProductId == productId);
-
-            if (selectedProduct != null)
-            {
-                _cart.AddToCart(selectedProduct, 1);
-            }
+            _cartService.AddToCart(productId, 1);
 
             return RedirectToPage();
         }
 
         public IActionResult OnPostRemoveFromCart(int productId)
         {
-            var selectedProduct = _productRepository.AllProducts.FirstOrDefault(p => p.ProductId == productId);
+            //var selectedProduct = _productRepository.AllProducts.FirstOrDefault(p => p.ProductId == productId);
 
-            if (selectedProduct != null)
-            {
-                _cart.RemoveFromCart(selectedProduct);
-            }
+            //if (selectedProduct != null)
+            //{
+            //    _cart.RemoveFromCart(selectedProduct);
+            //}
 
             return RedirectToPage();
         }

@@ -2,7 +2,7 @@
 
 @if (Model.IsSignedIn)
 {
-    <form asp-page="/Account/Logout" asp-route-returnUrl="@Model.ReturnUrl" method="post" id="logoutForm">
+    <form asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index")" method="post" id="logoutForm">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a asp-page="/Account/Manage/Index" class="btn btn-link navbar-btn navbar-link">Hello @Model.Username!</a>

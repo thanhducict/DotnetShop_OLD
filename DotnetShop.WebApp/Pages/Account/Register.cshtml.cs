@@ -1,26 +1,29 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using DotnetShop.Data;
+using DotnetShop.Domain;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace DotnetShop.WebApp.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ICustomerRepository _customerRepository;
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            ICustomerRepository customerRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _customerRepository = customerRepository;
         }
 
         [BindProperty]
@@ -46,6 +49,17 @@ namespace DotnetShop.WebApp.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            public CustomerViewModel Customer { get; set; }
+        }
+
+        public class CustomerViewModel
+        {
+            [Required]
+            [Display(Name = "Customer name")]
+            public string CustomerName { get; set; }
+            public bool Gender { get; set; }
+            public string Address { get; set; }
         }
 
         public async Task OnGetAsync()
@@ -58,7 +72,19 @@ namespace DotnetShop.WebApp.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Username, Email = Input.Email };
+                var customer = new Customer
+                {
+                    CustomerName = Input.Customer.CustomerName,
+                    Gender = Input.Customer.Gender,
+                    Address = Input.Customer.Address
+                };
+                var newAddedCustomer = _customerRepository.Add(customer);
+                var user = new ApplicationUser
+                {
+                    UserName = Input.Username,
+                    Email = Input.Email,
+                    CustomerId = newAddedCustomer.CustomerId
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

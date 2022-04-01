@@ -1,32 +1,28 @@
-﻿using DotnetShop.WebApp.Models;
-using Microsoft.AspNetCore.Http.Extensions;
+﻿using DotnetShop.WebApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetShop.WebApp.ViewComponents
 {
     public class CartSummary : ViewComponent
     {
-        private readonly Cart _cart;
-        private readonly IHttpContextAccessor _accessor;
+        private readonly ICartService _cartService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CartSummary(Cart cart, IHttpContextAccessor accessor)
+        public CartSummary(ICartService cartService, IHttpContextAccessor httpContextAccessor)
         {
-            _cart = cart;
-            _accessor = accessor;
+            _cartService = cartService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IViewComponentResult Invoke()
         {
-            var items = _cart.GetCartItems();
-            _cart.CartItems = items;
-            var cartViewModel = new CartSummaryViewModel
+            var total = 0;
+            if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
             {
-                Cart = _cart,
-                CartTotal = _cart.GetCartTotal()
+                total = _cartService.GetCartLineItemsQuantity();
+            }
 
-            };
-
-            return View(cartViewModel);
+            return View(total);
         }
     }
 }
