@@ -31,7 +31,7 @@ namespace DotnetShop.WebApp.Pages.Products
             else
             {
                 Products = _productRepository.AllProducts.OrderBy(p => p.ProductId);
-                CurrentCategory = "All pies";
+                CurrentCategory = "All products";
             }
         }
     }

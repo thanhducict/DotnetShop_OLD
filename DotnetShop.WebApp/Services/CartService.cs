@@ -27,18 +27,17 @@ namespace DotnetShop.WebApp.Services
         public Cart GetCart()
         {
             var customer = GetCustomer();
-            var customerCart = new Cart();
-            if (customer.Cart != null)
+            var customerCart = new Cart()
             {
-                var customerCartJson = customer.Cart;
-                customerCart = JsonSerializer.Deserialize<Cart>(customerCartJson, new JsonSerializerOptions
+                CartLineItems = new List<CartLineItem>()
+            };
+            if (!string.IsNullOrEmpty(customer.Cart))
+            {
+                customerCart = JsonSerializer.Deserialize<Cart>(customer.Cart);
+                if (customerCart.CartLineItems == null)
                 {
-                    ReferenceHandler = ReferenceHandler.Preserve
-                });
-            }
-            else
-            {
-                customerCart.CartItems = new List<CartItem>();
+                    customerCart.CartLineItems = new List<CartLineItem>();
+                }
             }
 
             return customerCart;
@@ -46,19 +45,20 @@ namespace DotnetShop.WebApp.Services
 
         public void AddToCart(int productId, int quantity)
         {
-            var selectedProduct = _productRepository.AllProducts.FirstOrDefault(p => p.ProductId == productId);
+            var selectedProduct = _productRepository.AllProducts
+                .FirstOrDefault(p => p.ProductId == productId);
             var cart = GetCart();
 
-            var cartItem = cart.CartItems.SingleOrDefault(c => c.Product.ProductId == productId);
+            var cartItem = cart.CartLineItems.SingleOrDefault(c => c.ProductId == productId);
             if (cartItem == null)
             {
-                cartItem = new CartItem
+                cartItem = new CartLineItem
                 {
-                    Product = selectedProduct,
+                    ProductId = selectedProduct.ProductId,
                     Quantity = 1
                 };
 
-                cart.CartItems.Add(cartItem);
+                cart.CartLineItems.Add(cartItem);
             }
             else
             {
@@ -66,10 +66,7 @@ namespace DotnetShop.WebApp.Services
             }
 
             var customer = GetCustomer();
-            customer.Cart = JsonSerializer.Serialize(cart, new JsonSerializerOptions
-            {
-                ReferenceHandler = ReferenceHandler.Preserve
-            });
+            customer.Cart = JsonSerializer.Serialize(cart);
             _customerRepository.Update(customer);
         }
 
@@ -77,20 +74,20 @@ namespace DotnetShop.WebApp.Services
         {
             var cart = GetCart();
 
-            var cartItems = cart.CartItems.SingleOrDefault(s => s.Product.ProductId == product.ProductId);
+            var cartLineItems = cart.CartLineItems.SingleOrDefault(s => s.ProductId == product.ProductId);
 
             var localQuantity = 0;
 
-            if (cartItems != null)
+            if (cartLineItems != null)
             {
-                if (cartItems.Quantity > 1)
+                if (cartLineItems.Quantity > 1)
                 {
-                    cartItems.Quantity--;
-                    localQuantity = cartItems.Quantity;
+                    cartLineItems.Quantity--;
+                    localQuantity = cartLineItems.Quantity;
                 }
                 else
                 {
-                    cart.CartItems.Remove(cartItems);
+                    cart.CartLineItems.Remove(cartLineItems);
                 }
             }
 
@@ -112,8 +109,12 @@ namespace DotnetShop.WebApp.Services
 
         public decimal GetCartTotal()
         {
-            var cart = GetCart();
-            var total = cart.CartItems.Select(c => c.Product.Price * c.Quantity).Sum();
+            var products = _productRepository.AllProducts;
+            var total = GetCart().CartLineItems
+                .Select(c =>
+                    products.Where(p => p.ProductId == c.ProductId).SingleOrDefault().Price * c.Quantity
+                )
+                .Sum();
             return total;
         }
 
@@ -121,7 +122,7 @@ namespace DotnetShop.WebApp.Services
         {
             var cart = GetCart();
 
-            return cart.CartItems.Count();
+            return cart.CartLineItems.Count();
         }
 
         private Customer GetCustomer()

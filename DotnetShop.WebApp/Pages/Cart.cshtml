@@ -8,32 +8,36 @@
 <h4>Here are the items in your shopping cart.</h4>
 <table class="table table-bordered table-striped">
     <thead>
-    <tr>
-        <th>Selected amount</th>
-        <th>Product</th>
-        <th class="text-right">Price</th>
-        <th class="text-right">Subtotal</th>
-    </tr>
+        <tr>
+            <th>Selected amount</th>
+            <th>Product</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Subtotal</th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var line in Model.Cart.CartItems)
-    {
-        <tr>
-            <td class="text-center">@line.Quantity</td>
-            <td class="text-left">@line.Product.Name</td>
-            <td class="text-right">@line.Product.Price.ToString("c")</td>
-            <td class="text-right">
-                @((line.Quantity * line.Product.Price).ToString("c"))
-            </td>
-        </tr>
-    }
+        @foreach (var line in Model.CartViewModel.CartLineItemViewModels)
+        {
+            <tr>
+                <td class="text-center">@line.CartLineItemQuantity</td>
+                <td class="text-left">@line.ProductName</td>
+                <td class="text-right">@line.ProductPrice.ToString("c")</td>
+                <td class="text-right">@line.CartLineItemTotal.ToString("c")</td>
+            </tr>
+        }
     </tbody>
     <tfoot>
-    <tr>
-        <td colspan="3" class="text-right">Total:</td>
-        <td class="text-right">
-            @Model.CartTotal.ToString("c")
-        </td>
-    </tr>
+        <tr>
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">
+                @Model.CartViewModel.CartTotal.ToString("c")
+            </td>
+        </tr>
     </tfoot>
 </table>
+
+<div class="text-center">
+    <form asp-page-handler="Checkout" method="post">
+        <button class="btn btn-primary" type="submit">Check out now!</button>
+    </form>
+</div>

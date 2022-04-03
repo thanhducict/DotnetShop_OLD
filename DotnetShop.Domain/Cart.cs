@@ -2,12 +2,12 @@
 {
     public class Cart
     {
-        public List<CartItem> CartItems { get; set; }
+        public List<CartLineItem> CartLineItems { get; set; }
     }
 
-    public class CartItem
+    public class CartLineItem
     {
-        public Product Product { get; set; }
+        public int ProductId { get; set; }
         public int Quantity { get; set; }
     }
 }

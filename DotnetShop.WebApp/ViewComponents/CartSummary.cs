@@ -16,13 +16,13 @@ namespace DotnetShop.WebApp.ViewComponents
 
         public IViewComponentResult Invoke()
         {
-            var total = 0;
+            var quantity = 0;
             if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
             {
-                total = _cartService.GetCartLineItemsQuantity();
+                quantity = _cartService.GetCartLineItemsQuantity();
             }
 
-            return View(total);
+            return View(quantity);
         }
     }
 }

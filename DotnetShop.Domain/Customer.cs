@@ -11,6 +11,9 @@ namespace DotnetShop.Domain
         public bool Gender { get; set; }
         public string Address { get; set; } 
         public string Cart { get; set; }
+
         public ApplicationUser ApplicationUser { get; set; }
+
+        public List<Order> Orders { get; set; }
     }
 }

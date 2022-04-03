@@ -20,6 +20,7 @@ services.AddScoped<ICategoryRepository, CategoryRepository>();
 services.AddScoped<ICartService, CartService>();
 services.AddScoped<ICheckoutService, CheckoutService>();
 services.AddScoped<ICustomerRepository, CustomerRepository>();
+services.AddScoped<IOrderRepository, OrderRepository>();
 services.AddScoped<UserManager<ApplicationUser>>();
 
 string dbPath, connectionString;

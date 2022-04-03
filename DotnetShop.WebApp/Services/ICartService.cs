@@ -6,6 +6,7 @@ namespace DotnetShop.WebApp.Services
     {
         Cart GetCart();
         void AddToCart(int productId, int quantity);
+        void ClearCart();
         decimal GetCartTotal();
         int GetCartLineItemsQuantity();
     }
