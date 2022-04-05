@@ -44,20 +44,21 @@ namespace DotnetShop.WebApp.Pages
             return RedirectToPage();
         }
 
-        public IActionResult OnPostRemoveFromCart(int productId)
+        public IActionResult OnGetRemoveFromCart(int productId)
         {
-            //var selectedProduct = _productRepository.AllProducts.FirstOrDefault(p => p.ProductId == productId);
-
-            //if (selectedProduct != null)
-            //{
-            //    _cart.RemoveFromCart(selectedProduct);
-            //}
+            _cartService.RemoveFromCart(productId);
 
             return RedirectToPage();
         }
 
-        public IActionResult OnPostCheckout(){
+        public IActionResult OnPostCheckout()
+        {
             var cartViewModel = GetCartViewModel();
+            if(cartViewModel.CartLineItemViewModels.Count == 0)
+            {
+                return Page();
+            }
+
             var customerId = _userManager.Users
                 .Include(u => u.Customer)
                 .FirstOrDefault(u => u.UserName.ToLower() == HttpContext.User.Identity.Name.ToLower())
@@ -65,8 +66,8 @@ namespace DotnetShop.WebApp.Pages
 
             _checkoutService.Checkout(customerId, cartViewModel);
             _cartService.ClearCart();
-            
-            return LocalRedirect("/CheckoutComplete"); 
+
+            return LocalRedirect("/CheckoutComplete");
         }
 
         private CartViewModel GetCartViewModel()

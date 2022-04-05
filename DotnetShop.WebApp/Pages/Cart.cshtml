@@ -5,7 +5,13 @@
 }
 
 <h2>Your shopping cart</h2>
-<h4>Here are the items in your shopping cart.</h4>
+@if(Model.CartViewModel.CartLineItemViewModels.Count == 0)
+{
+    <h4>Your cart is empty.</h4>
+}
+else
+{
+    <h4>Here are the items in your shopping cart.</h4>
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -13,6 +19,7 @@
             <th>Product</th>
             <th class="text-right">Price</th>
             <th class="text-right">Subtotal</th>
+            <th class="text-right">Remove</th>
         </tr>
     </thead>
     <tbody>
@@ -23,6 +30,13 @@
                 <td class="text-left">@line.ProductName</td>
                 <td class="text-right">@line.ProductPrice.ToString("c")</td>
                 <td class="text-right">@line.CartLineItemTotal.ToString("c")</td>
+                <td class="text-right">
+                    <a
+                        class="btn btn-danger"
+                        asp-page-handler="RemoveFromCart"
+                        asp-route-productId="@line.ProductId">Remove
+                    </a>
+                </td>
             </tr>
         }
     </tbody>
@@ -32,6 +46,7 @@
             <td class="text-right">
                 @Model.CartViewModel.CartTotal.ToString("c")
             </td>
+            <td></td>
         </tr>
     </tfoot>
 </table>
@@ -41,3 +56,4 @@
         <button class="btn btn-primary" type="submit">Check out now!</button>
     </form>
 </div>
+}

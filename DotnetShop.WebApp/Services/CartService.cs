@@ -34,7 +34,10 @@ namespace DotnetShop.WebApp.Services
             };
             if (!string.IsNullOrEmpty(customer.Cart))
             {
-                customerCart = JsonSerializer.Deserialize<Cart>(customer.Cart);
+                customerCart = JsonSerializer.Deserialize<Cart>(customer.Cart, new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve
+                });
                 if (customerCart.CartLineItems == null)
                 {
                     customerCart.CartLineItems = new List<CartLineItem>();
@@ -71,20 +74,17 @@ namespace DotnetShop.WebApp.Services
             _customerRepository.Update(customer);
         }
 
-        public int RemoveFromCart(Product product)
+        public void RemoveFromCart(int productId)
         {
             var cart = GetCart();
 
-            var cartLineItems = cart.CartLineItems.SingleOrDefault(s => s.ProductId == product.ProductId);
-
-            var localQuantity = 0;
+            var cartLineItems = cart.CartLineItems.SingleOrDefault(s => s.ProductId == productId);
 
             if (cartLineItems != null)
             {
                 if (cartLineItems.Quantity > 1)
                 {
                     cartLineItems.Quantity--;
-                    localQuantity = cartLineItems.Quantity;
                 }
                 else
                 {
@@ -96,9 +96,9 @@ namespace DotnetShop.WebApp.Services
             customer.Cart = JsonSerializer.Serialize(cart, new JsonSerializerOptions
             {
                 ReferenceHandler = ReferenceHandler.Preserve
-            }); ;
+            });
+
             _customerRepository.Update(customer);
-            return 0;
         }
 
         public void ClearCart()
