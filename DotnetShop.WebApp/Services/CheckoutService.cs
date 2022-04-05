@@ -15,7 +15,6 @@ namespace DotnetShop.WebApp.Services
 
         public void Checkout(int cusomterId, CartViewModel cartViewModel)
         {
-            
             var orderDetails = cartViewModel.CartLineItemViewModels.Select(o => new OrderDetail
             {
                 ProductId = o.ProductId,

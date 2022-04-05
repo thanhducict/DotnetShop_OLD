@@ -20,11 +20,16 @@ namespace DotnetShop.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Customer>()
+                .HasOne(x => x.ApplicationUser)
+                .WithOne(x => x.Customer)
+                .HasForeignKey<Customer>(x => x.ApplicationUserId);
 
             modelBuilder.Entity<Category>().HasData(new Category { CategoryId = 1, CategoryName = "Shirt" });
             modelBuilder.Entity<Category>().HasData(new Category { CategoryId = 2, CategoryName = "Cup" });
             modelBuilder.Entity<Category>().HasData(new Category { CategoryId = 3, CategoryName = "Badge" });
+            
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

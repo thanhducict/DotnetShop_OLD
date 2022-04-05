@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace DotnetShop.WebApp.Pages
 {
@@ -57,10 +58,12 @@ namespace DotnetShop.WebApp.Pages
 
         public IActionResult OnPostCheckout(){
             var cartViewModel = GetCartViewModel();
+            var customerId = _userManager.Users
+                .Include(u => u.Customer)
+                .FirstOrDefault(u => u.UserName.ToLower() == HttpContext.User.Identity.Name.ToLower())
+                .Customer.CustomerId;
 
-            _checkoutService.Checkout(
-                _userManager.GetUserAsync(HttpContext.User).Result.CustomerId,
-                cartViewModel);
+            _checkoutService.Checkout(customerId, cartViewModel);
             _cartService.ClearCart();
             
             return LocalRedirect("/CheckoutComplete"); 

@@ -2,6 +2,7 @@ namespace DotnetShop.WebApp.Models
 {
     public class CartViewModel
     {
+        public int CustomerId { get; set; }
         public List<CartLineItemViewModel> CartLineItemViewModels { get; set; }
         public decimal CartTotal { get; set; }
     }

@@ -78,13 +78,11 @@ namespace DotnetShop.WebApp.Pages.Account
                     Gender = Input.Customer.Gender,
                     Address = Input.Customer.Address
                 };
-                var newAddedCustomer = _customerRepository.Add(customer);
                 var user = new ApplicationUser
                 {
                     UserName = Input.Username,
                     Email = Input.Email,
-                     // after saving customer using _context.SaveChanges(), CustomerId can be retrieved
-                    CustomerId = newAddedCustomer.CustomerId
+                    Customer = customer
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

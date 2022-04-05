@@ -1,6 +1,7 @@
 using DotnetShop.Data;
 using DotnetShop.Domain;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -128,8 +129,10 @@ namespace DotnetShop.WebApp.Services
         private Customer GetCustomer()
         {
             var user = _httpContextAccessor.HttpContext?.User;
-            var customerId = _userManager.GetUserAsync(user).Result.CustomerId;
-            var customer = _customerRepository.GetCustomerById(customerId);
+            var customer = _userManager.Users
+                .Include(u => u.Customer)
+                .FirstOrDefault(u => u.UserName.ToLower() == user.Identity.Name.ToLower())
+                .Customer;
 
             return customer;
         }

@@ -55,6 +55,7 @@
             <div class="mb-3">
                 <label asp-for="Input.Customer.Address" class="form-label"></label>
                 <input asp-for="Input.Customer.Address" class="form-control" />
+                <span asp-validation-for="Input.Customer.Address" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
