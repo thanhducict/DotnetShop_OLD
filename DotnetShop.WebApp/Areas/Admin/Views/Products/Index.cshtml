@@ -27,8 +27,9 @@
                 <td><img src="@product.ImageThumbnailUrl" height="40" /></td>
                 <td>
                     <a class="btn btn-outline-primary" asp-controller="Products"
-                   asp-action="Details" asp-route-id="@product.ProductId">Details</a>
-                    <a class="btn btn-outline-success">Edit</a>
+                        asp-action="Details" asp-route-id="@product.ProductId">Details</a>
+                    <a class="btn btn-outline-success"  asp-controller="Products"
+                        asp-action="Edit" asp-route-id="@product.ProductId">Edit</a>
                     <a class="btn btn-outline-danger">Delete</a>
                 </td>
             </tr>

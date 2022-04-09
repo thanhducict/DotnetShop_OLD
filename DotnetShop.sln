@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.Migrations.SqlSe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.WebApp", "DotnetShop.WebApp\DotnetShop.WebApp.csproj", "{29256AEF-AFF3-4FA4-9FAB-1430EAB36301}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetShop.Tests", "DotnetShop.Tests\DotnetShop.Tests.csproj", "{4101493C-F651-4ACD-B5F7-C5025399E740}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{29256AEF-AFF3-4FA4-9FAB-1430EAB36301}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29256AEF-AFF3-4FA4-9FAB-1430EAB36301}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29256AEF-AFF3-4FA4-9FAB-1430EAB36301}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4101493C-F651-4ACD-B5F7-C5025399E740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4101493C-F651-4ACD-B5F7-C5025399E740}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4101493C-F651-4ACD-B5F7-C5025399E740}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4101493C-F651-4ACD-B5F7-C5025399E740}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
