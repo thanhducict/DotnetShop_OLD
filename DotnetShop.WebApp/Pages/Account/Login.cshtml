@@ -3,6 +3,9 @@
 
 @{
     ViewData["Title"] = "Log in";
+
+    var username = "trunks";
+    var password = "Cvbnm123@";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -15,12 +18,12 @@
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="mb-3">
                     <label asp-for="Input.Username" class="form-label"></label>
-                    <input asp-for="Input.Username" class="form-control" />
+                    <input asp-for="Input.Username" class="form-control" value=@username />
                     <span asp-validation-for="Input.Username" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label asp-for="Input.Password" class="form-label"></label>
-                    <input asp-for="Input.Password" class="form-control" />
+                    <input asp-for="Input.Password" class="form-control" value=@password />
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div class="mb-3">

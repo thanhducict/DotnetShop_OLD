@@ -1,8 +1,13 @@
+using DotnetShop.Admin.OrderManagement;
+using DotnetShop.Admin.OrderManagement.Pages;
 using DotnetShop.Data;
 using DotnetShop.Domain;
 using DotnetShop.WebApp.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -11,7 +16,6 @@ var enviroiment = builder.Environment;
 
 // Add services to the container.
 services.AddRazorPages();
-services.AddControllersWithViews();
 services.AddHttpContextAccessor();
 services.AddSession();
 
@@ -23,8 +27,15 @@ services.AddScoped<ICustomerRepository, CustomerRepository>();
 services.AddScoped<IOrderRepository, OrderRepository>();
 services.AddScoped<UserManager<ApplicationUser>>();
 
+var assembly = typeof(OrderManagementModel).GetTypeInfo().Assembly;
+var part = new AssemblyPart(assembly);
+builder.Services.AddControllersWithViews()
+    .ConfigureApplicationPartManager(apm => apm.ApplicationParts.Add(part));
+
 string dbPath, connectionString;
 var provider = configuration.GetValue<string>("DatabaseProvider");
+
+services.AddOrderManagementAssets();
 
 if (provider.Equals("Sqlite"))
 {

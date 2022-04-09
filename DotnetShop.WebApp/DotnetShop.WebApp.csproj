@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DotnetShop.Admin.OrderManagement\DotnetShop.Admin.OrderManagement.csproj" />
     <ProjectReference Include="..\DotnetShop.Data\DotnetShop.Data.csproj" />
     <ProjectReference Include="..\DotnetShop.Migrations.Sqlite\DotnetShop.Migrations.Sqlite.csproj" />
     <ProjectReference Include="..\DotnetShop.Migrations.SqlServer\DotnetShop.Migrations.SqlServer.csproj" />
