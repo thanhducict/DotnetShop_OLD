@@ -11,7 +11,9 @@ namespace DotnetShop.Data
             _context = context;
         }
 
-        public IEnumerable<Category> AllCategories => _context.Categories;
-
+        public IEnumerable<Category> GetCategories()
+        {
+            return _context.Categories;
+        }
     }
 }

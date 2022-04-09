@@ -39,17 +39,17 @@ else
 
 services.AddDbContext<DotnetShopDbContext>(
     options => _ = provider switch
-        {
-            "Sqlite" => options.UseSqlite(
-                connectionString,
-                x => x.MigrationsAssembly("DotnetShop.Migrations.Sqlite")),
+    {
+        "Sqlite" => options.UseSqlite(
+            connectionString,
+            x => x.MigrationsAssembly("DotnetShop.Migrations.Sqlite")),
 
-            "SqlServer" => options.UseSqlServer(
-                connectionString,
-                x => x.MigrationsAssembly("DotnetShop.Migrations.SqlServer")),
+        "SqlServer" => options.UseSqlServer(
+            connectionString,
+            x => x.MigrationsAssembly("DotnetShop.Migrations.SqlServer")),
 
-            _ => throw new Exception($"Unsupported provider: {provider}")
-        });
+        _ => throw new Exception($"Unsupported provider: {provider}")
+    });
 
 services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
@@ -80,7 +80,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
         name: "MyArea",
-        pattern: "{area:exists}/{controller=Products}/{action=List}/{id?}");
+        pattern: "{area:exists}/{controller=Products}/{action=Index}/{id?}");
     endpoints.MapRazorPages();
 });
 
@@ -92,7 +92,10 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = scopedProvider.GetRequiredService<DotnetShopDbContext>();
-        await DotnetShopSeed.SeedAsync(context, app.Logger);
+        var userManager = scopedProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        var roleManager = scopedProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+        await DotnetShopSeed.SeedAsync(context, userManager, roleManager, app.Logger);
     }
     catch (Exception ex)
     {

@@ -15,7 +15,7 @@ namespace DotnetShop.Domain
         public string ImageThumbnailUrl { get; set; }
         public bool IsProductOfTheWeek { get; set; }
         public bool InStock { get; set; }
-        
+
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 

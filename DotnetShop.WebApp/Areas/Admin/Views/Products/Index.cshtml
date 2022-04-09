@@ -1,19 +1,24 @@
-﻿@model ProductsListViewModel
+﻿@using DotnetShop.Domain
+@model IEnumerable<Product>
 
-<h2>List</h2>
+@{
+    ViewData["Title"] = "All products";
+}
+
+<h2>All products</h2>
 
 <table class="table">
     <thead>
         <tr>
             <th scope="col">Id</th>
             <th scope="col">Name</th>
-            <th scope="col">Image</th>
             <th scope="col">Price</th>
+            <th scope="col">Image</th>
             <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var product in Model.Products)
+        @foreach (var product in Model)
         {
             <tr>
                 <th scope="row">@product.ProductId</th>
@@ -21,10 +26,10 @@
                 <td>@product.Price</td>
                 <td><img src="@product.ImageThumbnailUrl" height="40" /></td>
                 <td>
-                    <a class="btn btn-outline-primary" asp-controller="Products" 
-                        asp-action="Details" asp-route-id="@product.ProductId">Details</a>
-                    <button class="btn btn-outline-success">Edit</button>
-                    <button class="btn btn-outline-danger">Delete</button>
+                    <a class="btn btn-outline-primary" asp-controller="Products"
+                   asp-action="Details" asp-route-id="@product.ProductId">Details</a>
+                    <a class="btn btn-outline-success">Edit</a>
+                    <a class="btn btn-outline-danger">Delete</a>
                 </td>
             </tr>
         }

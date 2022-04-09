@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DotnetShop.Domain;
+﻿using DotnetShop.Domain;
 
 namespace DotnetShop.Data
 {

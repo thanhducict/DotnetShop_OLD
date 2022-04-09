@@ -17,9 +17,7 @@ namespace DotnetShop.WebApp.Pages
 
         public void OnGet()
         {
-            ProductsOfTheWeek = _productRepository.ProductsOfTheWeek;
+            ProductsOfTheWeek = _productRepository.GetProducts().Where(p => p.IsProductOfTheWeek);
         }
-
-
     }
 }

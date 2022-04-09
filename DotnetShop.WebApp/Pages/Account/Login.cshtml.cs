@@ -12,7 +12,7 @@ namespace DotnetShop.WebApp.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, 
+        public LoginModel(SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;

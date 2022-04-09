@@ -14,6 +14,7 @@ namespace DotnetShop.WebApp.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ICustomerRepository _customerRepository;
 
         public RegisterModel(
@@ -59,7 +60,9 @@ namespace DotnetShop.WebApp.Pages.Account
             [Display(Name = "Customer name")]
             public string CustomerName { get; set; }
             public bool Gender { get; set; }
-            public string Address { get; set; }
+
+            // use nullable to avoid required
+            public string? Address { get; set; }
         }
 
         public async Task OnGetAsync()
@@ -85,8 +88,14 @@ namespace DotnetShop.WebApp.Pages.Account
                     Customer = customer
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                if (!await _roleManager.RoleExistsAsync(Constants.CustomerRole))
+                {
+                    var customerRole = new IdentityRole { Name = Constants.CustomerRole };
+                    await _roleManager.CreateAsync(customerRole);
+                }
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, Constants.CustomerRole);
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(Url.Content("~/"));
                 }

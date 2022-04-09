@@ -9,7 +9,7 @@ namespace DotnetShop.Domain
         [Display(Name = "Customer name")]
         public string CustomerName { get; set; }
         public bool Gender { get; set; }
-        public string Address { get; set; } 
+        public string Address { get; set; }
         public string Cart { get; set; }
 
         public string ApplicationUserId { get; set; }

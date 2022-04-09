@@ -49,7 +49,7 @@ namespace DotnetShop.WebApp.Services
 
         public void AddToCart(int productId, int quantity)
         {
-            var selectedProduct = _productRepository.AllProducts
+            var selectedProduct = _productRepository.GetProducts()
                 .FirstOrDefault(p => p.ProductId == productId);
             var cart = GetCart();
 
@@ -110,7 +110,7 @@ namespace DotnetShop.WebApp.Services
 
         public decimal GetCartTotal()
         {
-            var products = _productRepository.AllProducts;
+            var products = _productRepository.GetProducts();
             var total = GetCart().CartLineItems
                 .Select(c =>
                     products.Where(p => p.ProductId == c.ProductId).SingleOrDefault().Price * c.Quantity

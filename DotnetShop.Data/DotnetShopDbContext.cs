@@ -28,7 +28,7 @@ namespace DotnetShop.Data
             modelBuilder.Entity<Category>().HasData(new Category { CategoryId = 1, CategoryName = "Shirt" });
             modelBuilder.Entity<Category>().HasData(new Category { CategoryId = 2, CategoryName = "Cup" });
             modelBuilder.Entity<Category>().HasData(new Category { CategoryId = 3, CategoryName = "Badge" });
-            
+
             base.OnModelCreating(modelBuilder);
         }
     }

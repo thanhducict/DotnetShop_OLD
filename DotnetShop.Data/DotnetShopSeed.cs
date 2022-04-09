@@ -1,4 +1,5 @@
 ﻿using DotnetShop.Domain;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -9,7 +10,11 @@ namespace DotnetShop.Data
         /// <summary>
         /// Seed data at runtime.
         /// </summary>
-        public static async Task SeedAsync(DotnetShopDbContext context, ILogger logger)
+        public static async Task SeedAsync(
+            DotnetShopDbContext context,
+            UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager,
+            ILogger logger)
         {
             await context.Database.EnsureCreatedAsync();
 
@@ -26,6 +31,56 @@ namespace DotnetShop.Data
                 {
                     await context.Products.AddRangeAsync(PopulateSampleProducts());
                     await context.SaveChangesAsync();
+                }
+
+                if (!await roleManager.RoleExistsAsync(Constants.AdminRole))
+                {
+                    var adminRole = new IdentityRole { Name = Constants.AdminRole };
+                    await roleManager.CreateAsync(adminRole);
+                }
+
+                if (!await roleManager.RoleExistsAsync(Constants.CustomerRole))
+                {
+                    var customerRole = new IdentityRole { Name = Constants.CustomerRole };
+                    await roleManager.CreateAsync(customerRole);
+                }
+
+                if (await userManager.FindByNameAsync("trunks") == null)
+                {
+                    var user = new ApplicationUser
+                    {
+                        UserName = "trunks",
+                        Email = "trunks@example.com"
+                    };
+
+                    var result = await userManager.CreateAsync(user, "Cvbnm123@");
+
+                    if (result.Succeeded)
+                    {
+                        await userManager.AddToRoleAsync(user, Constants.AdminRole);
+                    }
+                }
+
+                if (await userManager.FindByNameAsync("gohan") == null)
+                {
+                    var user = new ApplicationUser
+                    {
+                        UserName = "gohan",
+                        Email = "gohan@example.com",
+                        Customer = new Customer
+                        {
+                            CustomerName = "Son Gohan",
+                            Gender = true,
+                            Address = "JP"
+                        }
+                    };
+
+                    var result = await userManager.CreateAsync(user, "Cvbnm123@");
+
+                    if (result.Succeeded)
+                    {
+                        await userManager.AddToRoleAsync(user, Constants.CustomerRole);
+                    }
                 }
             }
             catch (Exception ex)
@@ -206,5 +261,6 @@ namespace DotnetShop.Data
                 }
             };
         }
+
     }
 }

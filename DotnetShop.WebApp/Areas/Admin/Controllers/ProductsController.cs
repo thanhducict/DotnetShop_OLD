@@ -1,12 +1,11 @@
 ﻿using DotnetShop.Data;
-using DotnetShop.WebApp.Areas.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetShop.WebApp.Areas.Admin.Controllers
 {
-    [Authorize]
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
         private readonly IProductRepository _productRepository;
@@ -16,12 +15,11 @@ namespace DotnetShop.WebApp.Areas.Admin.Controllers
             _productRepository = productRepository;
         }
 
-        public IActionResult List()
+        public IActionResult Index()
         {
-            var productListViewModel = new ProductsListViewModel();
-            productListViewModel.Products = _productRepository.AllProducts;
+            var model = _productRepository.GetProducts();
 
-            return View(productListViewModel);
+            return View(model);
         }
 
         public IActionResult Details(int id)

@@ -24,13 +24,14 @@ namespace DotnetShop.WebApp.Pages.Products
         {
             if (categoryId > 0)
             {
-                Products = _productRepository.AllProducts.Where(p => p.Category.CategoryId == categoryId)
+                Products = _productRepository.GetProducts().Where(p => p.Category.CategoryId == categoryId)
                      .OrderBy(p => p.ProductId);
-                CurrentCategory = _categoryRepository.AllCategories.FirstOrDefault(c => c.CategoryId == categoryId)?.CategoryName;
+                CurrentCategory = _categoryRepository.GetCategories()
+                    .FirstOrDefault(c => c.CategoryId == categoryId)?.CategoryName;
             }
             else
             {
-                Products = _productRepository.AllProducts.OrderBy(p => p.ProductId);
+                Products = _productRepository.GetProducts().OrderBy(p => p.ProductId);
                 CurrentCategory = "All products";
             }
         }

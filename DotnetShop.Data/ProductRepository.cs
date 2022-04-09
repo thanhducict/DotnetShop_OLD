@@ -12,20 +12,9 @@ namespace DotnetShop.Data
             _context = context;
         }
 
-        public IEnumerable<Product> AllProducts
+        public IEnumerable<Product> GetProducts()
         {
-            get
-            {
-                return _context.Products.Include(c => c.Category);
-            }
-        }
-
-        public IEnumerable<Product> ProductsOfTheWeek
-        {
-            get
-            {
-                return _context.Products.Include(c => c.Category).Where(p => p.IsProductOfTheWeek);
-            }
+            return _context.Products.Include(c => c.Category);
         }
 
         public Product GetProductById(int productId)

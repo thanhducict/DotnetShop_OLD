@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DotnetShop.WebApp.Pages
 {
-    [Authorize]
+    [Authorize(Roles = "Customer")]
     public class CartModel : PageModel
     {
         private readonly IProductRepository _productRepository;
@@ -54,7 +54,7 @@ namespace DotnetShop.WebApp.Pages
         public IActionResult OnPostCheckout()
         {
             var cartViewModel = GetCartViewModel();
-            if(cartViewModel.CartLineItemViewModels.Count == 0)
+            if (cartViewModel.CartLineItemViewModels.Count == 0)
             {
                 return Page();
             }
@@ -72,7 +72,7 @@ namespace DotnetShop.WebApp.Pages
 
         private CartViewModel GetCartViewModel()
         {
-            var products = _productRepository.AllProducts;
+            var products = _productRepository.GetProducts();
             var cartItemViewModels = _cartService.GetCart().CartLineItems
                 .Select(c =>
                 {

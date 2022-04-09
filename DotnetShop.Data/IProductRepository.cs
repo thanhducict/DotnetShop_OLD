@@ -4,8 +4,7 @@ namespace DotnetShop.Data
 {
     public interface IProductRepository
     {
-        IEnumerable<Product> AllProducts { get; }
-        IEnumerable<Product> ProductsOfTheWeek { get; }
+        IEnumerable<Product> GetProducts();
         Product GetProductById(int productId);
     }
 }
