@@ -2,6 +2,7 @@ using DotnetShop.Admin.OrderManagement;
 using DotnetShop.Admin.OrderManagement.Pages;
 using DotnetShop.Data;
 using DotnetShop.Domain;
+using DotnetShop.WebApp;
 using DotnetShop.WebApp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
@@ -12,7 +13,7 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var configuration = builder.Configuration;
-var enviroiment = builder.Environment;
+var environment = builder.Environment;
 
 // Add services to the container.
 services.AddRazorPages();
@@ -39,12 +40,12 @@ services.AddOrderManagementAssets();
 
 if (provider.Equals("Sqlite"))
 {
-    dbPath = Path.Combine(enviroiment.ContentRootPath, "App_Data\\DotnetShop.db");
+    dbPath = Path.Combine(environment.ContentRootPath, "App_Data\\DotnetShop.db");
     connectionString = string.Format(configuration.GetConnectionString("SqliteConnection"), dbPath);
 }
 else
 {
-    dbPath = Path.Combine(enviroiment.ContentRootPath, "App_Data\\DotnetShop.mdf");
+    dbPath = Path.Combine(environment.ContentRootPath, "App_Data\\DotnetShop.mdf");
     connectionString = string.Format(configuration.GetConnectionString("SqlServerConnection"), dbPath);
 }
 
@@ -69,6 +70,12 @@ services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.Password.RequireDigit = true;
 }).AddEntityFrameworkStores<DotnetShopDbContext>();
 
+//if (enviroiment.IsDevelopment())
+//{
+//    // For react debugging
+//    services.AddUIMappedFileProviders(enviroiment);
+//}
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -81,6 +88,17 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+if (environment.IsDevelopment())
+{
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        FileProvider = new PhysicalFileProvider(
+            Path.Combine(environment.ContentRootPath, @"../DotnetShop.Admin.OrderManagement/OrderManagementClient/dist")),
+        RequestPath = "/OrderManagement"
+    });
+}
+
 app.UseAuthentication();
 app.UseSession(); // place this before UseRouting
 app.UseRouting();

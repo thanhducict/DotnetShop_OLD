@@ -1,10 +1,11 @@
 import React from "react";
 import { Table } from "react-bootstrap";
 
-const DataTable = ()=> {
+const DataTable = () => {
     return (
-            <>
-                <Table>
+        <>
+            <h1>AHA1</h1>
+            {/* <Table>
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -31,9 +32,9 @@ const DataTable = ()=> {
                 </tr>
             
                     </tbody>
-                </Table>
-            </>
-        );
-}
+                </Table> */}
+        </>
+    );
+};
 
 export default DataTable;

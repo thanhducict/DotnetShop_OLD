@@ -5,10 +5,10 @@ namespace DotnetShop.Admin.OrderManagement
     public class OrderManagementTagHelperComponent : TagHelperComponent
     {
         private readonly string _style =
-           @"<link rel=""stylesheet"" href=""/OrderManagementClient/dist/order-management.bundle.css"" />";
+           @"<link rel=""stylesheet"" href=""/OrderManagement/order-management.bundle.css"" />";
 
         private readonly string _script =
-           @"<script src=""/OrderManagementClient/dist/order-management.bundle.js""></script>";
+           @"<script src=""/OrderManagement/order-management.bundle.js""></script>";
 
         public override int Order => 1;
 
