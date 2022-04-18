@@ -2,7 +2,6 @@ using DotnetShop.Admin.OrderManagement;
 using DotnetShop.Admin.OrderManagement.Pages;
 using DotnetShop.Data;
 using DotnetShop.Domain;
-using DotnetShop.WebApp;
 using DotnetShop.WebApp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
@@ -30,7 +29,7 @@ services.AddScoped<UserManager<ApplicationUser>>();
 
 var assembly = typeof(OrderManagementModel).GetTypeInfo().Assembly;
 var part = new AssemblyPart(assembly);
-builder.Services.AddControllersWithViews()
+builder.Services.AddRazorPages()
     .ConfigureApplicationPartManager(apm => apm.ApplicationParts.Add(part));
 
 string dbPath, connectionString;

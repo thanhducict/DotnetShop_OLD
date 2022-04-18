@@ -14,9 +14,13 @@ namespace DotnetShop.Admin.OrderManagement.Pages
             _tagHelperComponentManager = tagHelperComponentManager;
         }
 
+        public string BaseApiUrl { get; set; }
+
         public void OnGet()
         {
             _tagHelperComponentManager.Components.Add(new OrderManagementTagHelperComponent());
+
+            BaseApiUrl  = $"{Request.Scheme}://{Request.Host}";
         }
     }
 }

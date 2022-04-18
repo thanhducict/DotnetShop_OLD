@@ -21,74 +21,36 @@ namespace DotnetShop.Admin.OrderManagement.Controllers
         [HttpGet]
         public async Task<IActionResult> GetOrders()
         {
-            var result = await _context.Orders.Include(o => o.Customer).Select(o => new OrderViewModel
+            var result = await _context.Orders.Include(o => o.Customer).Select(o => new OrderListViewModel
             {
                 OrderId = o.OrderId,
                 OrderPlaced = o.OrderPlaced,
                 OrderTotal = o.OrderTotal,
-                Customer = new CustomerViewModel
-                {
-                    CustomerName = o.Customer.CustomerName
-                }
+                CustomerName = o.Customer.CustomerName
             }).ToListAsync();
 
             return new JsonResult(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetOrderSummaryByOrderId([FromQuery] int orderId)
+        [Route("api/[controller]/GetOrderById")]
+        public async Task<IActionResult> GetOrderByOrderId([FromQuery] int orderId)
         {
             var model = await _context.Orders
+                .Include(o => o.OrderDetails)
+                .Include(o => o.Customer)
                 .Select(o => new OrderViewModel
                 {
                     OrderId = o.OrderId,
                     OrderPlaced = o.OrderPlaced,
-                    OrderTotal = o.OrderTotal
-                })
-                .FirstOrDefaultAsync(o => o.OrderId == orderId);
-
-            if (model == null)
-            {
-                return NotFound();
-            }
-
-            return new JsonResult(model);
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetOrderDetailsByOrderId([FromQuery] int orderId)
-        {
-            var model = await _context.Orders
-                .Include(o => o.OrderDetails)
-                .Select(o => new OrderViewModel
-                {
-                    OrderId = o.OrderId,
-                    OrderDetails = o.OrderDetails.Select(od => new OrderDetailViewModel
+                    OrderTotal = o.OrderTotal,
+                    OrderDetailViewModels = o.OrderDetails.Select(od => new OrderDetailViewModel
                     {
                         ProductName = od.ProductName,
                         ProductPrice = od.ProductPrice,
                         Quantity = od.Quantity,
                         LineItemTotal = od.LineItemTotal
-                    })
-                })
-                .FirstOrDefaultAsync(o => o.OrderId == orderId);
-
-            if (model == null)
-            {
-                return NotFound();
-            }
-
-            return new JsonResult(model);
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetOrderCustomerByOrderId([FromQuery] int orderId)
-        {
-            var model = await _context.Orders
-                .Include(o => o.Customer)
-                .Select(o => new OrderViewModel
-                {
-                    OrderId = o.OrderId,
+                    }).ToList(),
                     Customer = new CustomerViewModel
                     {
                         CustomerName = o.Customer.CustomerName,
