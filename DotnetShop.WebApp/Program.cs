@@ -2,6 +2,7 @@ using DotnetShop.Admin.OrderManagement;
 using DotnetShop.Admin.OrderManagement.Pages;
 using DotnetShop.Data;
 using DotnetShop.Domain;
+using DotnetShop.WebApp;
 using DotnetShop.WebApp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
@@ -35,8 +36,6 @@ builder.Services.AddRazorPages()
 string dbPath, connectionString;
 var provider = configuration.GetValue<string>("DatabaseProvider");
 
-services.AddOrderManagementAssets();
-
 if (provider.Equals("Sqlite"))
 {
     dbPath = Path.Combine(environment.ContentRootPath, "App_Data\\DotnetShop.db");
@@ -69,11 +68,11 @@ services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.Password.RequireDigit = true;
 }).AddEntityFrameworkStores<DotnetShopDbContext>();
 
-//if (enviroiment.IsDevelopment())
-//{
-//    // For react debugging
-//    services.AddUIMappedFileProviders(enviroiment);
-//}
+if (environment.IsDevelopment())
+{
+    // For react debugging
+    //services.AddUIMappedFileProviders(environment);
+}
 
 var app = builder.Build();
 
@@ -93,7 +92,7 @@ if (environment.IsDevelopment())
     app.UseStaticFiles(new StaticFileOptions
     {
         FileProvider = new PhysicalFileProvider(
-            Path.Combine(environment.ContentRootPath, @"../DotnetShop.Admin.OrderManagement/OrderManagementClient/dist")),
+            Path.Combine(environment.ContentRootPath, @"../DotnetShop.Admin.OrderManagement/ClientApp/dist")),
         RequestPath = "/OrderManagement"
     });
 }
