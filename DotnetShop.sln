@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.WebApp", "Dotnet
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.Tests", "DotnetShop.Tests\DotnetShop.Tests.csproj", "{4101493C-F651-4ACD-B5F7-C5025399E740}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.Admin.OrderManagement", "DotnetShop.Admin.OrderManagement\DotnetShop.Admin.OrderManagement.csproj", "{28D96C11-870E-4736-A552-54E17DEDA712}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.Admin.OrderManagement", "DotnetShop.Admin.OrderManagement\DotnetShop.Admin.OrderManagement.csproj", "{8353244E-21FE-418F-8786-E91CEC30D2FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,10 +52,10 @@ Global
 		{4101493C-F651-4ACD-B5F7-C5025399E740}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4101493C-F651-4ACD-B5F7-C5025399E740}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4101493C-F651-4ACD-B5F7-C5025399E740}.Release|Any CPU.Build.0 = Release|Any CPU
-		{28D96C11-870E-4736-A552-54E17DEDA712}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28D96C11-870E-4736-A552-54E17DEDA712}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28D96C11-870E-4736-A552-54E17DEDA712}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28D96C11-870E-4736-A552-54E17DEDA712}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8353244E-21FE-418F-8786-E91CEC30D2FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8353244E-21FE-418F-8786-E91CEC30D2FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8353244E-21FE-418F-8786-E91CEC30D2FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8353244E-21FE-418F-8786-E91CEC30D2FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
