@@ -2,9 +2,17 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { OrderListViewModel } from "../models/OrderListViewModel";
+import { OrderListViewModel } from "../../models/OrderListViewModel";
+import "./OrderList.css";
 
-const OrderList: React.FC = () => {
+interface OrderListProps {
+    titleColor?: string;
+    stripedTable?: boolean;
+    borderedTable?: boolean;
+    hoverTable?: boolean;
+}
+
+const OrderList: React.FC<OrderListProps> = (props) => {
     const [orders, setOrders] = useState<OrderListViewModel[]>([]);
 
     useEffect(() => {
@@ -15,8 +23,8 @@ const OrderList: React.FC = () => {
 
     return (
         <>
-            <h2>All orders</h2>
-            <Table>
+            <h2 className={props.titleColor}>All orders</h2>
+            <Table striped={props.stripedTable} bordered={props.borderedTable} hover={props.hoverTable}>
                 <thead>
                     <tr>
                         <th>Id</th>

@@ -2,10 +2,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { OrderDetailViewModel } from "../models/OrderDetailViewModel";
-import { OrderViewModel } from "../models/OrderViewModel";
+import { OrderDetailViewModel } from "../../models/OrderDetailViewModel";
+import { OrderViewModel } from "../../models/OrderViewModel";
 
-const Order: React.FC = () => {
+interface OrderProps {
+    fullInfo?: boolean;
+}
+
+const Order: React.FC<OrderProps> = (props) => {
     const params = useParams();
     const [order, setOrder] = useState<OrderViewModel>({
         orderId: 0,
@@ -24,12 +28,16 @@ const Order: React.FC = () => {
     return (
         <>
             <h2>Order Details</h2>
-            <p>Order Id: {order.orderId}</p>
-            <p>Order Placed: {order.orderPlaced}</p>
-            <p>Order Total: {order.orderTotal}</p>
-            <p>Customer Name: {order.customer.customerName}</p>
-            <p>Gender: {order.customer.gender ? "Male" : "Female"}</p>
-            <p>Address: {order.customer.address}</p>
+            {props.fullInfo && (
+                <>
+                    <p>Order Id: {order.orderId}</p>
+                    <p>Order Placed: {order.orderPlaced}</p>
+                    <p>Order Total: {order.orderTotal}</p>
+                    <p>Customer Name: {order.customer.customerName}</p>
+                    <p>Gender: {order.customer.gender ? "Male" : "Female"}</p>
+                    <p>Address: {order.customer.address}</p>
+                </>
+            )}
             <Table>
                 <thead>
                     <tr>
