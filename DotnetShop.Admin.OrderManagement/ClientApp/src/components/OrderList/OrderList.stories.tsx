@@ -1,9 +1,28 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { rest } from "msw";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
 import OrderList from "./OrderList";
+import OrderListData from "./orders-list.json";
 
 export default {
     title: "Order Management/Order List",
     component: OrderList,
+    decorators: [
+        (Story) => (
+            <MemoryRouter initialEntries={["/OrderList"]}>
+                <Routes>
+                    <Route path="OrderList" element={<Story />} />
+                </Routes>
+            </MemoryRouter>
+        ),
+    ],
+    parameters: {
+        msw: [
+            rest.get("api/OrderManagement", (_req, res, ctx) => {
+                return res(ctx.json(OrderListData));
+            }),
+        ],
+    },
 } as ComponentMeta<typeof OrderList>;
 
 export const FirstStyle = () => (

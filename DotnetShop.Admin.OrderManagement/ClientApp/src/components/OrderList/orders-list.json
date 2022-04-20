@@ -1,0 +1,14 @@
+[
+    {
+        "orderId": 1,
+        "orderPlaced": "2022-04-17T16:40:59.3898564",
+        "orderTotal": 10.95,
+        "customerName": "Akiho Yoshizawa"
+    },
+    {
+        "orderId": 2,
+        "orderPlaced": "2022-04-17T16:41:10.3990292",
+        "orderTotal": 29.9,
+        "customerName": "Akiho Yoshizawa"
+    }
+]
