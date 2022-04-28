@@ -6,6 +6,7 @@
   "author": "Thanh Duc Nguyen",
   "license": "MIT",
   "scripts": {
+    "dev:server": "webpack serve --env server --port 3012",
     "dev:watch": "webpack --env development --watch",
     "build:debug": "webpack --env development",
     "build:release": "webpack --env production",
@@ -55,6 +56,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.4.0",
+    "html-webpack-plugin": "^5.5.0",
     "jest": "^27.5.1",
     "mini-css-extract-plugin": "^2.6.0",
     "msw": "^0.39.2",
@@ -66,7 +68,8 @@
     "ts-jest": "^27.1.4",
     "typescript": "^4.6.3",
     "webpack": "^5.70.0",
-    "webpack-cli": "^4.9.2"
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.8.1"
   },
   "msw": {
     "workerDirectory": "public"

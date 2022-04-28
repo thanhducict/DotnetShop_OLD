@@ -5,11 +5,7 @@ import { useParams } from "react-router-dom";
 import { OrderDetailViewModel } from "../../models/OrderDetailViewModel";
 import { OrderViewModel } from "../../models/OrderViewModel";
 
-interface OrderProps {
-    fullInfo?: boolean;
-}
-
-const Order: React.FC<OrderProps> = (props) => {
+const Order: React.FC = () => {
     const params = useParams();
     const [order, setOrder] = useState<OrderViewModel>({
         orderId: 0,
@@ -18,47 +14,59 @@ const Order: React.FC<OrderProps> = (props) => {
         orderDetailViewModels: [],
         customer: { customerName: "", gender: true, address: "" },
     } as OrderViewModel);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        axios.get<OrderViewModel>(`api/OrderManagement/GetOrderByOrderId?orderId=${params.orderId}`).then((result) => {
-            setOrder(result.data);
-        });
+        axios
+            .get<OrderViewModel>(`api/OrderManagement/GetOrderByOrderId?orderId=${params.orderId}`)
+            .then((result) => {
+                const data = result.data;
+                // check if object is not empty
+                if ((Object.keys(data).length === 0 && data.constructor === Object) == false) {
+                    setOrder(data);
+                }
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
     }, []);
 
     return (
         <>
-            <h2>Order Details</h2>
-            {props.fullInfo && (
+            {!isLoading ? (
                 <>
+                    <h2>Order Details</h2>
                     <p>Order Id: {order.orderId}</p>
                     <p>Order Placed: {order.orderPlaced}</p>
                     <p>Order Total: {order.orderTotal}</p>
                     <p>Customer Name: {order.customer.customerName}</p>
                     <p>Gender: {order.customer.gender ? "Male" : "Female"}</p>
                     <p>Address: {order.customer.address}</p>
+                    <Table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Product Price</th>
+                                <th>Quantity</th>
+                                <th>Line Item Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {order.orderDetailViewModels.map((od: OrderDetailViewModel, index) => (
+                                <tr key={index}>
+                                    <th scope="row">{od.productName}</th>
+                                    <td>{od.productPrice}</td>
+                                    <td>{od.quantity}</td>
+                                    <td>{od.lineItemTotal}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
                 </>
+            ) : (
+                <h2>No data</h2>
             )}
-            <Table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Product Price</th>
-                        <th>Quantity</th>
-                        <th>Line Item Total</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {order.orderDetailViewModels.map((od: OrderDetailViewModel, index) => (
-                        <tr key={index}>
-                            <th scope="row">{od.productName}</th>
-                            <td>{od.productPrice}</td>
-                            <td>{od.quantity}</td>
-                            <td>{od.lineItemTotal}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
         </>
     );
 };

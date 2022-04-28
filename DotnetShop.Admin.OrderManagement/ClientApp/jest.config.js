@@ -5,5 +5,5 @@ module.exports = {
     moduleNameMapper: {
         "\\.(css|scss)$": "babel-jest",
     },
-    setupFilesAfterEnv: ["./setupTests.tsx"],
+    setupFilesAfterEnv: ["./jest.setup.tsx"],
 };

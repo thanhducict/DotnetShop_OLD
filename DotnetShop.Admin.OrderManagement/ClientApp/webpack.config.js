@@ -1,17 +1,28 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = (env) => {
+    const webpack_server = {
+        mode: "development",
+        devtool: "cheap-module-source-map",
+        plugins: [new HtmlWebpackPlugin({ template: path.resolve(__dirname, "src/index.html") })],
+        devServer: {
+            historyApiFallback: true,
+        },
+    };
     const webpack_dev = {
         mode: "development",
         devtool: "cheap-module-source-map",
+        plugins: [],
     };
     const webpack_build = {
         mode: "production",
         devtool: false,
+        plugins: [],
     };
-    const webpack_config = env.development ? webpack_dev : webpack_build;
+    const webpack_config = env.server ? webpack_server : env.development ? webpack_dev : webpack_build;
 
     return {
         ...webpack_config,
@@ -46,6 +57,7 @@ module.exports = (env) => {
             ],
         },
         plugins: [
+            ...webpack_config.plugins,
             new CleanWebpackPlugin(),
             new MiniCssExtractPlugin({
                 filename: "order-management.bundle.css",

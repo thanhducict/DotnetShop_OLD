@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import { initialize, mswDecorator } from "msw-storybook-addon";
+import { handlers } from "../mocks/handlers";
 
 export const parameters = {
     actions: { argTypesRegex: "^on[A-Z].*" },
@@ -9,6 +10,9 @@ export const parameters = {
             color: /(background|color)$/i,
             date: /Date$/,
         },
+    },
+    msw: {
+        handlers: handlers,
     },
 };
 

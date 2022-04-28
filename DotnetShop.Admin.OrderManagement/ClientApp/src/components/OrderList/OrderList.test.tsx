@@ -1,13 +1,21 @@
-import { render, RenderResult } from "@testing-library/react";
 import OrderList from "./OrderList";
+import { setupServer } from "msw/node";
+import { render, screen } from "@testing-library/react";
+import { handlers } from "../../../mocks/handlers";
+import { HashRouter } from "react-router-dom";
 
-let documentBody: RenderResult;
+const server = setupServer(...handlers);
+
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 
 describe("Order list tests", () => {
     beforeEach(() => {
-        documentBody = render(<OrderList />);
+        render(<OrderList />, { wrapper: HashRouter });
     });
-    it("Should render correct title", () => {
-        expect(documentBody.getByText("All orders")).toBeInTheDocument();
+
+    test("Should render correct title", async () => {
+        expect(await screen.findByText("All orders")).toBeInTheDocument();
     });
 });
