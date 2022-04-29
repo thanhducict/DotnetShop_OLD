@@ -4,4 +4,7 @@ bin/
 packages/
 App_Data/
 Migrations/
-.npmrc/
+node_modules/
+dist/
+.npmrc
+*.log
