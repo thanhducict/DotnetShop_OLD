@@ -18,7 +18,7 @@ const OrderList: React.FC<OrderListProps> = (props) => {
 
     useEffect(() => {
         axios
-            .get<OrderListViewModel[]>("api/OrderManagement")
+            .get<OrderListViewModel[]>("api/OrderManagement/GetOrders")
             .then((result) => {
                 const data = result.data;
                 // check if object is not empty
@@ -63,6 +63,13 @@ const OrderList: React.FC<OrderListProps> = (props) => {
                                     <td>
                                         <Link className="btn btn-outline-primary" to={`/OrderDetail/${o.orderId}`}>
                                             Details
+                                        </Link>
+                                        <Link
+                                            className="btn btn-outline-success"
+                                            style={{ marginLeft: "10px" }}
+                                            to={`/OrderEdit/${o.orderId}`}
+                                        >
+                                            Edit
                                         </Link>
                                     </td>
                                 </tr>

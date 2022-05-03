@@ -20,7 +20,7 @@ namespace DotnetShop.Admin.OrderManagement.Pages
         {
             _tagHelperComponentManager.Components.Add(new OrderManagementTagHelperComponent());
 
-            BaseApiUrl  = $"{Request.Scheme}://{Request.Host}";
+            BaseApiUrl = $"{Request.Scheme}://{Request.Host}";
         }
     }
 }

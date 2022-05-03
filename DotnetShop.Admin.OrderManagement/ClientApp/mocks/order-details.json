@@ -1,13 +1,21 @@
 {
     "orderId": 1,
     "orderPlaced": "2022-04-17T16:40:59.3898564",
-    "orderTotal": 10.95,
+    "orderTotal": 50.85,
     "orderDetailViewModels": [
         {
+            "orderDetailId": 1,
             "productName": ".NET Black White Mug",
             "productPrice": 10.95,
             "quantity": 1,
             "lineItemTotal": 10.95
+        },
+        {
+            "orderDetailId": 2,
+            "productName": "Cup<T> T-Shirt",
+            "productPrice": 19.95,
+            "quantity": 2,
+            "lineItemTotal": 19.95
         }
     ],
     "customer": {

@@ -1,8 +1,6 @@
-using DotnetShop.Admin.OrderManagement;
 using DotnetShop.Admin.OrderManagement.Pages;
 using DotnetShop.Data;
 using DotnetShop.Domain;
-using DotnetShop.WebApp;
 using DotnetShop.WebApp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;

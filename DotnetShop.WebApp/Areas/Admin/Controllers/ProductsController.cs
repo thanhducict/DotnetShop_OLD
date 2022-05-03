@@ -69,9 +69,9 @@ namespace DotnetShop.WebApp.Areas.Admin.Controllers
         private void PopulateCategoriesDropDownList()
         {
             var categoriesQuery = from c in _categoryRepository.GetCategories()
-                                   orderby c.CategoryName
-                                   select new SelectListItem { Text = c.CategoryName, Value = c.CategoryId.ToString() };
-            
+                                  orderby c.CategoryName
+                                  select new SelectListItem { Text = c.CategoryName, Value = c.CategoryId.ToString() };
+
             ViewBag.Categories = categoriesQuery;
         }
     }

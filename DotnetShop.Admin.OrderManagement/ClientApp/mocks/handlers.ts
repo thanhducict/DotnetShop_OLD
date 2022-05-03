@@ -3,7 +3,7 @@ import OrderListData from "./orders-list.json";
 import OrderDetailsData from "./order-details.json";
 
 export const handlers = [
-    rest.get("api/OrderManagement", (_req, res, ctx) => {
+    rest.get("api/OrderManagement/GetOrders", (_req, res, ctx) => {
         return res(ctx.json(OrderListData), ctx.status(200));
     }),
 
@@ -14,5 +14,9 @@ export const handlers = [
         } else {
             return res(ctx.json(OrderDetailsData), ctx.status(200));
         }
+    }),
+
+    rest.post("api/OrderManagement/UpdateOrder", (_req, res, ctx) => {
+        return res(ctx.status(200));
     }),
 ];

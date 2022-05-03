@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 namespace DotnetShop.Admin.OrderManagement.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
     [Authorize(Roles = "Admin")]
+    [Route("api/[controller]/[action]")]
     public class OrderManagementController : ControllerBase
     {
         private readonly DotnetShopDbContext _context;
@@ -32,8 +32,7 @@ namespace DotnetShop.Admin.OrderManagement.Controllers
             return new JsonResult(result);
         }
 
-        [HttpGet("{id}")]
-        [Route("api/[controller]/GetOrderById")]
+        [HttpGet]
         public async Task<IActionResult> GetOrderByOrderId([FromQuery] int orderId)
         {
             var model = await _context.Orders
@@ -46,6 +45,7 @@ namespace DotnetShop.Admin.OrderManagement.Controllers
                     OrderTotal = o.OrderTotal,
                     OrderDetailViewModels = o.OrderDetails.Select(od => new OrderDetailViewModel
                     {
+                        OrderDetailId = od.OrderDetailId,
                         ProductName = od.ProductName,
                         ProductPrice = od.ProductPrice,
                         Quantity = od.Quantity,
@@ -66,6 +66,31 @@ namespace DotnetShop.Admin.OrderManagement.Controllers
             }
 
             return new JsonResult(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateOrder([FromBody] OrderViewModel model)
+        {
+            var order = _context.Orders.Include(o => o.OrderDetails).FirstOrDefault(o => o.OrderId == model.OrderId);
+            if (order != null)
+            {
+                order.OrderTotal = model.OrderTotal;
+                order.OrderDetails.ForEach(od => model.OrderDetailViewModels.ForEach(odvm =>
+                {
+                    if (odvm.OrderDetailId == od.OrderDetailId)
+                    {
+                        od.Quantity = odvm.Quantity;
+                        od.LineItemTotal = odvm.LineItemTotal;
+                    };
+                }));
+
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }

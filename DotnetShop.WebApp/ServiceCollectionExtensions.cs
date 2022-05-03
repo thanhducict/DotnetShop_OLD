@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.FileProviders;
-
-namespace DotnetShop.WebApp
+﻿namespace DotnetShop.WebApp
 {
     public static class ServiceCollectionExtensions
     {

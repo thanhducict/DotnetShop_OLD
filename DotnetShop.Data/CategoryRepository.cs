@@ -1,5 +1,4 @@
 ﻿using DotnetShop.Domain;
-using Microsoft.EntityFrameworkCore;
 
 namespace DotnetShop.Data
 {
