@@ -11,10 +11,11 @@
     "build:debug": "webpack --env development",
     "build:release": "webpack --env production",
     "lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
-    "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook",
-    "test": "jest"
+    "test": "jest",
+    "pretest": "babel-node utils\\start-test-message.js",
+    "postlint": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
   },
   "dependencies": {
     "axios": "^0.26.1",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",
+    "@babel/node": "^7.17.10",
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",

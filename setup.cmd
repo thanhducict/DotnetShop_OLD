@@ -25,5 +25,6 @@ dotnet ef database update -s DotnetShop.WebApp/DotnetShop.WebApp.csproj
 
 echo === Build solution ===
 dotnet build
+call yarn --cwd DotnetShop.Admin.OrderManagement\ClientApp install
 
 pause
