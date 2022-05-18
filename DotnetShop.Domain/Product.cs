@@ -26,7 +26,7 @@ namespace DotnetShop.Domain
         [Display(Name = "Is Product Of The Week")]
         public bool IsProductOfTheWeek { get; set; }
 
-        [Display(Name = "Is Stock")]
+        [Display(Name = "In Stock")]
         public bool InStock { get; set; }
 
         public int CategoryId { get; set; }

@@ -1,6 +1,7 @@
 using DotnetShop.Admin.OrderManagement.Pages;
 using DotnetShop.Data;
 using DotnetShop.Domain;
+using DotnetShop.WebApp.Areas.Admin;
 using DotnetShop.WebApp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
@@ -25,6 +26,7 @@ services.AddScoped<ICheckoutService, CheckoutService>();
 services.AddScoped<ICustomerRepository, CustomerRepository>();
 services.AddScoped<IOrderRepository, OrderRepository>();
 services.AddScoped<UserManager<ApplicationUser>>();
+services.AddScoped<Helpers>();
 
 var assembly = typeof(OrderManagementModel).GetTypeInfo().Assembly;
 var part = new AssemblyPart(assembly);
