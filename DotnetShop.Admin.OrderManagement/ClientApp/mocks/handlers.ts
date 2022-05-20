@@ -1,6 +1,6 @@
 import { rest } from "msw";
-import OrderDetailsData from "../src/components/Order/order-mock-data.json";
-import OrderListData from "../src/components/OrderList/orders-list-mock-data.json";
+import OrderDetailsData from "./order-mock-data.json";
+import OrderListData from "./orders-list-mock-data.json";
 
 export const handlers = [
     rest.get("api/OrderManagement/GetOrders", (_req, res, ctx) => {
