@@ -1,4 +1,4 @@
-using DotnetShop.Admin.OrderManagement.Pages;
+using DotnetShop.Admin.AdminExtensions;
 using DotnetShop.Data;
 using DotnetShop.Domain;
 using DotnetShop.WebApp.Areas.Admin;
@@ -28,7 +28,7 @@ services.AddScoped<IOrderRepository, OrderRepository>();
 services.AddScoped<UserManager<ApplicationUser>>();
 services.AddScoped<Helpers>();
 
-var assembly = typeof(OrderManagementModel).GetTypeInfo().Assembly;
+var assembly = typeof(AdminExtensionsTagHelperComponent).GetTypeInfo().Assembly;
 var part = new AssemblyPart(assembly);
 builder.Services.AddRazorPages()
     .ConfigureApplicationPartManager(apm => apm.ApplicationParts.Add(part));
@@ -92,8 +92,8 @@ if (environment.IsDevelopment())
     app.UseStaticFiles(new StaticFileOptions
     {
         FileProvider = new PhysicalFileProvider(
-            Path.Combine(environment.ContentRootPath, @"../DotnetShop.Admin.OrderManagement/ClientApp/dist")),
-        RequestPath = "/OrderManagement"
+            Path.Combine(environment.ContentRootPath, @"../DotnetShop.Admin.Extensions/ClientApp/dist")),
+        RequestPath = "/AdminExtensions"
     });
 }
 
