@@ -1,11 +1,13 @@
 using DotnetShop.Admin.AdminExtensions;
 using DotnetShop.Data;
 using DotnetShop.Domain;
+using DotnetShop.WebApp;
 using DotnetShop.WebApp.Areas.Admin;
 using DotnetShop.WebApp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using System.Reflection;
 
@@ -67,12 +69,6 @@ services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequireDigit = true;
 }).AddEntityFrameworkStores<DotnetShopDbContext>();
-
-if (environment.IsDevelopment())
-{
-    // For react debugging
-    //services.AddUIMappedFileProviders(environment);
-}
 
 var app = builder.Build();
 

@@ -4,7 +4,6 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-	<GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
 	<Version>1.0.3</Version>
   </PropertyGroup>
 
@@ -21,10 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DotnetShop.Data\DotnetShop.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-	<EmbeddedResource Include="OrderManagementClient\dist\**\*" />
   </ItemGroup>
 
 </Project>

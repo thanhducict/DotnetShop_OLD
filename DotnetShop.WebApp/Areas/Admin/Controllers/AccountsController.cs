@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DotnetShop.Domain;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetShop.WebApp.Areas.Admin.Controllers
@@ -7,9 +9,18 @@ namespace DotnetShop.WebApp.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class AccountsController : Controller
     {
+        private readonly UserManager<ApplicationUser> _appUserManager;
+
+        public AccountsController(UserManager<ApplicationUser> appUserManager)
+        {
+            _appUserManager = appUserManager;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var users = _appUserManager.Users;
+
+            return View(users);
         }
     }
 }
