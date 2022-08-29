@@ -1,16 +1,18 @@
 ﻿using DotnetShop.Data;
 using DotnetShop.Domain;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace DotnetShop.Admin.Extensions.CartManagement
+namespace DotnetShop.WebApp.APIs.CartManagement
 {
     [ApiController]
-    [Authorize(Roles = "Admin")]
-    [Route("api/[controller]/[action]")]
+    //[Authorize(Roles = "Admin")]
+    [EnableCors("Policy1")]
+    [Route("api/carts")]
     public class CartManagementController : ControllerBase
     {
         private readonly DotnetShopDbContext _context;
@@ -21,10 +23,10 @@ namespace DotnetShop.Admin.Extensions.CartManagement
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCarts()
+        public async Task<ActionResult<IEnumerable<CartLineItemDto>>> GetCarts()
         {
             var cart = new Cart();
-            var result = new CartManagementViewModel();
+            var result = new List<CartLineItemDto>();
             var customers = await _context.Customers.ToListAsync();
             var products = await _context.Products.ToListAsync();
 
@@ -39,23 +41,20 @@ namespace DotnetShop.Admin.Extensions.CartManagement
 
                     if (cart != null)
                     {
-                        result = new CartManagementViewModel
+                        result.AddRange(cart.CartLineItems.Select(item => new CartLineItemDto
                         {
-                            AllCartLineItems = cart.CartLineItems.Select(item => new CartLineItemViewModel
-                            {                   
-                                CustomerId=customer.CustomerId,
-                                CustomerName = customer.CustomerName,
-                                ProductId = item.ProductId,
-                                ProductName = products.SingleOrDefault(p => p.ProductId == item.ProductId)?.Name 
+                            CustomerId = customer.CustomerId,
+                            CustomerName = customer.CustomerName,
+                            ProductId = item.ProductId,
+                            ProductName = products.SingleOrDefault(p => p.ProductId == item.ProductId)?.Name
                                     ?? string.Empty,
-                                Quantity = item.Quantity
-                            }).ToList()
-                        };
+                            Quantity = item.Quantity
+                        }).ToList());
                     }
                 }
             }
 
-            return new JsonResult(result);
+            return Ok(result);
         }
     }
 }

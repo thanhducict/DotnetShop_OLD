@@ -33,54 +33,14 @@ namespace DotnetShop.Data
                     await context.SaveChangesAsync();
                 }
 
-                if (!await roleManager.RoleExistsAsync(Constants.AdminRole))
+                AddSampleRoles(roleManager);
+
+                AddSampleUsers(userManager);
+
+                if (!await context.Orders.AnyAsync() && !await context.OrderDetails.AnyAsync())
                 {
-                    var adminRole = new IdentityRole { Name = Constants.AdminRole };
-                    await roleManager.CreateAsync(adminRole);
-                }
-
-                if (!await roleManager.RoleExistsAsync(Constants.CustomerRole))
-                {
-                    var customerRole = new IdentityRole { Name = Constants.CustomerRole };
-                    await roleManager.CreateAsync(customerRole);
-                }
-
-                if (await userManager.FindByNameAsync("trunks") == null)
-                {
-                    var user = new ApplicationUser
-                    {
-                        UserName = "trunks",
-                        Email = "trunks@example.com"
-                    };
-
-                    var result = await userManager.CreateAsync(user, "Cvbnm123@");
-
-                    if (result.Succeeded)
-                    {
-                        await userManager.AddToRoleAsync(user, Constants.AdminRole);
-                    }
-                }
-
-                if (await userManager.FindByNameAsync("gohan") == null)
-                {
-                    var user = new ApplicationUser
-                    {
-                        UserName = "gohan",
-                        Email = "gohan@example.com",
-                        Customer = new Customer
-                        {
-                            CustomerName = "Son Gohan",
-                            Gender = true,
-                            Address = "JP"
-                        }
-                    };
-
-                    var result = await userManager.CreateAsync(user, "Cvbnm123@");
-
-                    if (result.Succeeded)
-                    {
-                        await userManager.AddToRoleAsync(user, Constants.CustomerRole);
-                    }
+                    await context.Orders.AddRangeAsync(PopulateSampleOrders());
+                    await context.SaveChangesAsync();
                 }
             }
             catch (Exception ex)
@@ -262,5 +222,147 @@ namespace DotnetShop.Data
             };
         }
 
+        private static async void AddSampleRoles(RoleManager<IdentityRole> roleManager)
+        {
+            if (!await roleManager.RoleExistsAsync(Constants.AdminRole))
+            {
+                var adminRole = new IdentityRole { Name = Constants.AdminRole };
+                await roleManager.CreateAsync(adminRole);
+            }
+
+            if (!await roleManager.RoleExistsAsync(Constants.CustomerRole))
+            {
+                var customerRole = new IdentityRole { Name = Constants.CustomerRole };
+                await roleManager.CreateAsync(customerRole);
+            }
+        }
+
+        private static async void AddSampleUsers(UserManager<ApplicationUser> userManager)
+        {
+            if (await userManager.FindByNameAsync("trunks") == null)
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = "trunks",
+                    Email = "trunks@example.com"
+                };
+
+                var result = await userManager.CreateAsync(user, "Cvbnm123@");
+
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user, Constants.AdminRole);
+                }
+            }
+
+            if (await userManager.FindByNameAsync("gohan") == null)
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = "gohan",
+                    Email = "gohan@example.com",
+                    Customer = new Customer
+                    {
+                        CustomerName = "Son Gohan",
+                        Gender = true,
+                        Address = "JP",
+                        Cart = "{\"CartLineItems\":[{\"ProductId\":9,\"Quantity\":1}]}"
+                    }
+                };
+
+                var result = await userManager.CreateAsync(user, "Cvbnm123@");
+
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user, Constants.CustomerRole);
+                }
+            }
+
+            if (await userManager.FindByNameAsync("chichi") == null)
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = "chichi",
+                    Email = "chichi@example.com",
+                    Customer = new Customer
+                    {
+                        CustomerName = "Chi Chi",
+                        Gender = false,
+                        Address = "JP",
+                        Cart = "{\"CartLineItems\":[{\"ProductId\":10,\"Quantity\":1}]}"
+                    }
+                };
+
+                var result = await userManager.CreateAsync(user, "Cvbnm123@");
+
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user, Constants.CustomerRole);
+                }
+            }
+        }
+
+        private static IEnumerable<Order> PopulateSampleOrders()
+        {
+            return new List<Order>
+            {
+                new Order {
+                    CustomerId = 1,
+                    OrderPlaced = new DateTime(2022, 08, 29, 15, 16, 05),
+                    OrderTotal = 40.85M,
+                    OrderDetails = new List<OrderDetail>
+                    {
+                        new OrderDetail
+                        {
+                            ProductId = 5,
+                            Quantity = 1,
+                            ProductName = "Prism White T-Shirt",
+                            ProductPrice = 18.95M,
+                            LineItemTotal = 18.95M,
+                        },
+                        new OrderDetail
+                        {
+                            ProductId = 8,
+                            Quantity = 2,
+                            ProductName = "Cup<T> White Mug",
+                            ProductPrice = 10.95M,
+                            LineItemTotal = 21.9M,
+                        },
+                    }
+                },
+                new Order {
+                    CustomerId = 1,
+                    OrderPlaced = new DateTime(2022, 08, 29, 15, 18, 20),
+                    OrderTotal = 3.95M,
+                    OrderDetails = new List<OrderDetail>
+                    {
+                        new OrderDetail
+                        {
+                            ProductId = 12,
+                            Quantity = 1,
+                            ProductName = "Roslyn Red Badge",
+                            ProductPrice = 3.95M,
+                            LineItemTotal = 3.95M,
+                        },
+                    }
+                },
+                new Order {
+                    CustomerId = 2,
+                    OrderPlaced = new DateTime(2022, 08, 29, 15, 25, 30),
+                    OrderTotal = 15.95M,
+                    OrderDetails = new List<OrderDetail>
+                    {
+                        new OrderDetail
+                        {
+                            ProductId = 1,
+                            Quantity = 1,
+                            ProductName = "Kudu Purple Sweatshirt",
+                            ProductPrice = 15.95M,
+                            LineItemTotal = 15.95M,
+                        },
+                    }
+                },
+            };
+        }
     }
 }

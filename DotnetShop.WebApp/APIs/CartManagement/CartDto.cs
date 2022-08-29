@@ -1,11 +1,6 @@
-﻿namespace DotnetShop.Admin.Extensions.CartManagement
+﻿namespace DotnetShop.WebApp.APIs.CartManagement
 {
-    public class CartManagementViewModel
-    {
-        public List<CartLineItemViewModel> AllCartLineItems { get; set; }
-    }
-
-    public class CartLineItemViewModel
+    public class CartLineItemDto
     {
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }

@@ -1,6 +1,6 @@
-namespace DotnetShop.Admin.Extensions.OrderManagement
+namespace DotnetShop.WebApp.APIs.OrderManagement
 {
-    public class OrderDetailViewModel
+    public class OrderDetailDto
     {
         public int OrderDetailId { get; set; }
         public string ProductName { get; set; }

@@ -1,7 +1,7 @@
 import CartList from "./CartList";
 import { setupServer } from "msw/node";
 import { render, screen } from "@testing-library/react";
-import { handlers } from "../../mocks/handlers";
+import { handlers } from "../../../mocks/handlers";
 import { HashRouter } from "react-router-dom";
 
 const server = setupServer(...handlers);

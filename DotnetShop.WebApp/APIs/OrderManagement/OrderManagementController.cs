@@ -1,13 +1,15 @@
 ﻿using DotnetShop.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace DotnetShop.Admin.Extensions.OrderManagement
+namespace DotnetShop.WebApp.APIs.OrderManagement
 {
     [ApiController]
-    [Authorize(Roles = "Admin")]
-    [Route("api/[controller]/[action]")]
+    //[Authorize(Roles = "Admin")]
+    [EnableCors("Policy1")]
+    [Route("api/Orders")]
     public class OrderManagementController : ControllerBase
     {
         private readonly DotnetShopDbContext _context;
@@ -18,9 +20,9 @@ namespace DotnetShop.Admin.Extensions.OrderManagement
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetOrders()
+        public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrders()
         {
-            var result = await _context.Orders.Include(o => o.Customer).Select(o => new OrderListViewModel
+            var result = await _context.Orders.Include(o => o.Customer).Select(o => new OrderDto
             {
                 OrderId = o.OrderId,
                 OrderPlaced = o.OrderPlaced,
@@ -28,21 +30,21 @@ namespace DotnetShop.Admin.Extensions.OrderManagement
                 CustomerName = o.Customer.CustomerName
             }).ToListAsync();
 
-            return new JsonResult(result);
+            return Ok(result);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetOrderByOrderId([FromQuery] int orderId)
+        [HttpGet("{orderId}")]
+        public async Task<ActionResult<OrderWithDetailDto>> GetOrderById(int orderId)
         {
             var model = await _context.Orders
                 .Include(o => o.OrderDetails)
                 .Include(o => o.Customer)
-                .Select(o => new OrderViewModel
+                .Select(o => new OrderWithDetailDto
                 {
                     OrderId = o.OrderId,
                     OrderPlaced = o.OrderPlaced,
                     OrderTotal = o.OrderTotal,
-                    OrderDetailViewModels = o.OrderDetails.Select(od => new OrderDetailViewModel
+                    OrderDetailViewModels = o.OrderDetails.Select(od => new OrderDetailDto
                     {
                         OrderDetailId = od.OrderDetailId,
                         ProductName = od.ProductName,
@@ -50,8 +52,9 @@ namespace DotnetShop.Admin.Extensions.OrderManagement
                         Quantity = od.Quantity,
                         LineItemTotal = od.LineItemTotal
                     }).ToList(),
-                    Customer = new CustomerViewModel
+                    Customer = new CustomerDto
                     {
+                        CustomerId = o.CustomerId,
                         CustomerName = o.Customer.CustomerName,
                         Gender = o.Customer.Gender,
                         Address = o.Customer.Address
@@ -64,11 +67,11 @@ namespace DotnetShop.Admin.Extensions.OrderManagement
                 return NotFound();
             }
 
-            return new JsonResult(model);
+            return Ok(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateOrder([FromBody] OrderViewModel model)
+        public async Task<IActionResult> UpdateOrder([FromBody] OrderWithDetailDto model)
         {
             var order = _context.Orders.Include(o => o.OrderDetails).FirstOrDefault(o => o.OrderId == model.OrderId);
             if (order != null)

@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace DotnetShop.Admin.AdminExtensions
+namespace DotnetShop.WebClient
 {
-    public class AdminExtensionsTagHelperComponent : TagHelperComponent
+    public class WebClientTagHelperComponent : TagHelperComponent
     {
         private readonly string _style =
-           @"<link rel=""stylesheet"" href=""/AdminExtensions/admin-extensions.bundle.css"" />";
+           @"<link rel=""stylesheet"" href=""/ClientResources/webclient.bundle.css"" />";
 
         private readonly string _script =
-           @"<script src=""/AdminExtensions/admin-extensions.bundle.js""></script>";
+           @"<script src=""/ClientResources/webclient.bundle.js""></script>";
 
         public override int Order => 1;
 

@@ -1,20 +1,23 @@
-using DotnetShop.Admin.AdminExtensions;
 using DotnetShop.Data;
 using DotnetShop.Domain;
-using DotnetShop.WebApp;
 using DotnetShop.WebApp.Areas.Admin;
 using DotnetShop.WebApp.Services;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var configuration = builder.Configuration;
 var environment = builder.Environment;
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Policy1",
+        policy =>
+        {
+            policy.WithOrigins("https://localhost:7052");
+        });
+});
 
 // Add services to the container.
 services.AddRazorPages();
@@ -29,11 +32,6 @@ services.AddScoped<ICustomerRepository, CustomerRepository>();
 services.AddScoped<IOrderRepository, OrderRepository>();
 services.AddScoped<UserManager<ApplicationUser>>();
 services.AddScoped<Helpers>();
-
-var assembly = typeof(AdminExtensionsTagHelperComponent).GetTypeInfo().Assembly;
-var part = new AssemblyPart(assembly);
-builder.Services.AddRazorPages()
-    .ConfigureApplicationPartManager(apm => apm.ApplicationParts.Add(part));
 
 string dbPath, connectionString;
 var provider = configuration.GetValue<string>("DatabaseProvider");
@@ -83,20 +81,10 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-if (environment.IsDevelopment())
-{
-    app.UseStaticFiles(new StaticFileOptions
-    {
-        FileProvider = new PhysicalFileProvider(
-            Path.Combine(environment.ContentRootPath, @"../DotnetShop.Admin.Extensions/ClientApp/dist")),
-        RequestPath = "/AdminExtensions"
-    });
-}
-
 app.UseAuthentication();
 app.UseSession(); // place this before UseRouting
 app.UseRouting();
-
+app.UseCors();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>

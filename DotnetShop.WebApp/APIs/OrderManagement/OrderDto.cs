@@ -1,6 +1,6 @@
-﻿namespace DotnetShop.Admin.Extensions.OrderManagement
+﻿namespace DotnetShop.WebApp.APIs.OrderManagement
 {
-    public class OrderListViewModel
+    public class OrderDto
     {
         public int OrderId { get; set; }
         public DateTime OrderPlaced { get; set; }

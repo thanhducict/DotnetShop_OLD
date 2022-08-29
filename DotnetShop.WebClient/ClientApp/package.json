@@ -1,7 +1,7 @@
 {
-  "name": "dotnet-shop-order-management",
+  "name": "dotnet-shop-web-client",
   "version": "1.0.0",
-  "description": "Client App for Order Management.",
+  "description": "Client App for WebClient.",
   "main": "index.tsx",
   "author": "Thanh Duc Nguyen",
   "license": "MIT",

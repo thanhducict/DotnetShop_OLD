@@ -32,7 +32,7 @@ module.exports = (env) => {
         },
         output: {
             path: path.resolve(__dirname, "dist"),
-            filename: "admin-extensions.bundle.js",
+            filename: "webclient.bundle.js",
             publicPath: "/",
         },
         module: {
@@ -60,7 +60,7 @@ module.exports = (env) => {
             ...webpack_config.plugins,
             new CleanWebpackPlugin(),
             new MiniCssExtractPlugin({
-                filename: "admin-extensions.bundle.css",
+                filename: "webclient.bundle.css",
             }),
         ],
     };
