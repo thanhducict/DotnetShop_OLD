@@ -20,6 +20,11 @@ builder.Services.AddCors(options =>
 });
 
 // Add services to the container.
+services.AddControllers(options =>
+{
+    options.ReturnHttpNotAcceptable = true;
+}).AddXmlDataContractSerializerFormatters();
+
 services.AddRazorPages();
 services.AddHttpContextAccessor();
 services.AddSession();
