@@ -14,11 +14,15 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
     public class CustomerManagementController : ControllerBase
     {
         private readonly DotnetShopDbContext _context;
+        private readonly ILogger<CustomerManagementController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public CustomerManagementController(DotnetShopDbContext context, UserManager<ApplicationUser> userManager)
+        public CustomerManagementController(DotnetShopDbContext context,
+            ILogger<CustomerManagementController> logger,
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _logger = logger;
             _userManager = userManager;
         }
 
@@ -43,6 +47,7 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
 
             if (result == null)
             {
+                _logger.LogInformation($"Customer with Id {customerId} was not found.");
                 return NotFound();
             }
 
@@ -63,6 +68,7 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
 
             if (result == null)
             {
+
                 return NotFound();
             }
 

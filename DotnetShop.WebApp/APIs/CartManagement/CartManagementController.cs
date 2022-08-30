@@ -1,10 +1,8 @@
 ﻿using DotnetShop.Data;
 using DotnetShop.Domain;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
