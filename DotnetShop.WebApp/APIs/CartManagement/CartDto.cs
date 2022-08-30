@@ -1,5 +1,10 @@
 ﻿namespace DotnetShop.WebApp.APIs.CartManagement
 {
+    public class CartDto
+    {
+        public IEnumerable<CartLineItemDto> CartLineItemDtos { get; set; }
+    }
+
     public class CartLineItemDto
     {
         public int CustomerId { get; set; }

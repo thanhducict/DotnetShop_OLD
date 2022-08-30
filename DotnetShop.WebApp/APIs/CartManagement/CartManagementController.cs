@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -23,10 +24,10 @@ namespace DotnetShop.WebApp.APIs.CartManagement
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CartLineItemDto>>> GetCarts()
+        public async Task<ActionResult<IEnumerable<CartDto>>> GetCarts()
         {
             var cart = new Cart();
-            var result = new List<CartLineItemDto>();
+            var result = new List<CartDto>();
             var customers = await _context.Customers.ToListAsync();
             var products = await _context.Products.ToListAsync();
 
@@ -41,16 +42,54 @@ namespace DotnetShop.WebApp.APIs.CartManagement
 
                     if (cart != null)
                     {
-                        result.AddRange(cart.CartLineItems.Select(item => new CartLineItemDto
+                        result.Add(new CartDto
+                        {
+                            CartLineItemDtos = cart.CartLineItems.Select(item => new CartLineItemDto
+                            {
+                                CustomerId = customer.CustomerId,
+                                CustomerName = customer.CustomerName,
+                                ProductId = item.ProductId,
+                                ProductName = products.SingleOrDefault(p => p.ProductId == item.ProductId)?.Name
+                                    ?? string.Empty,
+                                Quantity = item.Quantity
+                            })
+                        });
+                    }
+                }
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("customer/{customerId}")]
+        public async Task<ActionResult<CartDto>> GetCustomerCart(int customerId)
+        {
+            var cart = new Cart();
+            var result = new List<CartDto>();
+            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == customerId);
+            var products = await _context.Products.ToListAsync();
+
+            if (customer != null)
+            {
+                cart = JsonSerializer.Deserialize<Cart>(customer.Cart, new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve
+                });
+
+                if (cart != null)
+                {
+                    result.Add(new CartDto
+                    {
+                        CartLineItemDtos = cart.CartLineItems.Select(item => new CartLineItemDto
                         {
                             CustomerId = customer.CustomerId,
                             CustomerName = customer.CustomerName,
                             ProductId = item.ProductId,
                             ProductName = products.SingleOrDefault(p => p.ProductId == item.ProductId)?.Name
-                                    ?? string.Empty,
+                            ?? string.Empty,
                             Quantity = item.Quantity
-                        }).ToList());
-                    }
+                        })
+                    });
                 }
             }
 
