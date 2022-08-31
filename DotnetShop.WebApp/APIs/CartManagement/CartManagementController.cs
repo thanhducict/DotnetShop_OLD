@@ -8,10 +8,10 @@ using System.Text.Json.Serialization;
 
 namespace DotnetShop.WebApp.APIs.CartManagement
 {
-    [ApiController]
     //[Authorize(Roles = "Admin")]
-    [EnableCors("Policy1")]
+    [ApiController]
     [Route("api/carts")]
+    [EnableCors("Policy1")]
     public class CartManagementController : ControllerBase
     {
         private readonly DotnetShopDbContext _context;
