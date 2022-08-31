@@ -1,9 +1,11 @@
 ﻿using DotnetShop.Data;
 using DotnetShop.Domain;
+using DotnetShop.WebApp.APIs.Common;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace DotnetShop.WebApp.APIs.CustomerManagement
 {
@@ -27,15 +29,49 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CustomerDto>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<CustomerDto>>> GetCustomers(
+            string? name, string? searchQuery, int pageNumber = 1, int pageSize = 5)
         {
-            var customers = await _context.Customers.Select(c => new CustomerDto
+            var collection = _context.Customers as IQueryable<Customer>;
+
+            if (pageSize > PaginationMetadata.maxCitiesPageSize)
+            {
+                return BadRequest("The PageSize exceeded the maximum of 20.");
+            }
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                name = name.Trim();
+                collection = collection.Where(c => c.CustomerName == name);
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+            {
+                searchQuery = searchQuery.Trim();
+                collection = collection.Where(a => a.CustomerName.Contains(searchQuery)
+                    || (a.Address != null && a.Address.Contains(searchQuery)));
+            }
+
+            var totalItemCount = await collection.CountAsync();
+
+            var paginationMetadata = new PaginationMetadata(
+                totalItemCount, pageSize, pageNumber);
+
+            var result = await collection
+                .Skip(pageSize * (pageNumber - 1))
+                .Take(pageSize)
+                .ToListAsync();
+
+            var customers = result.Select(c => new CustomerDto
             {
                 CustomerName = c.CustomerName,
                 Gender = c.Gender,
                 Address = c.Address,
                 Cart = c.Cart
-            }).ToListAsync();
+            });
+
+            Response.Headers.Add("X-Pagination",
+                JsonSerializer.Serialize(paginationMetadata));
 
             return Ok(customers);
         }
@@ -58,6 +94,7 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
                 Address = result.Address,
                 Cart = result.Cart,
             };
+
             return Ok(customer);
         }
 
@@ -84,7 +121,7 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
         }
 
         [HttpPost]
-        public async Task<ActionResult<CustomerDto>> AddCustomer(CustomerCreationDto customerCreationDto)
+        public async Task<ActionResult<CustomerDto>> AddCustomer([FromBody] CustomerCreationDto customerCreationDto) // [FromBody] is not necessary because it is default by ApiController attribute
         {
             if (await _userManager.FindByNameAsync(customerCreationDto.Username) != null)
             {
