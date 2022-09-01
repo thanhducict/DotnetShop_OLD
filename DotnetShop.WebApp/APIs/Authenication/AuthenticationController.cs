@@ -72,17 +72,18 @@ namespace DotnetShop.WebApp.APIs.Authenication
 
         private async Task<ApplicationUser?> ValidateUserCredentials(string? username, string? password)
         {
-            var result = await _signInManager.PasswordSignInAsync(username, password, false, false);
-            
-            if (!result.Succeeded)
+            var user = await _userManager.FindByNameAsync(username);
+            if (user == null)
             {
                 return null;
             }
-            else
+            var result = await _userManager.CheckPasswordAsync(user, password);
+            if (!result)
             {
-                var user = await _userManager.FindByNameAsync(username);
-                return user;
+                return null;
             }
+
+            return user;
         }
     }
 }

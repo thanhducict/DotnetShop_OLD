@@ -4,11 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 using DotnetShop.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DotnetShop.WebApp.APIs.ReportManagement
 {
+    [Authorize]
     [ApiController]
-    //[Authorize(Roles = "Admin")]
     [EnableCors("Policy1")]
     [Route("api/reports")]
     public class ReportManagementController : ControllerBase

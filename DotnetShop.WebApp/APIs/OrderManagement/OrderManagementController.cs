@@ -1,4 +1,5 @@
 ﻿using DotnetShop.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -6,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DotnetShop.WebApp.APIs.OrderManagement
 {
     [ApiController]
-    //[Authorize(Roles = "Admin")]
     [EnableCors("Policy1")]
     [Route("api/orders")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class OrderManagementController : ControllerBase
     {
         private readonly DotnetShopDbContext _context;

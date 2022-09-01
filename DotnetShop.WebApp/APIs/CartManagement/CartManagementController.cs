@@ -1,5 +1,6 @@
 ﻿using DotnetShop.Data;
 using DotnetShop.Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +9,10 @@ using System.Text.Json.Serialization;
 
 namespace DotnetShop.WebApp.APIs.CartManagement
 {
-    //[Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/carts")]
     [EnableCors("Policy1")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class CartManagementController : ControllerBase
     {
         private readonly DotnetShopDbContext _context;

@@ -1,6 +1,7 @@
 ﻿using DotnetShop.Data;
 using DotnetShop.Domain;
 using DotnetShop.WebApp.APIs.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,9 @@ using System.Text.Json;
 namespace DotnetShop.WebApp.APIs.CustomerManagement
 {
     [ApiController]
-    //[Authorize(Roles = "Admin")]
     [EnableCors("Policy1")]
     [Route("api/customers")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class CustomerManagementController : ControllerBase
     {
         private readonly DotnetShopDbContext _context;
@@ -29,6 +30,7 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<CustomerDto>>> GetCustomers(
             string? name, string? searchQuery, int pageNumber = 1, int pageSize = 5)
         {
