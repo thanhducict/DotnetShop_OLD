@@ -11,8 +11,10 @@ using System.Text.Json;
 namespace DotnetShop.WebApp.APIs.CustomerManagement
 {
     [ApiController]
+    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
     [EnableCors("Policy1")]
-    [Route("api/customers")]
+    [Route("api/v{version:apiVersion}/customers")]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin")]
     public class CustomerManagementController : ControllerBase
     {

@@ -76,7 +76,7 @@ services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.Password.RequireDigit = true;
 }).AddEntityFrameworkStores<DotnetShopDbContext>();
 
-builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>
+services.AddAuthentication("Bearer").AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new()
     {
@@ -90,7 +90,7 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>
     };
 });
 
-builder.Services.AddAuthorization(options =>
+services.AddAuthorization(options =>
 {
     options.AddPolicy("MustBeAdminAndLeader", policy =>
     {
@@ -98,6 +98,13 @@ builder.Services.AddAuthorization(options =>
         policy.RequireRole("Admin");
         policy.RequireClaim("level", "Leadership");
     });
+});
+
+services.AddApiVersioning(setupAction =>
+{
+    setupAction.AssumeDefaultVersionWhenUnspecified = true;
+    setupAction.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+    setupAction.ReportApiVersions = true;
 });
 
 var app = builder.Build();
