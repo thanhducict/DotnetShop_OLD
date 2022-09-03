@@ -1,6 +1,6 @@
 namespace DotnetShop.WebApp.APIs.OrderManagement
 {
-    public class CustomerDto
+    public class OrderCustomerDto
     {
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }

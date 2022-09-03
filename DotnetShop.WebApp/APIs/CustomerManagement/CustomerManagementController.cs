@@ -31,6 +31,14 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
             _userManager = userManager;
         }
 
+        /// <summary>
+        /// Gets customers by name.
+        /// </summary>
+        /// <param name="name">The name of customer. Leaves blank to get all customers.</param>
+        /// <param name="searchQuery">Filters customres by name, address and country.</param>
+        /// <param name="pageNumber">The page number.</param>
+        /// <param name="pageSize">The page size.</param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CustomerDto>>> GetCustomers(
             string? name, string? searchQuery, int pageNumber = 1, int pageSize = 5)

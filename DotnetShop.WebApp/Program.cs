@@ -5,7 +5,7 @@ using DotnetShop.WebApp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +20,15 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins("https://localhost:7052");
         });
+});
+
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen(setupAction =>
+{
+    var xmlCommentsFile = "DotnetShop.APIs.xml";
+    var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+
+    setupAction.IncludeXmlComments(xmlCommentsFullPath);
 });
 
 // Add services to the container.
@@ -110,6 +119,12 @@ services.AddApiVersioning(setupAction =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");

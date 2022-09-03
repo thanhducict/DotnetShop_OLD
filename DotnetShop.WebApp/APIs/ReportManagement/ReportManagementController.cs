@@ -40,7 +40,7 @@ namespace DotnetShop.WebApp.APIs.ReportManagement
                         Quantity = od.Quantity,
                         LineItemTotal = od.LineItemTotal
                     }).ToList(),
-                    Customer = new CustomerDto
+                    Customer = new OrderCustomerDto
                     {
                         CustomerId = o.CustomerId,
                         CustomerName = o.Customer.CustomerName,

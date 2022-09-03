@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DotnetShop.WebApp</name>
+    </assembly>
+    <members>
+        <member name="T:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDto">
+            <summary>
+            The class to transfer customer data.
+            </summary>
+        </member>
+        <member name="P:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDto.CustomerName">
+            <summary>
+            The name of customer.
+            </summary>
+        </member>
+        <member name="P:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDto.Gender">
+            <summary>
+            The gender of customer.
+            </summary>
+        </member>
+        <member name="P:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDto.Address">
+            <summary>
+            The address of customer.
+            </summary>
+        </member>
+        <member name="P:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDto.Country">
+            <summary>
+            The country of customer.
+            </summary>
+        </member>
+        <member name="P:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDto.Cart">
+            <summary>
+            The cart of customer.
+            </summary>
+        </member>
+        <member name="M:DotnetShop.WebApp.APIs.CustomerManagement.CustomerManagementController.GetCustomers(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Gets customers by name.
+            </summary>
+            <param name="name">The name of customer. Leaves blank to get all customers.</param>
+            <param name="searchQuery">Filters customres by name, address and country.</param>
+            <param name="pageNumber">The page number.</param>
+            <param name="pageSize">The page size.</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotnetShop.WebApp.Areas.Admin.Helpers.UploadFile(Microsoft.AspNetCore.Http.IFormFile,DotnetShop.WebApp.Areas.Admin.Helpers.UploadFileType,System.String)">
+            <summary>
+            Executes file uploading.
+            </summary>
+            <param name="file">File uploaded.</param>
+            <param name="fileName">File name without its extension.</param>
+            <returns>File url.</returns>
+        </member>
+    </members>
+</doc>
