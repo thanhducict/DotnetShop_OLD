@@ -13,7 +13,7 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
     [ApiController]
     [EnableCors("Policy1")]
     [Route("api/customers")]
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin")]
     public class CustomerManagementController : ControllerBase
     {
         private readonly DotnetShopDbContext _context;
@@ -30,7 +30,6 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<IEnumerable<CustomerDto>>> GetCustomers(
             string? name, string? searchQuery, int pageNumber = 1, int pageSize = 5)
         {
@@ -51,7 +50,8 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
             {
                 searchQuery = searchQuery.Trim();
                 collection = collection.Where(a => a.CustomerName.Contains(searchQuery)
-                    || (a.Address != null && a.Address.Contains(searchQuery)));
+                    || (a.Address != null && a.Address.Contains(searchQuery))
+                    || (a.Country != null && a.Country.Contains(searchQuery)));
             }
 
             var totalItemCount = await collection.CountAsync();
@@ -69,6 +69,7 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
                 CustomerName = c.CustomerName,
                 Gender = c.Gender,
                 Address = c.Address,
+                Country = c.Country,
                 Cart = c.Cart
             });
 
@@ -94,6 +95,7 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
                 CustomerName = result.CustomerName,
                 Gender = result.Gender,
                 Address = result.Address,
+                Country= result.Country,
                 Cart = result.Cart,
             };
 
@@ -116,6 +118,7 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
                 CustomerName = result.Customer.CustomerName,
                 Gender = result.Customer.Gender,
                 Address = result.Customer.Address,
+                Country = result.Customer.Country,
                 Cart = result.Customer.Cart,
             };
 
@@ -139,6 +142,7 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
                     CustomerName = customerCreationDto.CustomerName,
                     Gender = customerCreationDto.Gender,
                     Address = customerCreationDto.Address,
+                    Country = customerCreationDto.Country,
                     Cart = string.Empty
                 }
             };
@@ -147,7 +151,7 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
 
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, Constants.CustomerRole);
+                await _userManager.AddToRoleAsync(user, Constants.Roles.CustomerRole);
                 return CreatedAtRoute("GetCustomerByUsername", new { username = customerCreationDto.Username }, "A user is created.");
             }
             else
@@ -173,7 +177,7 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
             user.Customer.CustomerName = customerUpdateDto.CustomerName;
             user.Customer.Gender = customerUpdateDto.Gender;
             user.Customer.Address = customerUpdateDto.Address;
-
+            user.Customer.Country = customerUpdateDto.Country;
 
             var result = await _userManager.UpdateAsync(user);
 

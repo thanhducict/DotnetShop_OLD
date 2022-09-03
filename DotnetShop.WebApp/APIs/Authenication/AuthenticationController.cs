@@ -1,4 +1,5 @@
-﻿using DotnetShop.Domain;
+﻿using DotnetShop.Data;
+using DotnetShop.Domain;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +41,7 @@ namespace DotnetShop.WebApp.APIs.Authenication
 
             if (user == null)
             {
-                return Unauthorized();
+                return Unauthorized("You do not have permission to get token.");
             }
 
             // Step 2: create a token
@@ -49,12 +50,24 @@ namespace DotnetShop.WebApp.APIs.Authenication
             var signingCredentials = new SigningCredentials(
                 securityKey, SecurityAlgorithms.HmacSha256);
 
+            var userClaims = await _userManager.GetRolesAsync(user);
+
             var claimsForToken = new List<Claim>
             {
                 new Claim("sub", user.Id.ToString()),
                 new Claim("user_name", user.UserName),
-                new Claim("email", user.Email)
+                new Claim("email", user.Email),
             };
+
+            if (!string.IsNullOrEmpty(user.Level))
+            {
+                claimsForToken.Add(new Claim("level", user.Level));
+            }
+
+            foreach (var claim in userClaims)
+            {
+                claimsForToken.Add(new Claim(ClaimTypes.Role, claim));
+            }
 
             var jwtSecurityToken = new JwtSecurityToken(
                 _configuration["Authentication:Issuer"],
@@ -73,7 +86,7 @@ namespace DotnetShop.WebApp.APIs.Authenication
         private async Task<ApplicationUser?> ValidateUserCredentials(string? username, string? password)
         {
             var user = await _userManager.FindByNameAsync(username);
-            if (user == null)
+            if (user == null || user.Level == Constants.Levels.NotEmployee)
             {
                 return null;
             }

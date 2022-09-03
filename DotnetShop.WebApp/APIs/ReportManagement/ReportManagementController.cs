@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace DotnetShop.WebApp.APIs.ReportManagement
 {
-    [Authorize]
     [ApiController]
     [EnableCors("Policy1")]
     [Route("api/reports")]
+    [Authorize(AuthenticationSchemes = "Bearer", Policy = "MustBeAdminAndLeader")]
     public class ReportManagementController : ControllerBase
     {
         private readonly DotnetShopDbContext _context;
@@ -45,7 +45,8 @@ namespace DotnetShop.WebApp.APIs.ReportManagement
                         CustomerId = o.CustomerId,
                         CustomerName = o.Customer.CustomerName,
                         Gender = o.Customer.Gender,
-                        Address = o.Customer.Address
+                        Address = o.Customer.Address,
+                        Country = o.Customer.Country,
                     }
                 })
                 .Where(o => o.Customer.CustomerId == customerId)

@@ -224,15 +224,15 @@ namespace DotnetShop.Data
 
         private static async void AddSampleRoles(RoleManager<IdentityRole> roleManager)
         {
-            if (!await roleManager.RoleExistsAsync(Constants.AdminRole))
+            if (!await roleManager.RoleExistsAsync(Constants.Roles.AdminRole))
             {
-                var adminRole = new IdentityRole { Name = Constants.AdminRole };
+                var adminRole = new IdentityRole { Name = Constants.Roles.AdminRole };
                 await roleManager.CreateAsync(adminRole);
             }
 
-            if (!await roleManager.RoleExistsAsync(Constants.CustomerRole))
+            if (!await roleManager.RoleExistsAsync(Constants.Roles.CustomerRole))
             {
-                var customerRole = new IdentityRole { Name = Constants.CustomerRole };
+                var customerRole = new IdentityRole { Name = Constants.Roles.CustomerRole };
                 await roleManager.CreateAsync(customerRole);
             }
         }
@@ -244,28 +244,48 @@ namespace DotnetShop.Data
                 var user = new ApplicationUser
                 {
                     UserName = "trunks",
-                    Email = "trunks@example.com"
+                    Email = "trunks@example.com",
+                    Level = Constants.Levels.Leadership,
                 };
 
                 var result = await userManager.CreateAsync(user, "Cvbnm123@");
 
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(user, Constants.AdminRole);
+                    await userManager.AddToRoleAsync(user, Constants.Roles.AdminRole);
                 }
             }
 
+            if (await userManager.FindByNameAsync("wonderwoman") == null)
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = "wonderwoman",
+                    Email = "wonderwoman@example.com",
+                    Level = Constants.Levels.Management,
+                };
+
+                var result = await userManager.CreateAsync(user, "Cvbnm123@");
+
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user, Constants.Roles.AdminRole);
+                }
+            }
+            
             if (await userManager.FindByNameAsync("gohan") == null)
             {
                 var user = new ApplicationUser
                 {
                     UserName = "gohan",
                     Email = "gohan@example.com",
+                    Level= Constants.Levels.NotEmployee, 
                     Customer = new Customer
                     {
                         CustomerName = "Son Gohan",
                         Gender = true,
-                        Address = "JP",
+                        Address = "West City",
+                        Country = "Japan",
                         Cart = "{\"CartLineItems\":[{\"ProductId\":9,\"Quantity\":1}]}"
                     }
                 };
@@ -274,7 +294,7 @@ namespace DotnetShop.Data
 
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(user, Constants.CustomerRole);
+                    await userManager.AddToRoleAsync(user, Constants.Roles.CustomerRole);
                 }
             }
 
@@ -284,11 +304,13 @@ namespace DotnetShop.Data
                 {
                     UserName = "chichi",
                     Email = "chichi@example.com",
+                    Level = Constants.Levels.NotEmployee,
                     Customer = new Customer
                     {
                         CustomerName = "Chi Chi",
                         Gender = false,
-                        Address = "JP",
+                        Address = "West City",
+                        Country = "Japan",
                         Cart = "{\"CartLineItems\":[{\"ProductId\":10,\"Quantity\":1}]}"
                     }
                 };
@@ -297,7 +319,32 @@ namespace DotnetShop.Data
 
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(user, Constants.CustomerRole);
+                    await userManager.AddToRoleAsync(user, Constants.Roles.CustomerRole);
+                }
+            }
+
+            if (await userManager.FindByNameAsync("thor") == null)
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = "thor",
+                    Email = "thor@example.com",
+                    Level= Constants.Levels.NotEmployee,
+                    Customer = new Customer
+                    {
+                        CustomerName = "Thor",
+                        Gender = true,
+                        Address = "New York",
+                        Country = "US",
+                        Cart = string.Empty
+                    }
+                };
+
+                var result = await userManager.CreateAsync(user, "Cvbnm123@");
+
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user, Constants.Roles.CustomerRole);
                 }
             }
         }

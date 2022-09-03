@@ -12,7 +12,7 @@ namespace DotnetShop.WebApp.APIs.CartManagement
     [ApiController]
     [Route("api/carts")]
     [EnableCors("Policy1")]
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin")]
     public class CartManagementController : ControllerBase
     {
         private readonly DotnetShopDbContext _context;
@@ -34,25 +34,28 @@ namespace DotnetShop.WebApp.APIs.CartManagement
             {
                 foreach (var customer in customers)
                 {
-                    cart = JsonSerializer.Deserialize<Cart>(customer.Cart, new JsonSerializerOptions
+                    if (!string.IsNullOrEmpty(customer.Cart))
                     {
-                        ReferenceHandler = ReferenceHandler.Preserve
-                    });
-
-                    if (cart != null)
-                    {
-                        result.Add(new CartDto
+                        cart = JsonSerializer.Deserialize<Cart>(customer.Cart, new JsonSerializerOptions
                         {
-                            CartLineItemDtos = cart.CartLineItems.Select(item => new CartLineItemDto
-                            {
-                                CustomerId = customer.CustomerId,
-                                CustomerName = customer.CustomerName,
-                                ProductId = item.ProductId,
-                                ProductName = products.SingleOrDefault(p => p.ProductId == item.ProductId)?.Name
-                                    ?? string.Empty,
-                                Quantity = item.Quantity
-                            })
+                            ReferenceHandler = ReferenceHandler.Preserve
                         });
+
+                        if (cart != null)
+                        {
+                            result.Add(new CartDto
+                            {
+                                CartLineItemDtos = cart.CartLineItems.Select(item => new CartLineItemDto
+                                {
+                                    CustomerId = customer.CustomerId,
+                                    CustomerName = customer.CustomerName,
+                                    ProductId = item.ProductId,
+                                    ProductName = products.SingleOrDefault(p => p.ProductId == item.ProductId)?.Name
+                                        ?? string.Empty,
+                                    Quantity = item.Quantity
+                                })
+                            });
+                        }
                     }
                 }
             }

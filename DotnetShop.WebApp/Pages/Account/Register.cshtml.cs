@@ -63,6 +63,7 @@ namespace DotnetShop.WebApp.Pages.Account
 
             // use nullable to avoid required
             public string? Address { get; set; }
+            public string? Country { get; set; }
         }
 
         public async Task OnGetAsync()
@@ -79,7 +80,8 @@ namespace DotnetShop.WebApp.Pages.Account
                 {
                     CustomerName = Input.Customer.CustomerName,
                     Gender = Input.Customer.Gender,
-                    Address = Input.Customer.Address
+                    Address = Input.Customer.Address,
+                    Country = Input.Customer.Country
                 };
                 var user = new ApplicationUser
                 {
@@ -88,14 +90,14 @@ namespace DotnetShop.WebApp.Pages.Account
                     Customer = customer
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                if (!await _roleManager.RoleExistsAsync(Constants.CustomerRole))
+                if (!await _roleManager.RoleExistsAsync(Constants.Roles.CustomerRole))
                 {
-                    var customerRole = new IdentityRole { Name = Constants.CustomerRole };
+                    var customerRole = new IdentityRole { Name = Constants.Roles.CustomerRole };
                     await _roleManager.CreateAsync(customerRole);
                 }
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, Constants.CustomerRole);
+                    await _userManager.AddToRoleAsync(user, Constants.Roles.CustomerRole);
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(Url.Content("~/"));
                 }

@@ -5,6 +5,7 @@ using DotnetShop.WebApp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -76,18 +77,28 @@ services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 }).AddEntityFrameworkStores<DotnetShopDbContext>();
 
 builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new()
     {
-        options.TokenValidationParameters = new()
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Authentication:Issuer"],
-            ValidAudience = builder.Configuration["Authentication:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"]))
-        };
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Authentication:Issuer"],
+        ValidAudience = builder.Configuration["Authentication:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"]))
+    };
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("MustBeAdminAndLeader", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("Admin");
+        policy.RequireClaim("level", "Leadership");
     });
+});
 
 var app = builder.Build();
 

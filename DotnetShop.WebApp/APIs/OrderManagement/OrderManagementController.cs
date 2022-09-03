@@ -9,7 +9,7 @@ namespace DotnetShop.WebApp.APIs.OrderManagement
     [ApiController]
     [EnableCors("Policy1")]
     [Route("api/orders")]
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin")]
     public class OrderManagementController : ControllerBase
     {
         private readonly DotnetShopDbContext _context;
@@ -57,7 +57,8 @@ namespace DotnetShop.WebApp.APIs.OrderManagement
                         CustomerId = o.CustomerId,
                         CustomerName = o.Customer.CustomerName,
                         Gender = o.Customer.Gender,
-                        Address = o.Customer.Address
+                        Address = o.Customer.Address,
+                        Country = o.Customer.Country
                     }
                 })
                 .FirstOrDefaultAsync(o => o.OrderId == orderId);
