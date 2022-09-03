@@ -42,7 +42,8 @@
             <param name="searchQuery">Filters customres by name, address and country.</param>
             <param name="pageNumber">The page number.</param>
             <param name="pageSize">The page size.</param>
-            <returns></returns>
+            <returns>An <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult"/>.</returns>
+            <response code="200">Returns a list of customers or a customer.</response>
         </member>
         <member name="M:DotnetShop.WebApp.Areas.Admin.Helpers.UploadFile(Microsoft.AspNetCore.Http.IFormFile,DotnetShop.WebApp.Areas.Admin.Helpers.UploadFileType,System.String)">
             <summary>

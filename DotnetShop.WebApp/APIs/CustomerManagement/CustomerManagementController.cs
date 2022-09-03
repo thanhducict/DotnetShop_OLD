@@ -38,8 +38,11 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
         /// <param name="searchQuery">Filters customres by name, address and country.</param>
         /// <param name="pageNumber">The page number.</param>
         /// <param name="pageSize">The page size.</param>
-        /// <returns></returns>
+        /// <returns>An <see cref="ActionResult"/>.</returns>
+        /// <response code="200">Returns a list of customers or a customer.</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IEnumerable<CustomerDto>>> GetCustomers(
             string? name, string? searchQuery, int pageNumber = 1, int pageSize = 5)
         {
