@@ -272,14 +272,14 @@ namespace DotnetShop.Data
                     await userManager.AddToRoleAsync(user, Constants.Roles.AdminRole);
                 }
             }
-            
+
             if (await userManager.FindByNameAsync("gohan") == null)
             {
                 var user = new ApplicationUser
                 {
                     UserName = "gohan",
                     Email = "gohan@example.com",
-                    Level= Constants.Levels.NotEmployee, 
+                    Level = Constants.Levels.NotEmployee,
                     Customer = new Customer
                     {
                         CustomerName = "Son Gohan",
@@ -329,7 +329,7 @@ namespace DotnetShop.Data
                 {
                     UserName = "thor",
                     Email = "thor@example.com",
-                    Level= Constants.Levels.NotEmployee,
+                    Level = Constants.Levels.NotEmployee,
                     Customer = new Customer
                     {
                         CustomerName = "Thor",

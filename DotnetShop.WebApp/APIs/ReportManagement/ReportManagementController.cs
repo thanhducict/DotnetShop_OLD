@@ -1,10 +1,10 @@
-﻿using DotnetShop.WebApp.APIs.OrderManagement;
+﻿using DotnetShop.Data;
+using DotnetShop.WebApp.APIs.OrderManagement;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
-using DotnetShop.Data;
-using Microsoft.AspNetCore.Authorization;
 
 namespace DotnetShop.WebApp.APIs.ReportManagement
 {

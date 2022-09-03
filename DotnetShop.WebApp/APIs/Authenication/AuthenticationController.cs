@@ -16,18 +16,15 @@ namespace DotnetShop.WebApp.APIs.Authenication
     public class AuthenticationController : Controller
     {
         private readonly IConfiguration _configuration;
-        private readonly UserManager<ApplicationUser> _userManager; 
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AuthenticationController(IConfiguration configuration, 
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+        public AuthenticationController(IConfiguration configuration,
+            UserManager<ApplicationUser> userManager)
         {
             // null in case of using different DI instead of defaut one.
             _configuration = configuration ??
                 throw new ArgumentNullException(nameof(configuration));
             _userManager = userManager;
-            _signInManager = signInManager;
         }
 
         [HttpPost("authenticate")]

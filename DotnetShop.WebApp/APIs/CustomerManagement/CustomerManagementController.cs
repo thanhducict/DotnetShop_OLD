@@ -10,6 +10,9 @@ using System.Text.Json;
 
 namespace DotnetShop.WebApp.APIs.CustomerManagement
 {
+    /// <summary>
+    /// APIs to work with customers.
+    /// </summary>
     [ApiController]
     [ApiVersion("1.0")]
     [ApiVersion("2.0")]
@@ -22,6 +25,12 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
         private readonly ILogger<CustomerManagementController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
 
+        /// <summary>
+        /// The constructor of controller.
+        /// </summary>
+        /// <param name="context">The Db Context.</param>
+        /// <param name="logger">The logger.</param>
+        /// <param name="userManager">The user manager.</param>
         public CustomerManagementController(DotnetShopDbContext context,
             ILogger<CustomerManagementController> logger,
             UserManager<ApplicationUser> userManager)
@@ -38,7 +47,7 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
         /// <param name="searchQuery">Filters customres by name, address and country.</param>
         /// <param name="pageNumber">The page number.</param>
         /// <param name="pageSize">The page size.</param>
-        /// <returns>An <see cref="ActionResult"/>.</returns>
+        /// <returns>A list of <see cref="CustomerDto"/>.</returns>
         /// <response code="200">Returns a list of customers or a customer.</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -92,6 +101,11 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
             return Ok(customers);
         }
 
+        /// <summary>
+        /// Gets a customer by Id.
+        /// </summary>
+        /// <param name="customerId">The customer Id.</param>
+        /// <returns>A <see cref="CustomerDto"/>.</returns>
         [HttpGet("{customerId}", Name = "GetCustomerById")]
         public async Task<ActionResult<CustomerDto>> GetCustomerById(int customerId)
         {
@@ -108,13 +122,18 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
                 CustomerName = result.CustomerName,
                 Gender = result.Gender,
                 Address = result.Address,
-                Country= result.Country,
+                Country = result.Country,
                 Cart = result.Cart,
             };
 
             return Ok(customer);
         }
 
+        /// <summary>
+        /// Gets a customer by username.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <returns>A <see cref="CustomerDto"/>.</returns>
         [HttpGet("username/{username}", Name = "GetCustomerByUsername")]
         public async Task<ActionResult<CustomerDto>> GetCustomerByUsername(string username)
         {
@@ -138,6 +157,11 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
             return Ok(customer);
         }
 
+        /// <summary>
+        /// Adds a customer.
+        /// </summary>
+        /// <param name="customerCreationDto">The model of a customer.</param>
+        /// <returns>A <see cref="CreatedAtRouteResult"/>.</returns>
         [HttpPost]
         public async Task<ActionResult<CustomerDto>> AddCustomer([FromBody] CustomerCreationDto customerCreationDto) // [FromBody] is not necessary because it is default by ApiController attribute
         {
@@ -174,6 +198,11 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
 
         }
 
+        /// <summary>
+        /// Updates a customer.
+        /// </summary>
+        /// <param name="customerUpdateDto">The model of a customer.</param>
+        /// <returns>A <see cref="NoContentResult"/>.</returns>
         [HttpPut]
         public async Task<ActionResult<CustomerDto>> UpdateCustomer(CustomerUpdateDto customerUpdateDto)
         {
@@ -204,6 +233,11 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
             }
         }
 
+        /// <summary>
+        /// Deletes a customer.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <returns>A <see cref="NoContentResult"/>.</returns>
         [HttpDelete("{username}")]
         public async Task<ActionResult<CustomerDto>> DeleteCustomer(string username)
         {
