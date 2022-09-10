@@ -1,16 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
-import { CartLineItemViewModel, CartListViewModel } from "./CartListViewModel";
-import "./CartList.scss";
+import { CartDto } from "../Models/CartDto";
+import { CartLineItemDto } from "../Models/CartLineItemDto";
 
-const CartList: React.FC = () => {
-    const [carts, setCarts] = useState<CartListViewModel>();
+const Carts: React.FC = () => {
+    const [carts, setCarts] = useState<CartDto[]>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
         axios
-            .get<CartListViewModel>("api/CartManagement/GetCarts")
+            .get<CartDto[]>("api/carts")
             .then((result) => result.data)
             .then((data) => {
                 // check if object is not empty
@@ -26,7 +26,7 @@ const CartList: React.FC = () => {
     return (
         <>
             {!isLoading && (
-                <div className="cart-list">
+                <>
                     <h2>All carts</h2>
                     <Table>
                         <thead>
@@ -39,21 +39,23 @@ const CartList: React.FC = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {carts?.allCartLineItems.map((c: CartLineItemViewModel, index) => (
-                                <tr key={index}>
-                                    <th scope="row">{c.customerId}</th>
-                                    <td>{c.customerName}</td>
-                                    <td>{c.productId}</td>
-                                    <td>{c.productName}</td>
-                                    <td>{c.quantity}</td>
-                                </tr>
-                            ))}
+                            {carts?.map((c: CartDto) =>
+                                c.cartLineItemDtos.map((l: CartLineItemDto, index) => (
+                                    <tr key={index}>
+                                        <th scope="row">{l.customerId}</th>
+                                        <td>{l.customerName}</td>
+                                        <td>{l.productId}</td>
+                                        <td>{l.productName}</td>
+                                        <td>{l.quantity}</td>
+                                    </tr>
+                                ))
+                            )}
                         </tbody>
                     </Table>
-                </div>
+                </>
             )}
         </>
     );
 };
 
-export default CartList;
+export default Carts;

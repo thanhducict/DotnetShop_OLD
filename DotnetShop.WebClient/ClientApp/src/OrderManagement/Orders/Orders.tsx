@@ -4,7 +4,7 @@ import { Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { OrderViewModel, OrderDetailViewModel } from "./OrderViewModel";
 
-const Order: React.FC = () => {
+const Orders: React.FC = () => {
     const params = useParams();
     const [order, setOrder] = useState<OrderViewModel>({
         orderId: 0,
@@ -70,4 +70,4 @@ const Order: React.FC = () => {
     );
 };
 
-export default Order;
+export default Orders;

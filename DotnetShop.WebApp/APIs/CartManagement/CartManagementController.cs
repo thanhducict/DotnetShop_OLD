@@ -67,7 +67,7 @@ namespace DotnetShop.WebApp.APIs.CartManagement
         public async Task<ActionResult<CartDto>> GetCustomerCart(int customerId)
         {
             var cart = new Cart();
-            var result = new List<CartDto>();
+            var result = new CartDto();
             var customer = await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == customerId);
             var products = await _context.Products.ToListAsync();
 
@@ -80,7 +80,7 @@ namespace DotnetShop.WebApp.APIs.CartManagement
 
                 if (cart != null)
                 {
-                    result.Add(new CartDto
+                    result = new CartDto
                     {
                         CartLineItemDtos = cart.CartLineItems.Select(item => new CartLineItemDto
                         {
@@ -91,7 +91,7 @@ namespace DotnetShop.WebApp.APIs.CartManagement
                             ?? string.Empty,
                             Quantity = item.Quantity
                         })
-                    });
+                    };
                 }
             }
 
