@@ -46,7 +46,6 @@ namespace DotnetShop.WebApp.APIs.ReportManagement
                         CustomerName = o.Customer.CustomerName,
                         Gender = o.Customer.Gender,
                         Address = o.Customer.Address,
-                        Country = o.Customer.Country,
                     }
                 })
                 .Where(o => o.Customer.CustomerId == customerId)

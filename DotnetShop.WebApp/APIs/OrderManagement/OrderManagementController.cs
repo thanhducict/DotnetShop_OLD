@@ -58,7 +58,6 @@ namespace DotnetShop.WebApp.APIs.OrderManagement
                         CustomerName = o.Customer.CustomerName,
                         Gender = o.Customer.Gender,
                         Address = o.Customer.Address,
-                        Country = o.Customer.Country
                     }
                 })
                 .FirstOrDefaultAsync(o => o.OrderId == orderId);

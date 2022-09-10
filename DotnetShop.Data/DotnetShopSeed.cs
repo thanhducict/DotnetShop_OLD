@@ -284,8 +284,7 @@ namespace DotnetShop.Data
                     {
                         CustomerName = "Son Gohan",
                         Gender = true,
-                        Address = "West City",
-                        Country = "Japan",
+                        Address = "Osaka, Japan",
                         Cart = "{\"CartLineItems\":[{\"ProductId\":9,\"Quantity\":1}]}"
                     }
                 };
@@ -309,8 +308,7 @@ namespace DotnetShop.Data
                     {
                         CustomerName = "Chi Chi",
                         Gender = false,
-                        Address = "West City",
-                        Country = "Japan",
+                        Address = "Tokyo, Japan",
                         Cart = "{\"CartLineItems\":[{\"ProductId\":10,\"Quantity\":1}]}"
                     }
                 };
@@ -334,8 +332,7 @@ namespace DotnetShop.Data
                     {
                         CustomerName = "Thor",
                         Gender = true,
-                        Address = "New York",
-                        Country = "US",
+                        Address = "New York, US",
                         Cart = string.Empty
                     }
                 };

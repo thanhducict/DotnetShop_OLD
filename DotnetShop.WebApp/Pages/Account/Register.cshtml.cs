@@ -81,7 +81,6 @@ namespace DotnetShop.WebApp.Pages.Account
                     CustomerName = Input.Customer.CustomerName,
                     Gender = Input.Customer.Gender,
                     Address = Input.Customer.Address,
-                    Country = Input.Customer.Country
                 };
                 var user = new ApplicationUser
                 {

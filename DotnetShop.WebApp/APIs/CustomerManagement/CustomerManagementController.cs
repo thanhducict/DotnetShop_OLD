@@ -72,8 +72,7 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
             {
                 searchQuery = searchQuery.Trim();
                 collection = collection.Where(a => a.CustomerName.Contains(searchQuery)
-                    || (a.Address != null && a.Address.Contains(searchQuery))
-                    || (a.Country != null && a.Country.Contains(searchQuery)));
+                    || (a.Address != null && a.Address.Contains(searchQuery)));
             }
 
             var totalItemCount = await collection.CountAsync();
@@ -91,7 +90,6 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
                 CustomerName = c.CustomerName,
                 Gender = c.Gender,
                 Address = c.Address,
-                Country = c.Country,
                 Cart = c.Cart
             });
 
@@ -122,7 +120,6 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
                 CustomerName = result.CustomerName,
                 Gender = result.Gender,
                 Address = result.Address,
-                Country = result.Country,
                 Cart = result.Cart,
             };
 
@@ -150,7 +147,6 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
                 CustomerName = result.Customer.CustomerName,
                 Gender = result.Customer.Gender,
                 Address = result.Customer.Address,
-                Country = result.Customer.Country,
                 Cart = result.Customer.Cart,
             };
 
@@ -179,7 +175,6 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
                     CustomerName = customerCreationDto.CustomerName,
                     Gender = customerCreationDto.Gender,
                     Address = customerCreationDto.Address,
-                    Country = customerCreationDto.Country,
                     Cart = string.Empty
                 }
             };
@@ -219,7 +214,6 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
             user.Customer.CustomerName = customerUpdateDto.CustomerName;
             user.Customer.Gender = customerUpdateDto.Gender;
             user.Customer.Address = customerUpdateDto.Address;
-            user.Customer.Country = customerUpdateDto.Country;
 
             var result = await _userManager.UpdateAsync(user);
 
