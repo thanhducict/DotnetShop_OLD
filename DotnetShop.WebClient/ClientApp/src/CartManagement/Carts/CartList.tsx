@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { CartDto } from "../Models/CartDto";
 import { CartLineItemDto } from "../Models/CartLineItemDto";
 
 const Carts: React.FC = () => {
+    const navigate = useNavigate();
     const [carts, setCarts] = useState<CartDto[]>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -16,6 +18,11 @@ const Carts: React.FC = () => {
                 // check if object is not empty
                 if ((Object.keys(data).length === 0 && data.constructor === Object) == false) {
                     setCarts(data);
+                }
+            })
+            .catch((error) => {
+                if (error.response.status) {
+                    navigate("/Authentication");
                 }
             })
             .finally(() => {

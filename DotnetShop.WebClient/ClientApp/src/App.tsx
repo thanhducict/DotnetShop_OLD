@@ -5,7 +5,9 @@ import "./global-style.scss";
 import CustomerCart from "./CartManagement/CustomerCart/CustomerCart";
 import Carts from "./CartManagement/Carts/CartList";
 import Orders from "./OrderManagement/Orders/Orders";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import Authentication from "./Authentication/Authentication";
+import { BEARER_TOKEN } from "./Constants";
 
 const App: React.FC = () => {
     return (
@@ -20,6 +22,13 @@ const App: React.FC = () => {
                             <Nav.Link href="#/CustomerCart">Customer Cart</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
+                    <div className="d-flex">
+                        {localStorage.getItem(BEARER_TOKEN) ? (
+                            <span>Authenticated</span>
+                        ) : (
+                            <Nav.Link href="#/Authentication">Authenticate</Nav.Link>
+                        )}
+                    </div>
                 </Container>
             </Navbar>
             <Container style={{ marginTop: "20px" }}>
@@ -30,6 +39,7 @@ const App: React.FC = () => {
                         <Route path="CustomerCart/" element={<CustomerCart />} />
                         <Route path="Orders" element={<Orders />} />
                         <Route path="OrderEdit/:orderId" element={<OrderEdit />} />
+                        <Route path="Authentication" element={<Authentication />} />
                     </Routes>
                 </HashRouter>
             </Container>
