@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route, HashRouter, Navigate } from "react-router-dom";
 import OrderEdit from "./OrderManagement/OrderEdit/OrderEdit";
 import "./global-style.scss";
@@ -7,11 +7,19 @@ import Carts from "./CartManagement/Carts/CartList";
 import Orders from "./OrderManagement/Orders/Orders";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import Authentication from "./Authentication/Authentication";
-import { BEARER_TOKEN } from "./Constants";
+
+interface GlobalStates {
+    authenticated: boolean;
+    setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const GlobalContext = React.createContext<GlobalStates>({} as GlobalStates);
 
 const App: React.FC = () => {
+    const [authenticated, setAuthenticated] = useState<boolean>(false);
+
     return (
-        <>
+        <GlobalContext.Provider value={{ authenticated, setAuthenticated }}>
             <Navbar bg="light">
                 <Container>
                     <Navbar.Brand href="#/">Web Client</Navbar.Brand>
@@ -23,7 +31,7 @@ const App: React.FC = () => {
                         </Nav>
                     </Navbar.Collapse>
                     <div className="d-flex">
-                        {localStorage.getItem(BEARER_TOKEN) ? (
+                        {authenticated ? (
                             <span>Authenticated</span>
                         ) : (
                             <Nav.Link href="#/Authentication">Authenticate</Nav.Link>
@@ -43,7 +51,7 @@ const App: React.FC = () => {
                     </Routes>
                 </HashRouter>
             </Container>
-        </>
+        </GlobalContext.Provider>
     );
 };
 

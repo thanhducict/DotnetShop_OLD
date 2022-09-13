@@ -115,7 +115,8 @@ services.AddAuthentication("Bearer").AddJwtBearer(options =>
         ValidIssuer = builder.Configuration["Authentication:Issuer"],
         ValidAudience = builder.Configuration["Authentication:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"]))
+            Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"])),
+        ClockSkew = TimeSpan.Zero
     };
 });
 

@@ -1,18 +1,22 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { GlobalContext } from "../../App";
+import { authHeader } from "../../Authentication/AuthenticationService";
+import { BEARER_TOKEN } from "../../Constants";
 import { CartDto } from "../Models/CartDto";
 import { CartLineItemDto } from "../Models/CartLineItemDto";
 
 const Carts: React.FC = () => {
     const navigate = useNavigate();
+    const context = useContext(GlobalContext);
     const [carts, setCarts] = useState<CartDto[]>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
         axios
-            .get<CartDto[]>("api/carts")
+            .get<CartDto[]>("api/carts", { headers: authHeader() })
             .then((result) => result.data)
             .then((data) => {
                 // check if object is not empty
@@ -22,6 +26,8 @@ const Carts: React.FC = () => {
             })
             .catch((error) => {
                 if (error.response.status) {
+                    localStorage.removeItem(BEARER_TOKEN);
+                    context.setAuthenticated(false);
                     navigate("/Authentication");
                 }
             })

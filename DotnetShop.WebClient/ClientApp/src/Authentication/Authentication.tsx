@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { AuthenticationRequestBody } from "./AuthenticationRequestBody";
 import axios from "axios";
 import { BEARER_TOKEN } from "../Constants";
+import { isTokenExpired } from "./AuthenticationService";
+import { GlobalContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 const Authentication: React.FC = () => {
+    const navigate = useNavigate();
+    const context = useContext(GlobalContext);
     const [authInfo, setAuthInfo] = useState<AuthenticationRequestBody>({ username: "trunks", password: "Cvbnm123@" });
-    const authenticate = () => {
+
+    const authenticate = (e: any) => {
+        e.preventDefault();
         axios
             .post("api/authentication/authenticate", {
                 username: authInfo.username,
@@ -15,7 +22,9 @@ const Authentication: React.FC = () => {
             .then((result) => result.data)
             .then((data) => {
                 alert("Token is set.");
+                context.setAuthenticated(true);
                 localStorage.setItem(BEARER_TOKEN, data);
+                navigate(-1);
             })
             .catch((error) => {
                 alert(error);
@@ -24,7 +33,7 @@ const Authentication: React.FC = () => {
 
     return (
         <>
-            {localStorage.getItem(BEARER_TOKEN) ? (
+            {!isTokenExpired(localStorage.getItem(BEARER_TOKEN) ?? "") ? (
                 <h5>You are already authenticated.</h5>
             ) : (
                 <>
