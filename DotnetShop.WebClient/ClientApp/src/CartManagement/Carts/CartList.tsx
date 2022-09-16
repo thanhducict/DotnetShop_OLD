@@ -1,16 +1,27 @@
+import {
+    Heading,
+    Layout,
+    LayoutColumn,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+} from "@kiwicom/orbit-components";
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { GlobalContext } from "../../App";
 import { authHeader } from "../../Authentication/AuthenticationService";
 import { BEARER_TOKEN } from "../../Constants";
 import { CartDto } from "../Models/CartDto";
 import { CartLineItemDto } from "../Models/CartLineItemDto";
 
-const Carts: React.FC = () => {
+interface CartsProps {
+    setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Carts: React.FC<CartsProps> = (props) => {
     const navigate = useNavigate();
-    const context = useContext(GlobalContext);
     const [carts, setCarts] = useState<CartDto[]>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -27,8 +38,7 @@ const Carts: React.FC = () => {
             .catch((error) => {
                 if (error.response.status) {
                     localStorage.removeItem(BEARER_TOKEN);
-                    context.setAuthenticated(false);
-                    navigate("/Authentication");
+                    navigate("/TokenExpired");
                 }
             })
             .finally(() => {
@@ -37,37 +47,51 @@ const Carts: React.FC = () => {
     }, []);
 
     return (
-        <>
-            {!isLoading && (
-                <>
-                    <h2>All carts</h2>
-                    <Table>
-                        <thead>
-                            <tr>
-                                <th>Customer Id</th>
-                                <th>Customer Name</th>
-                                <th>Product Id</th>
-                                <th>Product Name</th>
-                                <th>Quantity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {carts?.map((c: CartDto) =>
-                                c.cartLineItemDtos.map((l: CartLineItemDto, index) => (
-                                    <tr key={index}>
-                                        <th scope="row">{l.customerId}</th>
-                                        <td>{l.customerName}</td>
-                                        <td>{l.productId}</td>
-                                        <td>{l.productName}</td>
-                                        <td>{l.quantity}</td>
-                                    </tr>
-                                ))
-                            )}
-                        </tbody>
-                    </Table>
-                </>
-            )}
-        </>
+        <Layout type="MMB">
+            <LayoutColumn>
+                {!isLoading && (
+                    <>
+                        <Heading type="displaySubtitle" spaceAfter="medium">
+                            All carts
+                        </Heading>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell as="th">
+                                        <Heading type="title3"> Customer Id</Heading>
+                                    </TableCell>
+                                    <TableCell as="th">
+                                        <Heading type="title3"> Customer Name</Heading>
+                                    </TableCell>
+                                    <TableCell as="th">
+                                        <Heading type="title3"> Product Id</Heading>
+                                    </TableCell>
+                                    <TableCell as="th">
+                                        <Heading type="title3"> Product Name</Heading>
+                                    </TableCell>
+                                    <TableCell as="th">
+                                        <Heading type="title3"> Quantity</Heading>
+                                    </TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {carts?.map((c: CartDto) =>
+                                    c.cartLineItemDtos.map((l: CartLineItemDto, index) => (
+                                        <TableRow key={index}>
+                                            <TableCell>{l.customerId}</TableCell>
+                                            <TableCell>{l.customerName}</TableCell>
+                                            <TableCell>{l.productId}</TableCell>
+                                            <TableCell>{l.productName}</TableCell>
+                                            <TableCell>{l.quantity}</TableCell>
+                                        </TableRow>
+                                    ))
+                                )}
+                            </TableBody>
+                        </Table>
+                    </>
+                )}
+            </LayoutColumn>
+        </Layout>
     );
 };
 

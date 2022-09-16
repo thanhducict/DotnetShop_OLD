@@ -1,6 +1,6 @@
+import { Table } from "@kiwicom/orbit-components";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { CartDto } from "../Models/CartDto";
 import { CartLineItemDto } from "../Models/CartLineItemDto";
