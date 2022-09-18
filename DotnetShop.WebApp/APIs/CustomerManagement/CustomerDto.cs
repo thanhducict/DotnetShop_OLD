@@ -6,6 +6,11 @@
     public class CustomerDto
     {
         /// <summary>
+        /// The customer identifier.
+        /// </summary>
+        public int CustomerId { get; set; }
+
+        /// <summary>
         /// The name of customer.
         /// </summary>
         public string CustomerName { get; set; }
@@ -19,15 +24,5 @@
         /// The address of customer.
         /// </summary>
         public string Address { get; set; }
-
-        /// <summary>
-        /// The country of customer.
-        /// </summary>
-        public string Country { get; set; }
-
-        /// <summary>
-        /// The cart of customer.
-        /// </summary>
-        public string Cart { get; set; }
     }
 }

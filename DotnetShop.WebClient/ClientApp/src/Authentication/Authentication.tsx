@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { AuthenticationRequestBody } from "./AuthenticationRequestBody";
 import axios from "axios";
 import { BEARER_TOKEN } from "../Constants";
-import { isTokenExpired } from "./AuthenticationService";
 import {
     Button,
     Illustration,
@@ -33,8 +32,7 @@ const Authentication: React.FC<AuthenticationProps> = (props) => {
                 localStorage.setItem(BEARER_TOKEN, data);
                 location.reload();
             })
-            .catch((error) => {
-                alert(error);
+            .catch(() => {
                 setIsLoading(false);
             });
     };

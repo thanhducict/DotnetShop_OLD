@@ -9,6 +9,11 @@
             The class to transfer customer data.
             </summary>
         </member>
+        <member name="P:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDto.CustomerId">
+            <summary>
+            The customer identifier.
+            </summary>
+        </member>
         <member name="P:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDto.CustomerName">
             <summary>
             The name of customer.
@@ -22,16 +27,6 @@
         <member name="P:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDto.Address">
             <summary>
             The address of customer.
-            </summary>
-        </member>
-        <member name="P:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDto.Country">
-            <summary>
-            The country of customer.
-            </summary>
-        </member>
-        <member name="P:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDto.Cart">
-            <summary>
-            The cart of customer.
             </summary>
         </member>
         <member name="T:DotnetShop.WebApp.APIs.CustomerManagement.CustomerManagementController">
@@ -70,7 +65,7 @@
             Gets a customer by username.
             </summary>
             <param name="username">The username.</param>
-            <returns>A <see cref="T:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDto"/>.</returns>
+            <returns>A <see cref="T:DotnetShop.WebApp.APIs.CustomerManagement.CustomerUpdateDto"/>.</returns>
         </member>
         <member name="M:DotnetShop.WebApp.APIs.CustomerManagement.CustomerManagementController.AddCustomer(DotnetShop.WebApp.APIs.CustomerManagement.CustomerCreationDto)">
             <summary>
@@ -90,7 +85,7 @@
             <summary>
             Deletes a customer.
             </summary>
-            <param name="username">The username.</param>
+            <param name="id">The identifier.</param>
             <returns>A <see cref="T:Microsoft.AspNetCore.Mvc.NoContentResult"/>.</returns>
         </member>
         <member name="M:DotnetShop.WebApp.Areas.Admin.Helpers.UploadFile(Microsoft.AspNetCore.Http.IFormFile,DotnetShop.WebApp.Areas.Admin.Helpers.UploadFileType,System.String)">

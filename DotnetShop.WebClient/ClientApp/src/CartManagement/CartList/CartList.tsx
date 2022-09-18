@@ -16,11 +16,7 @@ import { BEARER_TOKEN } from "../../Constants";
 import { CartDto } from "../Models/CartDto";
 import { CartLineItemDto } from "../Models/CartLineItemDto";
 
-interface CartsProps {
-    setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const Carts: React.FC<CartsProps> = (props) => {
+const CartList: React.FC = () => {
     const navigate = useNavigate();
     const [carts, setCarts] = useState<CartDto[]>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -36,9 +32,11 @@ const Carts: React.FC<CartsProps> = (props) => {
                 }
             })
             .catch((error) => {
-                if (error.response.status) {
+                if (error.response.status === 401) {
                     localStorage.removeItem(BEARER_TOKEN);
                     navigate("/TokenExpired");
+                } else {
+                    navigate("./NotFound");
                 }
             })
             .finally(() => {
@@ -58,19 +56,19 @@ const Carts: React.FC<CartsProps> = (props) => {
                             <TableHead>
                                 <TableRow>
                                     <TableCell as="th">
-                                        <Heading type="title3"> Customer Id</Heading>
+                                        <Heading type="title3">Customer Id</Heading>
                                     </TableCell>
                                     <TableCell as="th">
-                                        <Heading type="title3"> Customer Name</Heading>
+                                        <Heading type="title3">Customer Name</Heading>
                                     </TableCell>
                                     <TableCell as="th">
-                                        <Heading type="title3"> Product Id</Heading>
+                                        <Heading type="title3">Product Id</Heading>
                                     </TableCell>
                                     <TableCell as="th">
-                                        <Heading type="title3"> Product Name</Heading>
+                                        <Heading type="title3">Product Name</Heading>
                                     </TableCell>
                                     <TableCell as="th">
-                                        <Heading type="title3"> Quantity</Heading>
+                                        <Heading type="title3">Quantity</Heading>
                                     </TableCell>
                                 </TableRow>
                             </TableHead>
@@ -95,4 +93,4 @@ const Carts: React.FC<CartsProps> = (props) => {
     );
 };
 
-export default Carts;
+export default CartList;

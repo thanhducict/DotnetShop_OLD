@@ -87,10 +87,10 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
 
             var customers = result.Select(c => new CustomerDto
             {
+                CustomerId = c.CustomerId,
                 CustomerName = c.CustomerName,
                 Gender = c.Gender,
                 Address = c.Address,
-                Cart = c.Cart
             });
 
             Response.Headers.Add("X-Pagination",
@@ -107,7 +107,8 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
         [HttpGet("{customerId}", Name = "GetCustomerById")]
         public async Task<ActionResult<CustomerDto>> GetCustomerById(int customerId)
         {
-            var result = await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == customerId);
+            var result = await _context.Customers.Include(c => c.ApplicationUser)
+                .FirstOrDefaultAsync(c => c.CustomerId == customerId);
 
             if (result == null)
             {
@@ -115,12 +116,14 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
                 return NotFound();
             }
 
-            var customer = new CustomerDto
+            var customer = new CustomerUpdateDto
             {
+                CustomerId = result.CustomerId,
                 CustomerName = result.CustomerName,
                 Gender = result.Gender,
                 Address = result.Address,
-                Cart = result.Cart,
+                Username = result.ApplicationUser.UserName,
+                Email  = result.ApplicationUser.Email,
             };
 
             return Ok(customer);
@@ -130,9 +133,9 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
         /// Gets a customer by username.
         /// </summary>
         /// <param name="username">The username.</param>
-        /// <returns>A <see cref="CustomerDto"/>.</returns>
+        /// <returns>A <see cref="CustomerUpdateDto"/>.</returns>
         [HttpGet("username/{username}", Name = "GetCustomerByUsername")]
-        public async Task<ActionResult<CustomerDto>> GetCustomerByUsername(string username)
+        public async Task<ActionResult<CustomerUpdateDto>> GetCustomerByUsername(string username)
         {
             var result = await _userManager.Users.Include(u => u.Customer).FirstOrDefaultAsync(c => c.UserName == username);
 
@@ -142,12 +145,14 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
                 return NotFound();
             }
 
-            var customer = new CustomerDto
+            var customer = new CustomerUpdateDto
             {
+                CustomerId = result.Customer.CustomerId,
                 CustomerName = result.Customer.CustomerName,
                 Gender = result.Customer.Gender,
                 Address = result.Customer.Address,
-                Cart = result.Customer.Cart,
+                Username = result.UserName,
+                Email = result.Email,
             };
 
             return Ok(customer);
@@ -201,19 +206,23 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
         [HttpPut]
         public async Task<ActionResult<CustomerDto>> UpdateCustomer(CustomerUpdateDto customerUpdateDto)
         {
-            var user = await _userManager.Users.Include(u => u.Customer)
-                .FirstOrDefaultAsync(u => u.UserName == customerUpdateDto.Username);
+            var customer = await _context.Customers.FindAsync(customerUpdateDto.CustomerId);
+            if (customer == null)
+            {
+                return NotFound($"Customer does not exist.");
+            }
+
+            var user = await _userManager.FindByIdAsync(customer.ApplicationUserId);
             if (user == null)
             {
                 return NotFound($"{customerUpdateDto.Username} does not exist.");
             }
 
-
-            user.UserName = customerUpdateDto.Username;
-            user.Email = customerUpdateDto.Email;
             user.Customer.CustomerName = customerUpdateDto.CustomerName;
             user.Customer.Gender = customerUpdateDto.Gender;
             user.Customer.Address = customerUpdateDto.Address;
+            user.UserName = customerUpdateDto.Username;
+            user.Email = customerUpdateDto.Email;
 
             var result = await _userManager.UpdateAsync(user);
 
@@ -230,18 +239,26 @@ namespace DotnetShop.WebApp.APIs.CustomerManagement
         /// <summary>
         /// Deletes a customer.
         /// </summary>
-        /// <param name="username">The username.</param>
+        /// <param name="id">The identifier.</param>
         /// <returns>A <see cref="NoContentResult"/>.</returns>
-        [HttpDelete("{username}")]
-        public async Task<ActionResult<CustomerDto>> DeleteCustomer(string username)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<CustomerDto>> DeleteCustomer(string id)
         {
-            var user = await _userManager.FindByNameAsync(username);
-            if (user == null)
+            if(!int.TryParse(id, out int customerId))
             {
-                return NotFound($"{username} does not exist.");
+                return NotFound($"{id} does not exist.");
             }
 
+            var customer = await _context.Customers.FindAsync(customerId);
+            if (customer == null)
+            {
+                return NotFound($"Customer does not exist.");
+            }
+
+            var user = await _userManager.FindByIdAsync(customer.ApplicationUserId);
             var result = await _userManager.DeleteAsync(user);
+            _context.Customers.Remove(customer);
+            _context.SaveChanges();
 
             if (result.Succeeded)
             {

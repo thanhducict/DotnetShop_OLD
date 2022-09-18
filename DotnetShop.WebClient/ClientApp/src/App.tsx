@@ -1,21 +1,24 @@
 import React, { useState } from "react";
 import { Routes, Route, HashRouter, Navigate } from "react-router-dom";
 import "./global-style.scss";
-import Carts from "./CartManagement/Carts/CartList";
+import CartList from "./CartManagement/CartList/CartList";
 import Authentication from "./Authentication/Authentication";
 import { ButtonLink, LinkList, NavigationBar, Stack, Text, TextLink } from "@kiwicom/orbit-components";
 import TokenExpired from "./TokenExpired/TokenExpired";
 import { isTokenExpired } from "./Authentication/AuthenticationService";
 import { BEARER_TOKEN } from "./Constants";
+import CustomerList from "./CustomerManagement/CustomerList/CustomerList";
+import CustomerDetail from "./CustomerManagement/CustomerDetail/CustomerDetail";
+import NotFound from "./NotFound/NotFound";
 
 const App: React.FC = () => {
     const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
     return (
         <>
-            <NavigationBar>
+            <NavigationBar hideOnScroll={false}>
                 <Stack direction="row" align="center" justify="center">
-                    <ButtonLink href="/">Web Client</ButtonLink>
+                    <ButtonLink href="/">Dotnet Shop</ButtonLink>
                     <LinkList direction="row">
                         <TextLink type="secondary" href="#/Customers">
                             Customers
@@ -41,13 +44,12 @@ const App: React.FC = () => {
             <div className="web-client-container">
                 <HashRouter>
                     <Routes>
-                        <Route path="/" element={<Navigate to="/Carts" />} />
-                        <Route path="Carts" element={<Carts setIsDialogOpen={setIsDialogOpen} />} />
-                        {/* <Route path="CustomerCart/" element={<CustomerCart />} />
-                    <Route path="Orders" element={<Orders />} />
-                    <Route path="OrderEdit/:orderId" element={<OrderEdit />} /> */}
-
+                        <Route path="/" element={<Navigate to="/Customers" />} />
+                        <Route path="Carts" element={<CartList />} />
+                        <Route path="Customers" element={<CustomerList />} />
+                        <Route path="Customers/:customerId" element={<CustomerDetail />} />
                         <Route path="/TokenExpired" element={<TokenExpired setIsDialogOpen={setIsDialogOpen} />} />
+                        <Route path="/NotFound" element={<NotFound />} />
                     </Routes>
                 </HashRouter>
             </div>

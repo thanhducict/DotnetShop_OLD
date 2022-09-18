@@ -1,0 +1,20 @@
+[
+    {
+        "customerId": 1,
+        "customerName": "Son Gohan",
+        "gender": true,
+        "address": "Osaka, Japan"
+    },
+    {
+        "customerId": 2,
+        "customerName": "Chi Chi",
+        "gender": false,
+        "address": "Tokyo, Japan"
+    },
+    {
+        "customerId": 3,
+        "customerName": "Thor",
+        "gender": true,
+        "address": "New York, US"
+    }
+]
