@@ -3,7 +3,7 @@ import { Routes, Route, HashRouter, Navigate } from "react-router-dom";
 import "./global-style.scss";
 import CartList from "./CartManagement/CartList/CartList";
 import Authentication from "./Authentication/Authentication";
-import { ButtonLink, LinkList, NavigationBar, Stack, Text, TextLink } from "@kiwicom/orbit-components";
+import { ButtonLink, LinkList, NavigationBar, Stack, Text, TextLink, ToastRoot } from "@kiwicom/orbit-components";
 import TokenExpired from "./TokenExpired/TokenExpired";
 import { isTokenExpired } from "./Authentication/AuthenticationService";
 import { BEARER_TOKEN } from "./Constants";
@@ -53,6 +53,7 @@ const App: React.FC = () => {
                     </Routes>
                 </HashRouter>
             </div>
+            <ToastRoot dismissTimeout={5000} placement="top-center" />
             {isDialogOpen && <Authentication setIsDialogOpen={setIsDialogOpen} />}
         </>
     );

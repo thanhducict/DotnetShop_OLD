@@ -1,6 +1,7 @@
 import {
     Button,
     ChoiceGroup,
+    createToast,
     Inline,
     InputField,
     Modal,
@@ -116,6 +117,7 @@ const AddCustomer: React.FC<AddCustomerProps> = (props) => {
                                         .then(() => {
                                             props.setShowModal(false);
                                             props.reloadData();
+                                            createToast("New customer added");
                                         })
                                         .catch(() => {
                                             navigate("/NotFound");

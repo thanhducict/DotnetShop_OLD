@@ -1,6 +1,7 @@
 import {
     Button,
     ChoiceGroup,
+    createToast,
     Heading,
     Inline,
     InputField,
@@ -134,6 +135,7 @@ const CustomerDetail: React.FC = () => {
                                             })
                                             .then(() => {
                                                 setOriginalCustomer(customer);
+                                                createToast("Customer updated");
                                             })
                                             .catch(() => {
                                                 navigate("/NotFound");
