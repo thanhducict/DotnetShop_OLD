@@ -71,7 +71,7 @@ namespace DotnetShop.WebApp.APIs.Authenication
                 _configuration["Authentication:Audience"],
                 claimsForToken,
                 DateTime.UtcNow,
-                DateTime.UtcNow.AddMinutes(15),
+                DateTime.UtcNow.AddHours(1),
                 signingCredentials);
 
             var tokenToReturn = new JwtSecurityTokenHandler()

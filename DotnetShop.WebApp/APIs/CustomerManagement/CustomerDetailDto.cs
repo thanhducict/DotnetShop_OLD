@@ -1,6 +1,6 @@
 ﻿namespace DotnetShop.WebApp.APIs.CustomerManagement
 {
-    public class CustomerUpdateDto
+    public class CustomerDetailDto
     {
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }

@@ -65,7 +65,7 @@
             Gets a customer by username.
             </summary>
             <param name="username">The username.</param>
-            <returns>A <see cref="T:DotnetShop.WebApp.APIs.CustomerManagement.CustomerUpdateDto"/>.</returns>
+            <returns>A <see cref="T:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDetailDto"/>.</returns>
         </member>
         <member name="M:DotnetShop.WebApp.APIs.CustomerManagement.CustomerManagementController.AddCustomer(DotnetShop.WebApp.APIs.CustomerManagement.CustomerCreationDto)">
             <summary>
@@ -74,7 +74,7 @@
             <param name="customerCreationDto">The model of a customer.</param>
             <returns>A <see cref="T:Microsoft.AspNetCore.Mvc.CreatedAtRouteResult"/>.</returns>
         </member>
-        <member name="M:DotnetShop.WebApp.APIs.CustomerManagement.CustomerManagementController.UpdateCustomer(DotnetShop.WebApp.APIs.CustomerManagement.CustomerUpdateDto)">
+        <member name="M:DotnetShop.WebApp.APIs.CustomerManagement.CustomerManagementController.UpdateCustomer(DotnetShop.WebApp.APIs.CustomerManagement.CustomerDetailDto)">
             <summary>
             Updates a customer.
             </summary>

@@ -10,6 +10,8 @@ import { BEARER_TOKEN } from "./Constants";
 import CustomerList from "./CustomerManagement/CustomerList/CustomerList";
 import CustomerDetail from "./CustomerManagement/CustomerDetail/CustomerDetail";
 import NotFound from "./NotFound/NotFound";
+import OrderList from "./OrderManagement/OrderList/OrderList";
+import OrderDetail from "./OrderManagement/OrderDetail/OrderDetail";
 
 const App: React.FC = () => {
     const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
@@ -26,7 +28,9 @@ const App: React.FC = () => {
                         <TextLink type="secondary" href="#/Carts">
                             Carts
                         </TextLink>
-                        <TextLink type="secondary">Orders</TextLink>
+                        <TextLink type="secondary" href="#/Orders">
+                            Orders
+                        </TextLink>
                     </LinkList>
                     <Stack inline>
                         <LinkList direction="row">
@@ -45,15 +49,17 @@ const App: React.FC = () => {
                 <HashRouter>
                     <Routes>
                         <Route path="/" element={<Navigate to="/Customers" />} />
-                        <Route path="Carts" element={<CartList />} />
                         <Route path="Customers" element={<CustomerList />} />
                         <Route path="Customers/:customerId" element={<CustomerDetail />} />
+                        <Route path="Carts" element={<CartList />} />
+                        <Route path="Orders" element={<OrderList />} />
+                        <Route path="Orders/:orderId" element={<OrderDetail />} />
                         <Route path="/TokenExpired" element={<TokenExpired setIsDialogOpen={setIsDialogOpen} />} />
                         <Route path="/NotFound" element={<NotFound />} />
                     </Routes>
                 </HashRouter>
             </div>
-            <ToastRoot dismissTimeout={5000} placement="top-center" />
+            <ToastRoot dismissTimeout={3000} placement="top-center" />
             {isDialogOpen && <Authentication setIsDialogOpen={setIsDialogOpen} />}
         </>
     );

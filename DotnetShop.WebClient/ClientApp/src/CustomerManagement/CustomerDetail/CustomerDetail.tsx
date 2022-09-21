@@ -15,12 +15,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { authHeader } from "../../Authentication/AuthenticationService";
 import { BEARER_TOKEN } from "../../Constants";
-import { CustomerUpdateDto } from "../Models/CustomerUpdateDto";
+import { CustomerDetailDto } from "../Models/CustomerDetailDto";
 
 const CustomerDetail: React.FC = () => {
     const params = useParams();
     const navigate = useNavigate();
-    const [customer, setCustomer] = useState<CustomerUpdateDto>({
+    const [customer, setCustomer] = useState<CustomerDetailDto>({
         customerId: 0,
         customerName: "",
         gender: false,
@@ -28,7 +28,7 @@ const CustomerDetail: React.FC = () => {
         username: "",
         email: "",
     });
-    const [orignalCustomer, setOriginalCustomer] = useState<CustomerUpdateDto>({
+    const [orignalCustomer, setOriginalCustomer] = useState<CustomerDetailDto>({
         customerId: 0,
         customerName: "",
         gender: false,
@@ -43,7 +43,7 @@ const CustomerDetail: React.FC = () => {
 
     useEffect(() => {
         axios
-            .get<CustomerUpdateDto>(`api/v1/customers/${params.customerId}`, { headers: authHeader() })
+            .get<CustomerDetailDto>(`api/v1/customers/${params.customerId}`, { headers: authHeader() })
             .then((result) => result.data)
             .then((data) => {
                 // check if object is not empty
@@ -130,7 +130,7 @@ const CustomerDetail: React.FC = () => {
                                     onClick={() => {
                                         setIsLoading(true);
                                         axios
-                                            .put<CustomerUpdateDto>("api/v1/customers/", customer, {
+                                            .put<CustomerDetailDto>("api/v1/customers/", customer, {
                                                 headers: authHeader(),
                                             })
                                             .then(() => {

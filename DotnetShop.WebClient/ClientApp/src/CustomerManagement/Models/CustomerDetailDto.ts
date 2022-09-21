@@ -1,4 +1,4 @@
-export interface CustomerUpdateDto {
+export interface CustomerDetailDto {
     customerId: number;
     customerName: string;
     gender: boolean;

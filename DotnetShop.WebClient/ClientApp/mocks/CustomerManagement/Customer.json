@@ -2,5 +2,7 @@
     "customerId": 1,
     "customerName": "Son Gohan",
     "gender": true,
-    "address": "Osaka, Japan"
+    "address": "West City, Japan",
+    "username": "gohan",
+    "email": "gohan@example.com"
 }

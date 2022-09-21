@@ -70,29 +70,24 @@ namespace DotnetShop.WebApp.APIs.OrderManagement
             return Ok(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> UpdateOrder([FromBody] OrderWithDetailDto model)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteOrder(string id)
         {
-            var order = _context.Orders.Include(o => o.OrderDetails).FirstOrDefault(o => o.OrderId == model.OrderId);
-            if (order != null)
+            if (!int.TryParse(id, out int orderId))
             {
-                order.OrderTotal = model.OrderTotal;
-                order.OrderDetails.ForEach(od => model.OrderDetailViewModels.ForEach(odvm =>
-                {
-                    if (odvm.OrderDetailId == od.OrderDetailId)
-                    {
-                        od.Quantity = odvm.Quantity;
-                        od.LineItemTotal = odvm.LineItemTotal;
-                    };
-                }));
+                return NotFound($"{id} does not exist.");
+            }
 
-                await _context.SaveChangesAsync();
-                return Ok();
-            }
-            else
+            var order = await _context.Orders.FindAsync(orderId);
+            if (order == null)
             {
-                return NotFound();
+                return NotFound($"Order does not exist.");
             }
+
+            _context.Orders.Remove(order);
+            _context.SaveChanges();
+
+            return NoContent();
         }
     }
 }

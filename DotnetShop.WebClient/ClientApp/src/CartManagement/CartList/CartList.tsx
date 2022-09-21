@@ -36,7 +36,7 @@ const CartList: React.FC = () => {
                     localStorage.removeItem(BEARER_TOKEN);
                     navigate("/TokenExpired");
                 } else {
-                    navigate("./NotFound");
+                    navigate("/NotFound");
                 }
             })
             .finally(() => {

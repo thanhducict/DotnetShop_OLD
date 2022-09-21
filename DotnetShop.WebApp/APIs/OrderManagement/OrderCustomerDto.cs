@@ -5,7 +5,6 @@ namespace DotnetShop.WebApp.APIs.OrderManagement
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }
         public bool Gender { get; set; }
-        public string Country { get; set; }
         public string Address { get; set; }
     }
 }

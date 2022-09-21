@@ -1,6 +1,7 @@
 import {
     Button,
     ButtonLink,
+    createToast,
     Dialog,
     Heading,
     InputField,
@@ -14,15 +15,7 @@ import {
     TableRow,
     TextLink,
 } from "@kiwicom/orbit-components";
-import {
-    BaggageCabinNone,
-    GenderMan,
-    GenderWoman,
-    MinusCircle,
-    PassengerAdd,
-    PassengerRemove,
-} from "@kiwicom/orbit-components/lib/icons";
-import ButtonPrimitive from "@kiwicom/orbit-components/lib/primitives/ButtonPrimitive";
+import { PassengerAdd, PassengerRemove } from "@kiwicom/orbit-components/lib/icons";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -55,7 +48,7 @@ const CustomerList: React.FC = () => {
                     localStorage.removeItem(BEARER_TOKEN);
                     navigate("/TokenExpired");
                 } else {
-                    navigate("./NotFound");
+                    navigate("/NotFound");
                 }
             })
             .finally(() => {
@@ -153,6 +146,7 @@ const CustomerList: React.FC = () => {
                                     })
                                     .then(() => {
                                         setCustomers(customers?.filter((c) => c !== deleteCustomer));
+                                        createToast("Customer deleted");
                                     })
                                     .finally(() => {
                                         setIsDeleting(false);
