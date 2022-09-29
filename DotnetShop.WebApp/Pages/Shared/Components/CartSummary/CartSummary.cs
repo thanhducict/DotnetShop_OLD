@@ -1,7 +1,7 @@
 ﻿using DotnetShop.WebApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DotnetShop.WebApp.ViewComponents
+namespace DotnetShop.WebApp.Pages.Shared.Components.CartSummary
 {
     public class CartSummary : ViewComponent
     {

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DotnetShop.WebApp.Areas.Admin.Controllers
 {
@@ -18,7 +19,7 @@ namespace DotnetShop.WebApp.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            var users = _appUserManager.Users;
+            var users = _appUserManager.Users.Include(u => u.Customer);
 
             return View(users);
         }

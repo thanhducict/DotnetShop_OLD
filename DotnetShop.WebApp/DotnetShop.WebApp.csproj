@@ -22,6 +22,8 @@
     <ProjectReference Include="..\DotnetShop.Data\DotnetShop.Data.csproj" />
     <ProjectReference Include="..\DotnetShop.Migrations.Sqlite\DotnetShop.Migrations.Sqlite.csproj" />
     <ProjectReference Include="..\DotnetShop.Migrations.SqlServer\DotnetShop.Migrations.SqlServer.csproj" />
+    <ProjectReference Include="..\DotnetShop.Shells\DotnetShop.Shells.csproj" />
+    <ProjectReference Include="..\DotnetShop.Warehouses\DotnetShop.Warehouses.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -3,7 +3,7 @@ using DotnetShop.WebApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DotnetShop.WebApp.ViewComponents
+namespace DotnetShop.WebApp.Pages.Shared.Components.LoginPartial
 {
     public class LoginPartial : ViewComponent
     {
