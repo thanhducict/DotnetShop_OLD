@@ -1,6 +1,6 @@
-﻿namespace DotnetShop.WebApp.Areas.Admin.Views.Shared.Components.NavigationPartial
+﻿namespace DotnetShop.WebApp.Views.Shared.Components.AdminNavigation
 {
-    public class NavigationViewModel
+    public class AdminNavigationViewModel
     {
         public IEnumerable<NavigationItemModel> NavigationItems { get; set; }
     }

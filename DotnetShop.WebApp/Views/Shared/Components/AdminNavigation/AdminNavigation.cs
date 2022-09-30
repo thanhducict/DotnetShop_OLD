@@ -1,10 +1,9 @@
-﻿using DotnetShop.Shells.Providers.MenuProvider;
-using DotnetShop.WebApp.Areas.Admin.Views.Shared.Components.NavigationPartial;
+﻿using DotnetShop.Infrastructure.MenuProvider;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DotnetShop.WebApp.Pages.Shared.Components.LoginPartial
+namespace DotnetShop.WebApp.Views.Shared.Components.AdminNavigation
 {
-    public class NavigationPartial : ViewComponent
+    public class AdminNavigation : ViewComponent
     {
         public IViewComponentResult Invoke()
         {
@@ -19,7 +18,7 @@ namespace DotnetShop.WebApp.Pages.Shared.Components.LoginPartial
                 if (menuProvider != null && menuProvider.GetMenuItems() != null && menuProvider.GetMenuItems().Any())
                 {
                     var menuItems = menuProvider.GetMenuItems();
-                    
+
                     navigationItems.AddRange(menuItems.Select(x => new NavigationItemModel
                     {
                         AspArea = x.AspArea,
@@ -31,7 +30,7 @@ namespace DotnetShop.WebApp.Pages.Shared.Components.LoginPartial
                 }
             }
 
-            var model = new NavigationViewModel
+            var model = new AdminNavigationViewModel
             {
                 NavigationItems = navigationItems
             };

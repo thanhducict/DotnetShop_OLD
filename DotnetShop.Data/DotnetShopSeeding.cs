@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace DotnetShop.Data
 {
-    public class DotnetShopSeed
+    public class DotnetShopSeeding
     {
         /// <summary>
         /// Seed data at runtime.
@@ -33,9 +33,21 @@ namespace DotnetShop.Data
                     await context.SaveChangesAsync();
                 }
 
-                AddSampleRoles(roleManager);
+                if (!await context.Warehouses.AnyAsync())
+                {
+                    await context.Warehouses.AddRangeAsync(PopulateSampleWarehouses());
+                    await context.SaveChangesAsync();
+                }
 
-                AddSampleUsers(userManager);
+                if (!await context.ProductWarehouses.AnyAsync())
+                {
+                    await AddProductsToWarehouses(context);
+                    await context.SaveChangesAsync();
+                }
+
+                await AddSampleRoles(roleManager);
+
+                await AddSampleUsers(userManager);
 
                 if (!await context.Orders.AnyAsync() && !await context.OrderDetails.AnyAsync())
                 {
@@ -59,7 +71,7 @@ namespace DotnetShop.Data
             };
         }
 
-        private static IEnumerable<Product> PopulateSampleProducts()
+        public static IEnumerable<Product> PopulateSampleProducts()
         {
             return new List<Product> {
                 // identity_insert is set to off so there will be no ProductId
@@ -74,7 +86,7 @@ namespace DotnetShop.Data
                     ImageUrl = "/images/Products/Kudu Purple Sweatshirt HD.png",
                     InStock = true,
                     IsProductOfTheWeek = false,
-                    ImageThumbnailUrl = "/images/Products/Kudu Purple Sweatshirt.png"
+                    ImageThumbnailUrl = "/images/Products/Kudu Purple Sweatshirt.png",
                 },
                 new Product
                 {
@@ -222,7 +234,84 @@ namespace DotnetShop.Data
             };
         }
 
-        private static async void AddSampleRoles(RoleManager<IdentityRole> roleManager)
+        public static IEnumerable<Warehouse> PopulateSampleWarehouses()
+        {
+            return new List<Warehouse> {
+                new Warehouse
+                {
+                    WarehouseName = "New York",
+                    Address = "20 W 34th St., New York, NY 10001, United States",
+                },
+                new Warehouse
+                {
+                    WarehouseName = "San Francisco",
+                    Address = "65 Crestline Dr, San Francisco, CA 94131, United States",
+                },
+                new Warehouse
+                {
+                    WarehouseName = "Manchester",
+                    Address = "Sir Matt Busby Way, Old Trafford, Stretford, Manchester M16 0RA, United Kingdom",
+                },
+
+                new Warehouse
+                {
+                    WarehouseName = "London",
+                    Address = "75 Stanhope Gardens, South Kensington, London SW7 5RN, United Kingdom",
+                },
+                new Warehouse
+                {
+                    WarehouseName = "Hanoi Coffee House",
+                    Address = "159 P. Trần Đại Nghĩa, Bách Khoa, Hai Bà Trưng, Hà Nội 100000, Vietnam",
+                },
+                new Warehouse
+                {
+                    WarehouseName = "Hanoi Highlands",
+                    Address = "91 P. Trần Đại Nghĩa, Bách Khoa, Hai Bà Trưng, Hà Nội, Vietnam",
+                },
+                new Warehouse
+                {
+                    WarehouseName = "Hanoi Center Point",
+                    Address = "Tầng 5 TTTM Hà Nội Centerpoint, 27 Đ. Lê Văn Lương, Nhân Chính, Thanh Xuân, Hà Nội, Vietnam",
+                },
+                new Warehouse
+                {
+                    WarehouseName = "Hanoi Royal City",
+                    Address = "72A Đ. Nguyễn Trãi, Thượng Đình, Thanh Xuân, Hà Nội, Vietnam",
+                },
+                new Warehouse
+                {
+                    WarehouseName = "Hanoi Vincom",
+                    Address = "191 Bà Triệu, Lê Đại Hành, Hai Bà Trưng, Hà Nội Hà Nội Hanoi City, 100000, Vietnam",
+                },
+                new Warehouse
+                {
+                    WarehouseName = "Hanoi FPT Tower",
+                    Address = "10 P. Phạm Văn Bạch, Dịch Vọng, Cầu Giấy, Hà Nội 100000, Vietnam",
+                },
+            };
+        }
+
+        public static async Task AddProductsToWarehouses(DotnetShopDbContext context)
+        {
+            var random = new Random();
+            var allProducts = context.Products.ToList();
+            var allWarehouses = context.Warehouses.ToList();
+
+            foreach (var product in allProducts)
+            {
+                foreach (var warehouse in allWarehouses)
+                {
+                    await context.ProductWarehouses.AddAsync(new ProductWarehouse
+                    {
+                        ProductId = product.ProductId,
+                        WarehouseId = warehouse.WarehouseId,
+                        ProductQuantity = random.Next(50, 500)
+                    });
+                }
+            }
+        }
+
+        private static async Task AddSampleRoles(RoleManager<IdentityRole> roleManager)
         {
             if (!await roleManager.RoleExistsAsync(Constants.Roles.AdminRole))
             {
@@ -237,7 +326,7 @@ namespace DotnetShop.Data
             }
         }
 
-        private static async void AddSampleUsers(UserManager<ApplicationUser> userManager)
+        private static async Task AddSampleUsers(UserManager<ApplicationUser> userManager)
         {
             if (await userManager.FindByNameAsync("trunks") == null)
             {

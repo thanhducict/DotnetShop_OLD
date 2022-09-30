@@ -1,4 +1,5 @@
-﻿using DotnetShop.Shells.Providers.MenuProvider;
+﻿
+using DotnetShop.Infrastructure.MenuProvider;
 
 namespace DotnetShop.Warehouses
 {
@@ -8,7 +9,7 @@ namespace DotnetShop.Warehouses
         {
             return new List<MenuItem>
             {
-                new MenuItem { AspPage = "WarehouseList", MenuText = "Warehouses" },
+                new MenuItem { AspArea = "Admin", AspController = "Warehouses", AspAction = "Index", MenuText = "Warehouses" },
             };
         }
     }

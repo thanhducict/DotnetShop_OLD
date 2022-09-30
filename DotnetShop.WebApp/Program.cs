@@ -1,11 +1,14 @@
 using DotnetShop.Data;
 using DotnetShop.Domain;
+using DotnetShop.Warehouses.Areas.Admin.Controllers;
 using DotnetShop.WebApp.Areas.Admin;
 using DotnetShop.WebApp.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -69,6 +72,17 @@ services.AddScoped<ICustomerRepository, CustomerRepository>();
 services.AddScoped<IOrderRepository, OrderRepository>();
 services.AddScoped<UserManager<ApplicationUser>>();
 services.AddScoped<Helpers>();
+
+//var assembly = Assembly.Load("DotnetShop.Infrastructure");
+//var part = new AssemblyPart(assembly);
+//builder.Services.AddRazorPages()
+//    .ConfigureApplicationPartManager(apm => apm.ApplicationParts.Add(part));
+
+var assembly = typeof(WarehousesController).GetTypeInfo().Assembly;
+// This creates an AssemblyPart, but does not create any related parts for items such as views.
+var part = new AssemblyPart(assembly);
+services.AddControllersWithViews()
+    .ConfigureApplicationPartManager(apm => apm.ApplicationParts.Add(part));
 
 string dbPath, connectionString;
 var provider = configuration.GetValue<string>("DatabaseProvider");
@@ -181,7 +195,7 @@ using (var scope = app.Services.CreateScope())
         var userManager = scopedProvider.GetRequiredService<UserManager<ApplicationUser>>();
         var roleManager = scopedProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-        await DotnetShopSeed.SeedAsync(context, userManager, roleManager, app.Logger);
+        await DotnetShopSeeding.SeedAsync(context, userManager, roleManager, app.Logger);
     }
     catch (Exception ex)
     {

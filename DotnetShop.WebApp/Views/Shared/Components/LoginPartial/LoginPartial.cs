@@ -1,9 +1,8 @@
 ﻿using DotnetShop.Domain;
-using DotnetShop.WebApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DotnetShop.WebApp.Pages.Shared.Components.LoginPartial
+namespace DotnetShop.WebApp.Views.Shared.Components.LoginPartial
 {
     public class LoginPartial : ViewComponent
     {

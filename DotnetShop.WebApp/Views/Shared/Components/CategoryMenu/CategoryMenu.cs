@@ -1,7 +1,7 @@
 ﻿using DotnetShop.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DotnetShop.WebApp.Pages.Shared.Components.CategoryMenu
+namespace DotnetShop.WebApp.Views.Shared.Components.CategoryMenu
 {
     public class CategoryMenu : ViewComponent
     {

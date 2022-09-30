@@ -1,4 +1,4 @@
-﻿namespace DotnetShop.WebApp.Models
+﻿namespace DotnetShop.WebApp.Views.Shared.Components.LoginPartial
 {
     public class LoginPartialViewModel
     {

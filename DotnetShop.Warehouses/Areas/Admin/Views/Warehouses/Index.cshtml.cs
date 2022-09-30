@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DotnetShop.Warehouses.Pages
+namespace DotnetShop.Warehouses.Areas.Admin.Views.Warehouses
 {
-    public class WarehouseManagementModel : PageModel
+    public class IndexModel : PageModel
     {
         public void OnGet()
         {

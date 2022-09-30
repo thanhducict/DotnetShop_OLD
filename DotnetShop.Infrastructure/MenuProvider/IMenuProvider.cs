@@ -1,4 +1,4 @@
-﻿namespace DotnetShop.Shells.Providers.MenuProvider
+﻿namespace DotnetShop.Infrastructure.MenuProvider
 {
     /// <summary>
     /// The menu provider.

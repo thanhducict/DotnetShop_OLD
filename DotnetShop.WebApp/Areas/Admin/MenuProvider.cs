@@ -1,4 +1,4 @@
-﻿using DotnetShop.Shells.Providers.MenuProvider;
+﻿using DotnetShop.Infrastructure.MenuProvider;
 
 namespace DotnetShop.WebApp.Areas.Admin
 {

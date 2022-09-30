@@ -33,5 +33,7 @@ namespace DotnetShop.Domain
         public Category Category { get; set; }
 
         public List<OrderDetail> OrderDetails { get; set; }
+
+        public List<Warehouse> Warehouses { get; set; } = new List<Warehouse>();
     }
 }
