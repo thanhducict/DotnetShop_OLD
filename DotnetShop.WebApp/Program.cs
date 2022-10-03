@@ -1,17 +1,12 @@
 using DotnetShop.Data;
 using DotnetShop.Domain;
 using DotnetShop.Infrastructure.Initialization;
-using DotnetShop.Infrastructure.MenuProvider;
-using DotnetShop.Warehouses.Areas.Admin.Controllers;
 using DotnetShop.WebApp.Areas.Admin;
 using DotnetShop.WebApp.Services;
-using DotnetShop.WebApp.Views.Shared.Components.AdminNavigation;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);

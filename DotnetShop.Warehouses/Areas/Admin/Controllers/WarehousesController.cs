@@ -11,5 +11,10 @@ namespace DotnetShop.Warehouses.Areas.Admin.Controllers
         {
             return View();
         }
+
+        public IActionResult Map()
+        {
+            return View();
+        }
     }
 }

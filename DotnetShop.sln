@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.WebClient", "Dot
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.Warehouses", "DotnetShop.Warehouses\DotnetShop.Warehouses.csproj", "{C568143B-016B-497E-9F54-50ECBF756E49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetShop.Infrastructure", "DotnetShop.Infrastructure\DotnetShop.Infrastructure.csproj", "{63F729AD-5020-4B2B-9731-15870AC377B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.Infrastructure", "DotnetShop.Infrastructure\DotnetShop.Infrastructure.csproj", "{63F729AD-5020-4B2B-9731-15870AC377B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
