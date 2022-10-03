@@ -1,8 +1,11 @@
 using DotnetShop.Data;
 using DotnetShop.Domain;
+using DotnetShop.Infrastructure.Initialization;
+using DotnetShop.Infrastructure.MenuProvider;
 using DotnetShop.Warehouses.Areas.Admin.Controllers;
 using DotnetShop.WebApp.Areas.Admin;
 using DotnetShop.WebApp.Services;
+using DotnetShop.WebApp.Views.Shared.Components.AdminNavigation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.EntityFrameworkCore;
@@ -73,16 +76,18 @@ services.AddScoped<IOrderRepository, OrderRepository>();
 services.AddScoped<UserManager<ApplicationUser>>();
 services.AddScoped<Helpers>();
 
-//var assembly = Assembly.Load("DotnetShop.Infrastructure");
-//var part = new AssemblyPart(assembly);
-//builder.Services.AddRazorPages()
-//    .ConfigureApplicationPartManager(apm => apm.ApplicationParts.Add(part));
+//TODO: Why is the order important here?
+var allModules = AppDomain.CurrentDomain.GetAssemblies()
+               .SelectMany(s => s.GetTypes()).Where(p => typeof(IInitialization).IsAssignableFrom(p) && p.IsClass);
 
-var assembly = typeof(WarehousesController).GetTypeInfo().Assembly;
-// This creates an AssemblyPart, but does not create any related parts for items such as views.
-var part = new AssemblyPart(assembly);
-services.AddControllersWithViews()
-    .ConfigureApplicationPartManager(apm => apm.ApplicationParts.Add(part));
+foreach (var item in allModules)
+{
+    var module = Activator.CreateInstance(item) as IInitialization;
+    if (module != null)
+    {
+        module.ConfigureContainer(services);
+    }
+}
 
 string dbPath, connectionString;
 var provider = configuration.GetValue<string>("DatabaseProvider");
