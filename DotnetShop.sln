@@ -18,13 +18,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.Migrations.SqlSe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.WebApp", "DotnetShop.WebApp\DotnetShop.WebApp.csproj", "{29256AEF-AFF3-4FA4-9FAB-1430EAB36301}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.Tests", "DotnetShop.Tests\DotnetShop.Tests.csproj", "{4101493C-F651-4ACD-B5F7-C5025399E740}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.WebClient", "DotnetShop.WebClient\DotnetShop.WebClient.csproj", "{E3BDE3A8-505F-4D3B-8A06-B8E53243E9AF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.Warehouses", "DotnetShop.Warehouses\DotnetShop.Warehouses.csproj", "{C568143B-016B-497E-9F54-50ECBF756E49}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.Infrastructure", "DotnetShop.Infrastructure\DotnetShop.Infrastructure.csproj", "{63F729AD-5020-4B2B-9731-15870AC377B9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.WebApp.Tests", "DotnetShop.WebApp.Tests\DotnetShop.WebApp.Tests.csproj", "{8D6484C1-F027-4C43-A133-2AD848722F17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,10 +52,6 @@ Global
 		{29256AEF-AFF3-4FA4-9FAB-1430EAB36301}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29256AEF-AFF3-4FA4-9FAB-1430EAB36301}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29256AEF-AFF3-4FA4-9FAB-1430EAB36301}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4101493C-F651-4ACD-B5F7-C5025399E740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4101493C-F651-4ACD-B5F7-C5025399E740}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4101493C-F651-4ACD-B5F7-C5025399E740}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4101493C-F651-4ACD-B5F7-C5025399E740}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E3BDE3A8-505F-4D3B-8A06-B8E53243E9AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E3BDE3A8-505F-4D3B-8A06-B8E53243E9AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3BDE3A8-505F-4D3B-8A06-B8E53243E9AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -68,6 +64,10 @@ Global
 		{63F729AD-5020-4B2B-9731-15870AC377B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63F729AD-5020-4B2B-9731-15870AC377B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63F729AD-5020-4B2B-9731-15870AC377B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D6484C1-F027-4C43-A133-2AD848722F17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D6484C1-F027-4C43-A133-2AD848722F17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D6484C1-F027-4C43-A133-2AD848722F17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D6484C1-F027-4C43-A133-2AD848722F17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
