@@ -7,7 +7,6 @@
     <div class="warehouse-container__dropdown">
         <label for="cars">Choose a product </label>
         <select name="products" id="products">
-            <option value="all">All</option>
             @foreach (var item in ViewBag.Products)
             {
                 <option value="@item.Value">@item.Text</option>

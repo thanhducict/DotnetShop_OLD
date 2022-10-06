@@ -2,7 +2,6 @@
 using DotnetShop.Warehouses.Areas.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotnetShop.Warehouses.Areas.Admin.Controllers
@@ -74,6 +73,33 @@ namespace DotnetShop.Warehouses.Areas.Admin.Controllers
             });
 
             ViewBag.Products = products;
+        }
+
+        public JsonResult GetWarehouseMapInfo([FromQuery] int productId = 0)
+        {
+            var product = _context.Products.Include(p => p.Warehouses).Where(p => p.ProductId == productId).SingleOrDefault();
+            if (product == null)
+            {
+                return new JsonResult(new WarehouseLocationModel());
+            }
+
+            var warehouseOfProduct = _context.ProductWarehouses.Where(p => p.ProductId == productId).Select(x => x.WarehouseId);
+
+            var model = new WarehouseLocationModel
+            {
+                ProductId = product.ProductId,
+                ProductName = product.Name,
+                WarehouseModels = product.Warehouses.Select(w => new WarehouseModel
+                {
+                    WarehouseId = w.WarehouseId,
+                    WarehouseName = w.WarehouseName,
+                    Address = w.Address,
+                    Latitude = w.Latitude,
+                    Longitude = w.Longitude
+                }).ToList(),
+            };
+
+            return new JsonResult(model);
         }
     }
 }

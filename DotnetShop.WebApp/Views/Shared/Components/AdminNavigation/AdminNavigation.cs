@@ -1,7 +1,6 @@
 ﻿using DotnetShop.Infrastructure.MenuProvider;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
-using System.Collections.Generic;
 
 namespace DotnetShop.WebApp.Views.Shared.Components.AdminNavigation
 {
