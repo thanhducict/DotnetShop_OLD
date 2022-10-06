@@ -241,59 +241,80 @@ namespace DotnetShop.Data
                 {
                     WarehouseName = "New York",
                     Address = "20 W 34th St., New York, NY 10001, United States",
+                    Latitude = "40.748773",
+                    Longitude = "-73.985717",
                 },
                 new Warehouse
                 {
                     WarehouseName = "San Francisco",
                     Address = "65 Crestline Dr, San Francisco, CA 94131, United States",
+                    Latitude = "37.751316",
+                    Longitude = "-122.446492",
                 },
                 new Warehouse
                 {
-                    WarehouseName = "Manchester",
-                    Address = "Sir Matt Busby Way, Old Trafford, Stretford, Manchester M16 0RA, United Kingdom",
+                    WarehouseName = "Los Angeles",
+                    Address = "700 W 7th St, Los Angeles, California, United States",
+                    Latitude = "34.047913",
+                    Longitude = "-118.259088",
                 },
 
                 new Warehouse
                 {
-                    WarehouseName = "London",
-                    Address = "75 Stanhope Gardens, South Kensington, London SW7 5RN, United Kingdom",
+                    WarehouseName = "Redmond",
+                    Address = "3720 159th Ave NE, Redmond, WA 98052",
+                    Latitude = "47.644649",
+                    Longitude = "-122.124576",
                 },
                 new Warehouse
                 {
-                    WarehouseName = "Hanoi Coffee House",
-                    Address = "159 P. Trần Đại Nghĩa, Bách Khoa, Hai Bà Trưng, Hà Nội 100000, Vietnam",
+                    WarehouseName = "Temecula",
+                    Address = "28544 Old Town Front St, Temecula, California, United States",
+                    Latitude = "33.49477",
+                    Longitude = "-117.1502",
                 },
                 new Warehouse
                 {
-                    WarehouseName = "Hanoi Highlands",
-                    Address = "91 P. Trần Đại Nghĩa, Bách Khoa, Hai Bà Trưng, Hà Nội, Vietnam",
+                    WarehouseName = "San Diego",
+                    Address = "7077 Friars Rd, San Diego, California, United States",
+                    Latitude = "32.770029",
+                    Longitude = "-117.163378",
                 },
                 new Warehouse
                 {
-                    WarehouseName = "Hanoi Center Point",
-                    Address = "Tầng 5 TTTM Hà Nội Centerpoint, 27 Đ. Lê Văn Lương, Nhân Chính, Thanh Xuân, Hà Nội, Vietnam",
+                    WarehouseName = "Austin",
+                    Address = "1619 E Cesar Chavez St, Austin, Texas, United Statesm",
+                    Latitude = "30.257724",
+                    Longitude = "-97.727186",
                 },
                 new Warehouse
                 {
-                    WarehouseName = "Hanoi Royal City",
-                    Address = "72A Đ. Nguyễn Trãi, Thượng Đình, Thanh Xuân, Hà Nội, Vietnam",
+                    WarehouseName = "New Hampshire",
+                    Address = "837 2nd St, Manchester, New Hampshire, United States",
+                    Latitude = "42.970134",
+                    Longitude = "-71.480045",
                 },
                 new Warehouse
                 {
-                    WarehouseName = "Hanoi Vincom",
-                    Address = "191 Bà Triệu, Lê Đại Hành, Hai Bà Trưng, Hà Nội Hà Nội Hanoi City, 100000, Vietnam",
+                    WarehouseName = "Boston",
+                    Address = "218 Market St, Boston, Massachusetts, United States",
+                    Latitude = "42.35507",
+                    Longitude = "-71.149556",
                 },
                 new Warehouse
                 {
-                    WarehouseName = "Hanoi FPT Tower",
-                    Address = "10 P. Phạm Văn Bạch, Dịch Vọng, Cầu Giấy, Hà Nội 100000, Vietnam",
+                    WarehouseName = "Michigan",
+                    Address = "1389 Walker Village Dr NW, Walker, Michigan, United States",
+                    Latitude = "42.990265",
+                    Longitude = "-85.754184",
                 },
             };
         }
 
         public static async Task AddProductsToWarehouses(DotnetShopDbContext context)
         {
-            var random = new Random();
+            var skipRandom = new Random();
+            var quantityRandom = new Random();
             var allProducts = context.Products.ToList();
             var allWarehouses = context.Warehouses.ToList();
 
@@ -301,11 +322,18 @@ namespace DotnetShop.Data
             {
                 foreach (var warehouse in allWarehouses)
                 {
+                    // skip adding some products to warehouses
+                    var r = skipRandom.Next(1, 3);
+                    if (r == 2)
+                    {
+                        continue;
+                    }
+
                     await context.ProductWarehouses.AddAsync(new ProductWarehouse
                     {
                         ProductId = product.ProductId,
                         WarehouseId = warehouse.WarehouseId,
-                        ProductQuantity = random.Next(50, 500)
+                        ProductQuantity = quantityRandom.Next(50, 500)
                     });
                 }
             }

@@ -1,5 +1,6 @@
 ﻿using DotnetShop.Infrastructure.Initialization;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -14,6 +15,8 @@ namespace DotnetShop.Warehouses
             var part = new AssemblyPart(assembly);
             services.AddControllersWithViews()
                 .ConfigureApplicationPartManager(apm => apm.ApplicationParts.Add(part));
+
+            services.AddTransient<ITagHelperComponent, WarehouseTagHelperComponent>();
         }
     }
 }

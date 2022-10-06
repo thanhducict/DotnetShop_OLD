@@ -1,0 +1,51 @@
+﻿@using DotnetShop.Warehouses.Areas.Admin.Models
+@model WarehouseDetailModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>@Model.WarehouseName</h2>
+
+<div>
+    Id: @Model.WarehouseId
+</div>
+<div>
+    Name: @Model.WarehouseName
+</div>
+<div>
+    Address: @Model.Address
+</div>
+<div>
+    Latitude: @Model.Latitude
+</div>
+<div>
+    Longitude: @Model.Longitude
+</div>
+
+<div class="mt-3">
+    <h5>Products in this warehouse</h5>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Category Name</th>
+            <th scope="col">Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ProductModels)
+        {
+            <tr>
+                <td>@item.ProductId</td>
+                <td>@item.ProductName</td>
+                <td>@item.CategoryName</td>
+                <td>@item.Quantity</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-outline-primary mt-3">All Warehouses</a>

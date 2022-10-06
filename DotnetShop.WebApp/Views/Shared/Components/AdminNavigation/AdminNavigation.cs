@@ -1,6 +1,7 @@
 ﻿using DotnetShop.Infrastructure.MenuProvider;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using System.Collections.Generic;
 
 namespace DotnetShop.WebApp.Views.Shared.Components.AdminNavigation
 {
@@ -16,11 +17,11 @@ namespace DotnetShop.WebApp.Views.Shared.Components.AdminNavigation
 
         public IViewComponentResult Invoke()
         {
-            var navigationItems = new List<NavigationItemModel>();
-
-            if (!_memoryCache.TryGetValue(CacheKey, out IEnumerable<Type> allMenuProviders))
+            if (!_memoryCache.TryGetValue(CacheKey, out List<NavigationItemModel> navigationItems))
             {
-                allMenuProviders = AppDomain.CurrentDomain.GetAssemblies()
+                navigationItems = new List<NavigationItemModel>();
+
+                var allMenuProviders = AppDomain.CurrentDomain.GetAssemblies()
                .SelectMany(s => s.GetTypes()).Where(p => typeof(IMenuProvider).IsAssignableFrom(p) && p.IsClass);
 
                 foreach (var item in allMenuProviders)
@@ -41,7 +42,7 @@ namespace DotnetShop.WebApp.Views.Shared.Components.AdminNavigation
                     }
                 }
 
-                _memoryCache.Set(CacheKey, allMenuProviders);
+                _memoryCache.Set(CacheKey, navigationItems);
             }
 
             var model = new AdminNavigationViewModel
