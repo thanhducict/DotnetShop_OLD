@@ -59,7 +59,7 @@ namespace DotnetShop.WebApp.Services
                 cartItem = new CartLineItem
                 {
                     ProductId = selectedProduct.ProductId,
-                    Quantity = 1
+                    Quantity = quantity
                 };
 
                 cart.CartLineItems.Add(cartItem);

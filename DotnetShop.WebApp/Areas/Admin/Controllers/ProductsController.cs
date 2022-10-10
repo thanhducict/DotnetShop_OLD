@@ -1,5 +1,6 @@
 ﻿using DotnetShop.Data;
 using DotnetShop.Domain;
+using DotnetShop.WebApp.Areas.Admin.Helpers;
 using DotnetShop.WebApp.Areas.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +14,11 @@ namespace DotnetShop.WebApp.Areas.Admin.Controllers
     {
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
-        private readonly Helpers _helpers;
+        private readonly IHelpers _helpers;
 
         public ProductsController(IProductRepository productRepository,
             ICategoryRepository categoryRepository,
-            Helpers helpers)
+            IHelpers helpers)
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
@@ -50,8 +51,8 @@ namespace DotnetShop.WebApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(ProductViewModel model)
         {
-            var imageUrl = _helpers.UploadFile(model.Image, Helpers.UploadFileType.ProductImage, $"{model.Name} HD");
-            var imageThumbnailUrl = _helpers.UploadFile(model.Image, Helpers.UploadFileType.ProductImage, $"{model.Name}");
+            var imageUrl = _helpers.UploadFile(model.Image, Helpers.Helpers.UploadFileType.ProductImage, $"{model.Name} HD");
+            var imageThumbnailUrl = _helpers.UploadFile(model.Image, Helpers.Helpers.UploadFileType.ProductImage, $"{model.Name}");
 
             var product = new Product
             {
@@ -69,7 +70,7 @@ namespace DotnetShop.WebApp.Areas.Admin.Controllers
 
             _productRepository.CreateProduct(product);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Product");
         }
 
         public IActionResult Edit(int id)
@@ -100,8 +101,8 @@ namespace DotnetShop.WebApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(ProductViewModel model)
         {
-            var imageUrl = _helpers.UploadFile(model.Image, Helpers.UploadFileType.ProductImage, $"{model.Name} HD");
-            var imageThumbnailUrl = _helpers.UploadFile(model.ImageThumbnail, Helpers.UploadFileType.ProductImage, $"{model.Name}");
+            var imageUrl = _helpers.UploadFile(model.Image, Helpers.Helpers.UploadFileType.ProductImage, $"{model.Name} HD");
+            var imageThumbnailUrl = _helpers.UploadFile(model.ImageThumbnail, Helpers.Helpers.UploadFileType.ProductImage, $"{model.Name}");
 
             var updatedProduct = new Product
             {
@@ -143,7 +144,7 @@ namespace DotnetShop.WebApp.Areas.Admin.Controllers
 
             _productRepository.UpdateProduct(updatedProduct);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Product");
         }
 
         [HttpPost]

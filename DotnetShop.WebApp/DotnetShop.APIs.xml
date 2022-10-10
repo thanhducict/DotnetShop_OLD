@@ -88,7 +88,7 @@
             <param name="id">The identifier.</param>
             <returns>A <see cref="T:Microsoft.AspNetCore.Mvc.NoContentResult"/>.</returns>
         </member>
-        <member name="M:DotnetShop.WebApp.Areas.Admin.Helpers.UploadFile(Microsoft.AspNetCore.Http.IFormFile,DotnetShop.WebApp.Areas.Admin.Helpers.UploadFileType,System.String)">
+        <member name="M:DotnetShop.WebApp.Areas.Admin.Helpers.Helpers.UploadFile(Microsoft.AspNetCore.Http.IFormFile,DotnetShop.WebApp.Areas.Admin.Helpers.Helpers.UploadFileType,System.String)">
             <summary>
             Executes file uploading.
             </summary>

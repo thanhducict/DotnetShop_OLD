@@ -1,7 +1,7 @@
 using DotnetShop.Data;
 using DotnetShop.Domain;
 using DotnetShop.Infrastructure.Initialization;
-using DotnetShop.WebApp.Areas.Admin;
+using DotnetShop.WebApp.Areas.Admin.Helpers;
 using DotnetShop.WebApp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -70,7 +70,7 @@ services.AddScoped<ICheckoutService, CheckoutService>();
 services.AddScoped<ICustomerRepository, CustomerRepository>();
 services.AddScoped<IOrderRepository, OrderRepository>();
 services.AddScoped<UserManager<ApplicationUser>>();
-services.AddScoped<Helpers>();
+services.AddScoped<IHelpers, Helpers>();
 
 //TODO: Why is the order important here?
 var allModules = AppDomain.CurrentDomain.GetAssemblies()

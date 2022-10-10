@@ -1,6 +1,6 @@
-﻿namespace DotnetShop.WebApp.Areas.Admin
+﻿namespace DotnetShop.WebApp.Areas.Admin.Helpers
 {
-    public class Helpers
+    public class Helpers : IHelpers
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
 
