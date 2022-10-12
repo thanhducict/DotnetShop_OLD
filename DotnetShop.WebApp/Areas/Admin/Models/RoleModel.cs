@@ -2,7 +2,7 @@
 
 namespace DotnetShop.WebApp.Areas.Admin.Models
 {
-    public class RoleViewModel
+    public class RoleModel
     {
         [Required]
         public string RoleName { get; set; }

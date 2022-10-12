@@ -30,7 +30,7 @@ namespace DotnetShop.WebApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(RoleViewModel model)
+        public async Task<IActionResult> Create(RoleModel model)
         {
             if (ModelState.IsValid)
             {

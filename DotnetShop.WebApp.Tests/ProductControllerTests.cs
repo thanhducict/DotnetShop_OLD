@@ -118,7 +118,7 @@ namespace DotnetShop.WebApp.Tests
             var viewBagCategories = ((ViewResult)_productController.Create()).ViewData.Values.ToList().FirstOrDefault();
             var items = ((IEnumerable<SelectListItem>)viewBagCategories).ToList().OrderBy(i => i.Value);
 
-            var result = ((ViewResult)_productController.Create()).Model as ProductViewModel;
+            var result = ((ViewResult)_productController.Create()).Model as ProductModel;
 
             Assert.Equal("Shirt", items.FirstOrDefault().Text);
             Assert.Equal("Cup", items.ElementAt(1).Text);
@@ -132,7 +132,7 @@ namespace DotnetShop.WebApp.Tests
         [Fact]
         public void Create_Post_ShouldReturnsRedirect()
         {
-            var newProduct = new ProductViewModel
+            var newProduct = new ProductModel
             {
                 ProductId = 1,
                 Name = "Kudu Purple Sweatshirt",
@@ -158,7 +158,7 @@ namespace DotnetShop.WebApp.Tests
             var viewBagCategories = ((ViewResult)_productController.Edit(2)).ViewData.Values.ToList().FirstOrDefault();
             var items = ((IEnumerable<SelectListItem>)viewBagCategories).ToList().OrderBy(i => i.Value);
 
-            var result = ((ViewResult)_productController.Edit(2)).Model as ProductViewModel;
+            var result = ((ViewResult)_productController.Edit(2)).Model as ProductModel;
 
             Assert.Equal("Shirt", items.FirstOrDefault().Text);
             Assert.Equal("Cup", items.ElementAt(1).Text);
@@ -172,7 +172,7 @@ namespace DotnetShop.WebApp.Tests
         [Fact]
         public void Edit_Post_ShouldReturnsRedirect()
         {
-            var newProduct = new ProductViewModel
+            var newProduct = new ProductModel
             {
                 ProductId = 2,
                 Name = "Edited",

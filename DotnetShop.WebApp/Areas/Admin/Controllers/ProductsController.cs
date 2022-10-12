@@ -45,11 +45,11 @@ namespace DotnetShop.WebApp.Areas.Admin.Controllers
         {
             PopulateCategoriesDropDownList();
 
-            return View(new ProductViewModel());
+            return View(new ProductModel());
         }
 
         [HttpPost]
-        public IActionResult Create(ProductViewModel model)
+        public IActionResult Create(ProductModel model)
         {
             var imageUrl = _helpers.UploadFile(model.Image, Helpers.Helpers.UploadFileType.ProductImage, $"{model.Name} HD");
             var imageThumbnailUrl = _helpers.UploadFile(model.Image, Helpers.Helpers.UploadFileType.ProductImage, $"{model.Name}");
@@ -81,7 +81,7 @@ namespace DotnetShop.WebApp.Areas.Admin.Controllers
             if (product == null)
                 return NotFound();
 
-            var model = new ProductViewModel
+            var model = new ProductModel
             {
                 ProductId = product.ProductId,
                 Name = product.Name,
@@ -99,7 +99,7 @@ namespace DotnetShop.WebApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(ProductViewModel model)
+        public IActionResult Edit(ProductModel model)
         {
             var imageUrl = _helpers.UploadFile(model.Image, Helpers.Helpers.UploadFileType.ProductImage, $"{model.Name} HD");
             var imageThumbnailUrl = _helpers.UploadFile(model.ImageThumbnail, Helpers.Helpers.UploadFileType.ProductImage, $"{model.Name}");
