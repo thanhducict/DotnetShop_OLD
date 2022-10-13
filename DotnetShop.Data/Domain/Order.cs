@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DotnetShop.Domain
+namespace DotnetShop.Data.Domain
 {
     public class Order
     {

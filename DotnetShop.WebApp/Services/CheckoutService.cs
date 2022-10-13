@@ -1,5 +1,5 @@
-using DotnetShop.Data;
-using DotnetShop.Domain;
+using DotnetShop.Data.Domain;
+using DotnetShop.Data.Repositories;
 using DotnetShop.WebApp.Models;
 
 namespace DotnetShop.WebApp.Services

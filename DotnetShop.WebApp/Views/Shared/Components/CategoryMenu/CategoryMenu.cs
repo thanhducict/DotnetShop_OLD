@@ -1,4 +1,4 @@
-﻿using DotnetShop.Data;
+﻿using DotnetShop.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetShop.WebApp.Views.Shared.Components.CategoryMenu

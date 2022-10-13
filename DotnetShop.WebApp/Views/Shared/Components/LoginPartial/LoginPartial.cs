@@ -1,4 +1,4 @@
-﻿using DotnetShop.Domain;
+﻿using DotnetShop.Data.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

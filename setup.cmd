@@ -1,8 +1,8 @@
 @echo off
 
-echo =========================================
-echo Execute Db migrations and model seed data
-echo =========================================
+echo ======================================
+echo Execute Db migrations and data seeding
+echo ======================================
 
 echo === Sqlite Migrations ===
 if exist DotnetShop.Migrations.Sqlite\Migrations\ (

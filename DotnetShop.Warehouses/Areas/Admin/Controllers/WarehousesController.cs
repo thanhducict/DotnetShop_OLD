@@ -1,4 +1,4 @@
-﻿using DotnetShop.Data;
+﻿using DotnetShop.Data.Repositories;
 using DotnetShop.Warehouses.Areas.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

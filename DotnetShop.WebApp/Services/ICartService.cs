@@ -1,4 +1,4 @@
-using DotnetShop.Domain;
+using DotnetShop.Data.Domain;
 
 namespace DotnetShop.WebApp.Services
 {

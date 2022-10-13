@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace DotnetShop.Domain
+namespace DotnetShop.Data.Domain
 {
     public class ApplicationUser : IdentityUser
     {

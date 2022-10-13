@@ -1,9 +1,9 @@
-﻿using DotnetShop.Domain;
+﻿using DotnetShop.Data.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace DotnetShop.Data
+namespace DotnetShop.Data.Repositories
 {
     public class DotnetShopSeeding
     {

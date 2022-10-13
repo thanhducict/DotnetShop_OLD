@@ -1,5 +1,5 @@
-﻿using DotnetShop.Data;
-using DotnetShop.Domain;
+﻿using DotnetShop.Data.Domain;
+using DotnetShop.Data.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;

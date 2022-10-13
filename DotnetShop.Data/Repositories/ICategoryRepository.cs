@@ -1,6 +1,6 @@
-﻿using DotnetShop.Domain;
+﻿using DotnetShop.Data.Domain;
 
-namespace DotnetShop.Data
+namespace DotnetShop.Data.Repositories
 {
     public interface ICategoryRepository
     {

@@ -1,4 +1,4 @@
-﻿namespace DotnetShop.Domain
+﻿namespace DotnetShop.Data.Domain
 {
     public class Cart
     {

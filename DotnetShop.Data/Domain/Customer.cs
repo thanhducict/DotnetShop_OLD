@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace DotnetShop.Domain
+namespace DotnetShop.Data.Domain
 {
     public class Customer
     {

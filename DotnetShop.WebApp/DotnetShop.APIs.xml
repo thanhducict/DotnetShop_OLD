@@ -34,7 +34,7 @@
             APIs to work with customers.
             </summary>
         </member>
-        <member name="M:DotnetShop.WebApp.APIs.CustomerManagement.CustomerManagementController.#ctor(DotnetShop.Data.DotnetShopDbContext,Microsoft.Extensions.Logging.ILogger{DotnetShop.WebApp.APIs.CustomerManagement.CustomerManagementController},Microsoft.AspNetCore.Identity.UserManager{DotnetShop.Domain.ApplicationUser})">
+        <member name="M:DotnetShop.WebApp.APIs.CustomerManagement.CustomerManagementController.#ctor(DotnetShop.Data.Repositories.DotnetShopDbContext,Microsoft.Extensions.Logging.ILogger{DotnetShop.WebApp.APIs.CustomerManagement.CustomerManagementController},Microsoft.AspNetCore.Identity.UserManager{DotnetShop.Data.Domain.ApplicationUser})">
             <summary>
             The constructor of controller.
             </summary>

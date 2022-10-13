@@ -1,8 +1,8 @@
-﻿using DotnetShop.Domain;
+﻿using DotnetShop.Data.Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace DotnetShop.Data
+namespace DotnetShop.Data.Repositories
 {
     public class DotnetShopDbContext : IdentityDbContext
     {
@@ -33,9 +33,9 @@ namespace DotnetShop.Data
                 .UsingEntity<ProductWarehouse>(pw => pw.HasOne<Warehouse>().WithMany(), pw => pw.HasOne<Product>().WithMany())
                 .Property(pw => pw.ProductQuantity).HasDefaultValue(0);
 
-            modelBuilder.Entity<Category>().HasData(new Category { CategoryId = 1, CategoryName = "Shirt" });
-            modelBuilder.Entity<Category>().HasData(new Category { CategoryId = 2, CategoryName = "Cup" });
-            modelBuilder.Entity<Category>().HasData(new Category { CategoryId = 3, CategoryName = "Badge" });
+            modelBuilder.Entity<Category>().HasData(new Category { CategoryId = 1, CategoryName = "Shirt", Description = "" });
+            modelBuilder.Entity<Category>().HasData(new Category { CategoryId = 2, CategoryName = "Cup", Description = "" });
+            modelBuilder.Entity<Category>().HasData(new Category { CategoryId = 3, CategoryName = "Badge", Description = "" });
 
             base.OnModelCreating(modelBuilder);
         }

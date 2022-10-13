@@ -1,7 +1,7 @@
-﻿using DotnetShop.Domain;
+﻿using DotnetShop.Data.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace DotnetShop.Data
+namespace DotnetShop.Data.Repositories
 {
     public class ProductRepository : IProductRepository
     {
