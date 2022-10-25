@@ -1,10 +1,10 @@
-﻿using DotnetShop.Data.Repositories;
-using DotnetShop.Warehouses.Areas.Admin.Models;
+﻿using DotnetShop.Admin.Warehouses.Areas.Admin.Models;
+using DotnetShop.Data.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace DotnetShop.Warehouses.Areas.Admin.Controllers
+namespace DotnetShop.Admin.Warehouses.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]

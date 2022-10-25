@@ -18,15 +18,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Index">Home</a>
-                        </li>
-                        @await Component.InvokeAsync("CategoryMenu")
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Contact">Contact</a>
-                        </li>
-                    </ul>
+                    @await Component.InvokeAsync("MainNavigation")
                     @await Component.InvokeAsync("CartSummary")
                     @await Component.InvokeAsync("LoginPartial")
                 </div>

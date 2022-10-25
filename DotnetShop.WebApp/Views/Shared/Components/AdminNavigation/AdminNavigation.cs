@@ -16,37 +16,38 @@ namespace DotnetShop.WebApp.Views.Shared.Components.AdminNavigation
 
         public IViewComponentResult Invoke()
         {
-            if (!_memoryCache.TryGetValue(CacheKey, out List<NavigationItemModel> navigationItems))
+            if (!_memoryCache.TryGetValue(CacheKey, out List<AdminNavigationItemModel> adminNavigationItems))
             {
-                navigationItems = new List<NavigationItemModel>();
+                adminNavigationItems = new List<AdminNavigationItemModel>();
 
                 var allMenuProviders = AppDomain.CurrentDomain.GetAssemblies()
-               .SelectMany(s => s.GetTypes()).Where(p => typeof(IMenuProvider).IsAssignableFrom(p) && p.IsClass);
+               .SelectMany(s => s.GetTypes()).Where(p => typeof(IAdminMenuProvider).IsAssignableFrom(p) && p.IsClass);
 
                 foreach (var item in allMenuProviders)
                 {
-                    var menuProvider = Activator.CreateInstance(item) as IMenuProvider;
+                    var menuProvider = Activator.CreateInstance(item) as IAdminMenuProvider;
                     if (menuProvider != null && menuProvider.GetMenuItems() != null && menuProvider.GetMenuItems().Any())
                     {
                         var menuItems = menuProvider.GetMenuItems();
 
-                        navigationItems.AddRange(menuItems.Select(x => new NavigationItemModel
+                        adminNavigationItems.AddRange(menuItems.Select(x => new AdminNavigationItemModel
                         {
                             AspArea = x.AspArea,
                             AspController = x.AspController,
                             AspAction = x.AspAction,
-                            AspPage = x.AspPage,
-                            MenuText = x.MenuText,
+                            MenuItemText = x.MenuItemText,
+                            Order = x.Order,
                         }));
                     }
                 }
 
-                _memoryCache.Set(CacheKey, navigationItems);
+                adminNavigationItems=adminNavigationItems.OrderBy(x => x.Order).ToList();
+                _memoryCache.Set(CacheKey, adminNavigationItems);
             }
 
             var model = new AdminNavigationViewModel
             {
-                NavigationItems = navigationItems
+                AdminNavigationItems = adminNavigationItems
             };
 
             return View(model);

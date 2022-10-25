@@ -2,15 +2,16 @@
 {
     public class AdminNavigationViewModel
     {
-        public IEnumerable<NavigationItemModel> NavigationItems { get; set; }
+        public IEnumerable<AdminNavigationItemModel> AdminNavigationItems { get; set; }
     }
 
-    public class NavigationItemModel
+    public class AdminNavigationItemModel
     {
         public string AspArea { get; set; }
         public string AspController { get; set; }
         public string AspAction { get; set; }
         public string AspPage { get; set; }
-        public string MenuText { get; set; }
+        public string MenuItemText { get; set; }
+        public int Order { get; set; }
     }
 }

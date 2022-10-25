@@ -1,4 +1,4 @@
-﻿namespace DotnetShop.Warehouses.Areas.Admin.Models
+﻿namespace DotnetShop.Admin.Warehouses.Areas.Admin.Models
 {
     public class WarehouseModel
     {

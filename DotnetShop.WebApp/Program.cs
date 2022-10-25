@@ -81,7 +81,7 @@ foreach (var item in allModules)
     var module = Activator.CreateInstance(item) as IInitialization;
     if (module != null)
     {
-        module.ConfigureContainer(services);
+        module.ConfigureContainer(services, configuration);
     }
 }
 
@@ -175,7 +175,7 @@ if (environment.IsDevelopment())
     app.UseStaticFiles(new StaticFileOptions
     {
         FileProvider = new PhysicalFileProvider(
-            Path.Combine(environment.ContentRootPath, @"../DotnetShop.Warehouses/Assets")),
+            Path.Combine(environment.ContentRootPath, @"../DotnetShop.Admin.Warehouses/Assets")),
         RequestPath = "/warehouse-assets"
     });
 }

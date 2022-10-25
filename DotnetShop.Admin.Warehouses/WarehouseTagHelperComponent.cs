@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace DotnetShop.Warehouses
+namespace DotnetShop.Admin.Warehouses
 {
     public class WarehouseTagHelperComponent : TagHelperComponent
     {

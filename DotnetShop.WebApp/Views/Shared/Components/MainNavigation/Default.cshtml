@@ -1,0 +1,19 @@
+﻿@using DotnetShop.WebApp.Views.Shared.Components.MainNavigation
+@model MainNavigationViewModel
+
+<ul class="navbar-nav flex-grow-1">
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-page="/Index">Home</a>
+    </li>
+    @await Component.InvokeAsync("CategoryMenu")
+
+    @foreach (var item in Model.MainNavigationItems)
+    {
+        if (!string.IsNullOrEmpty(item.AspPage) && !string.IsNullOrEmpty(item.MenuItemText))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-page="@item.AspPage">@item.MenuItemText</a>
+            </li>
+        }
+    }
+</ul>

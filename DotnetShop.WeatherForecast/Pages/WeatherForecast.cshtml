@@ -1,0 +1,28 @@
+﻿@page
+@model DotnetShop.WeatherForecast.Pages.IndexModel
+@{
+    ViewData["Title"] = "Weather Forecast";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.ShowWeatherForecast)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-info" role="alert">
+                <h4>@Model.ForecastSectionTitle</h4>
+                <p>@Model.WeatherDescription</p>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @if (Model.ShowGreeting)
+        {
+            <h3>@Model.Greeting</h3>
+        }
+    </div>
+</div>
