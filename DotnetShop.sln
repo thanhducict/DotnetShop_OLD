@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{A6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.Admin.Warehouses", "DotnetShop.Admin.Warehouses\DotnetShop.Admin.Warehouses.csproj", "{8F1B9591-B5A2-42A2-BDC8-5B83DA3D267F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.WeatherForecast", "DotnetShop.WeatherForecast\DotnetShop.WeatherForecast.csproj", "{FF97ED01-B57F-4F9C-9E33-ADEE19A4200A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.News", "DotnetShop.News\DotnetShop.News.csproj", "{45C7D278-0B68-4BDC-9F1C-3A01260B6CAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,10 +69,10 @@ Global
 		{8F1B9591-B5A2-42A2-BDC8-5B83DA3D267F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F1B9591-B5A2-42A2-BDC8-5B83DA3D267F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F1B9591-B5A2-42A2-BDC8-5B83DA3D267F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF97ED01-B57F-4F9C-9E33-ADEE19A4200A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF97ED01-B57F-4F9C-9E33-ADEE19A4200A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF97ED01-B57F-4F9C-9E33-ADEE19A4200A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF97ED01-B57F-4F9C-9E33-ADEE19A4200A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45C7D278-0B68-4BDC-9F1C-3A01260B6CAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45C7D278-0B68-4BDC-9F1C-3A01260B6CAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45C7D278-0B68-4BDC-9F1C-3A01260B6CAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45C7D278-0B68-4BDC-9F1C-3A01260B6CAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,7 +81,7 @@ Global
 		{BDF7D0D5-2DC4-4747-BD0F-8800E6885B9A} = {CF247117-115B-496C-9D1B-B60ACA0CB9E6}
 		{63F729AD-5020-4B2B-9731-15870AC377B9} = {CF247117-115B-496C-9D1B-B60ACA0CB9E6}
 		{8F1B9591-B5A2-42A2-BDC8-5B83DA3D267F} = {A64AB418-D7A3-4497-8E82-9A59DE87A812}
-		{FF97ED01-B57F-4F9C-9E33-ADEE19A4200A} = {A64AB418-D7A3-4497-8E82-9A59DE87A812}
+		{45C7D278-0B68-4BDC-9F1C-3A01260B6CAD} = {A64AB418-D7A3-4497-8E82-9A59DE87A812}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B623C7B-B74D-489B-83C6-04B85CF0D792}

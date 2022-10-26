@@ -8,8 +8,16 @@
     "WeatherForecasting": {
       "EnableWeatherForecast": true
     },
-    "ExternalServices": {
-      "WeatherApiUrl": "http://localhost:62855"
+    "Greeting": {
+      "GreetingColour": "#0000ff"
+    }
+  },
+  "NewsProvider": {
+    "WeatherApi": {
+      "MinsToCache": 3
+    },
+    "SportsNewsApi": {
+      "MinsToCache": 1
     }
   }
 }

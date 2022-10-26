@@ -8,7 +8,7 @@ namespace DotnetShop.WeatherForecast
         {
             return new List<MainMenuItem>
             {
-                new MainMenuItem { AspPage = "/WeatherForecast", MenuItemText = "Weather", Order = 9 },
+                new MainMenuItem { AspPage = "/News", MenuItemText = "News", Order = 9 },
             };
         }
     }

@@ -1,10 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Builder;
 
 namespace DotnetShop.Infrastructure.Initialization
 {
     public interface IInitialization
     {
-        void ConfigureContainer(IServiceCollection services, IConfiguration configuration);
+        void ConfigureContainer(WebApplicationBuilder builder);
     }
 }

@@ -10,7 +10,7 @@ namespace DotnetShop.WeatherForecast.Services
         {
             var result = new CurrentWeatherResult
             {
-                Description = "The weather forecast feature is not currently available."
+                WeatherType = "The weather forecast feature is not currently available."
             };
 
             return Task.FromResult(result);

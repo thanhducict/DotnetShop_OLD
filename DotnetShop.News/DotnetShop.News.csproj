@@ -14,11 +14,19 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
   </ItemGroup>
 
 
   <ItemGroup>
     <ProjectReference Include="..\DotnetShop.Infrastructure\DotnetShop.Infrastructure.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Update="weathersettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

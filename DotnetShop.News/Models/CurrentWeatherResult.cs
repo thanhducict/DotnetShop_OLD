@@ -2,6 +2,6 @@
 {
     public class CurrentWeatherResult
     {
-        public string Description { get; set; }
+        public string WeatherType { get; set; }
     }
 }

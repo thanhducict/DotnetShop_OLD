@@ -81,7 +81,7 @@ foreach (var item in allModules)
     var module = Activator.CreateInstance(item) as IInitialization;
     if (module != null)
     {
-        module.ConfigureContainer(services, configuration);
+        module.ConfigureContainer(builder);
     }
 }
 
