@@ -2,12 +2,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>DotnetShop.Data</id>
-        <version>$version$</version>
-        <description>This package is the Data Access Layer for Dotnet Shop.</description>
+        <version>1.0.0</version>
+        <description>This package is the Data Access Layer for DotnetShop.</description>
         <authors>Dotnet Shop</authors>
-
-        <!-- Optional elements -->
-        <!-- ... -->
     </metadata>
-    <!-- Optional 'files' node -->
 </package>

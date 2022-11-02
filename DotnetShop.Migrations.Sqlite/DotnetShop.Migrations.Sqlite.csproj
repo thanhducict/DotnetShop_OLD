@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DotnetShop.Data\DotnetShop.Data.csproj" />
+    <PackageReference Include="DotnetShop.Data" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
