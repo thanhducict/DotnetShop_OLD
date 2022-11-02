@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace DotnetShop.Data.Repositories
+namespace DotnetShop.Data
 {
     public class DotnetShopDbContext : IdentityDbContext
     {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace DotnetShop.Data.Repositories
+namespace DotnetShop.Data
 {
     public class DotnetShopSeeding
     {

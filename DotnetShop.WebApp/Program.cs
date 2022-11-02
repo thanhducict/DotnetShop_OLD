@@ -1,3 +1,4 @@
+using DotnetShop.Data;
 using DotnetShop.Data.Domain;
 using DotnetShop.Data.Repositories;
 using DotnetShop.Infrastructure.Initialization;
@@ -88,30 +89,21 @@ foreach (var item in allModules)
 string dbPath, connectionString;
 var provider = configuration.GetValue<string>("DatabaseProvider");
 
-if (provider.Equals("Sqlite"))
+switch (provider)
 {
-    dbPath = Path.Combine(environment.ContentRootPath, "App_Data\\DotnetShop.db");
-    connectionString = string.Format(configuration.GetConnectionString("SqliteConnection"), dbPath);
+    case "SqlServer":
+        dbPath = Path.Combine(environment.ContentRootPath, "App_Data\\DotnetShop.mdf");
+        connectionString = string.Format(configuration.GetConnectionString("SqlServerConnection"), dbPath);
+        services.AddDbContext<DotnetShopDbContext>(options => options.UseSqlServer(
+            connectionString, x => x.MigrationsAssembly("DotnetShop.WebApp")));
+        break;
+    default:
+        dbPath = Path.Combine(environment.ContentRootPath, "App_Data\\DotnetShop.db");
+        connectionString = string.Format(configuration.GetConnectionString("SqliteConnection"), dbPath);
+        services.AddDbContext<DotnetShopDbContext>(options => options.UseSqlite(connectionString,
+            x => x.MigrationsAssembly("DotnetShop.WebApp")));
+        break;
 }
-else
-{
-    dbPath = Path.Combine(environment.ContentRootPath, "App_Data\\DotnetShop.mdf");
-    connectionString = string.Format(configuration.GetConnectionString("SqlServerConnection"), dbPath);
-}
-
-services.AddDbContext<DotnetShopDbContext>(
-    options => _ = provider switch
-    {
-        "Sqlite" => options.UseSqlite(
-            connectionString,
-            x => x.MigrationsAssembly("DotnetShop.Migrations.Sqlite")),
-
-        "SqlServer" => options.UseSqlServer(
-            connectionString,
-            x => x.MigrationsAssembly("DotnetShop.Migrations.SqlServer")),
-
-        _ => throw new Exception($"Unsupported provider: {provider}")
-    });
 
 services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {

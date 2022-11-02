@@ -1,5 +1,5 @@
 ﻿using DotnetShop.Admin.Warehouses.Areas.Admin.Models;
-using DotnetShop.Data.Repositories;
+using DotnetShop.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

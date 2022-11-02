@@ -4,12 +4,11 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	<IsPackable>false</IsPackable>
+	<IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotnetShop.Data" Version="1.0.0" />
-    <PackageReference Include="DotnetShop.Infrastructure" Version="1.0.0" />
+    <PackageReference Include="DotnetShop.Data" Version="1.0.4" />
   </ItemGroup>
 
 </Project>

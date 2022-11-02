@@ -1,4 +1,4 @@
-﻿using DotnetShop.Data.Repositories;
+﻿using DotnetShop.Data;
 using DotnetShop.WebApp.APIs.OrderManagement;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
