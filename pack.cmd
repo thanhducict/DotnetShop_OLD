@@ -1,1 +1,1 @@
-dotnet pack DotnetShop.sln /p:Version=1.0.4
+dotnet pack DotnetShop.sln /p:Version=1.0.5
