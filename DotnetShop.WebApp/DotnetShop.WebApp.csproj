@@ -10,9 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotnetShop.Infrastructure" Version="1.0.5" />
-    <PackageReference Include="DotnetShop.Migrations.Sqlite" Version="1.0.5" />
-    <PackageReference Include="DotnetShop.Migrations.SqlServer" Version="1.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
@@ -24,6 +21,14 @@
 
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DotnetShop.Admin.Warehouses\DotnetShop.Admin.Warehouses.csproj" />
+    <ProjectReference Include="..\DotnetShop.Infrastructure\DotnetShop.Infrastructure.csproj" />
+    <ProjectReference Include="..\DotnetShop.Migrations.Sqlite\DotnetShop.Migrations.Sqlite.csproj" />
+    <ProjectReference Include="..\DotnetShop.Migrations.SqlServer\DotnetShop.Migrations.SqlServer.csproj" />
+    <ProjectReference Include="..\DotnetShop.News\DotnetShop.News.csproj" />
   </ItemGroup>
 
 </Project>

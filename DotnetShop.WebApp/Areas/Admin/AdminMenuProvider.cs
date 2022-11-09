@@ -2,7 +2,7 @@
 
 namespace DotnetShop.WebApp.Areas.Admin
 {
-    public class AdminMenuProvider : IAdminMenuProvider
+    public class AdminMenuProvider : IMenuProvider<AdminMenuItem>
     {
         public IEnumerable<AdminMenuItem> GetMenuItems()
         {

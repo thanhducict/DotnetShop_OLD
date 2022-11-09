@@ -2,11 +2,11 @@
 
 namespace DotnetShop.Admin.Warehouses
 {
-    internal class WarehouseMenuProvider : IAdminMenuProvider
+    internal class WarehouseMenuProvider : IMenuProvider<AdminMenuItem>
     {
-        public IEnumerable<AdminMenuItem> GetMenuItems()
+        public IEnumerable<AdminMenuItem> GetMenuItems() 
         {
-            return new List<AdminMenuItem>
+            return new List<AdminMenuItem> 
             {
                 new AdminMenuItem { AspArea = "Admin", AspController = "Warehouses", AspAction = "Index", MenuItemText = "Warehouses", Order = 5 },
             };

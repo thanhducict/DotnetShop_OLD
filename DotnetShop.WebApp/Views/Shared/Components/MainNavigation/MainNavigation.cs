@@ -21,11 +21,11 @@ namespace DotnetShop.WebApp.Views.Shared.Components.MainNavigation
                 mainNavigationItems = new List<MainNavigationItemModel>();
 
                 var allMenuProviders = AppDomain.CurrentDomain.GetAssemblies()
-               .SelectMany(s => s.GetTypes()).Where(p => typeof(IMainMenuProvider).IsAssignableFrom(p) && p.IsClass);
+               .SelectMany(s => s.GetTypes()).Where(p => typeof(IMenuProvider<MainMenuItem>).IsAssignableFrom(p) && p.IsClass);
 
                 foreach (var item in allMenuProviders)
                 {
-                    var menuProvider = Activator.CreateInstance(item) as IMainMenuProvider;
+                    var menuProvider = Activator.CreateInstance(item) as IMenuProvider<MainMenuItem>;
                     if (menuProvider != null && menuProvider.GetMenuItems() != null && menuProvider.GetMenuItems().Any())
                     {
                         var menuItems = menuProvider.GetMenuItems();

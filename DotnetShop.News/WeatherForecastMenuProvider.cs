@@ -2,7 +2,7 @@
 
 namespace DotnetShop.WeatherForecast
 {
-    internal class WarehouseMenuProvider : IMainMenuProvider
+    internal class WeatherForecastMenuProvider : IMenuProvider<MainMenuItem>
     {
         public IEnumerable<MainMenuItem> GetMenuItems()
         {

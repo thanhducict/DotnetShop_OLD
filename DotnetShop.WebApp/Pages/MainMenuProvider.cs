@@ -2,7 +2,7 @@
 
 namespace DotnetShop.WebApp.Pages
 {
-    public class MainMenuProvider : IMainMenuProvider
+    public class MainMenuProvider : IMenuProvider<MainMenuItem>
     {
         public IEnumerable<MainMenuItem> GetMenuItems()
         {

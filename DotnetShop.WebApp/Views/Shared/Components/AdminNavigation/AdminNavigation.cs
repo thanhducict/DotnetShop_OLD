@@ -21,11 +21,11 @@ namespace DotnetShop.WebApp.Views.Shared.Components.AdminNavigation
                 adminNavigationItems = new List<AdminNavigationItemModel>();
 
                 var allMenuProviders = AppDomain.CurrentDomain.GetAssemblies()
-               .SelectMany(s => s.GetTypes()).Where(p => typeof(IAdminMenuProvider).IsAssignableFrom(p) && p.IsClass);
+               .SelectMany(s => s.GetTypes()).Where(p => typeof(IMenuProvider<AdminMenuItem>).IsAssignableFrom(p) && p.IsClass);
 
                 foreach (var item in allMenuProviders)
                 {
-                    var menuProvider = Activator.CreateInstance(item) as IAdminMenuProvider;
+                    var menuProvider = Activator.CreateInstance(item) as IMenuProvider<AdminMenuItem>;
                     if (menuProvider != null && menuProvider.GetMenuItems() != null && menuProvider.GetMenuItems().Any())
                     {
                         var menuItems = menuProvider.GetMenuItems();
