@@ -23,7 +23,7 @@
                 <td>
                     <a class="link-primary" asp-controller="Warehouses"
                    asp-action="Details" asp-route-id="@warehouse.WarehouseId">
-                        @warehouse.WarehouseName
+                        @(string.IsNullOrEmpty(warehouse.WarehouseName) ? ViewBag.DefaultName : warehouse.WarehouseName)
                     </a>
                 </td>
                 <td>@warehouse.Address</td>

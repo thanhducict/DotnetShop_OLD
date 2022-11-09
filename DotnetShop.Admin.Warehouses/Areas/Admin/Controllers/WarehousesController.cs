@@ -1,4 +1,5 @@
 ﻿using DotnetShop.Admin.Warehouses.Areas.Admin.Models;
+using DotnetShop.Admin.Warehouses.Attributes;
 using DotnetShop.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,12 +20,24 @@ namespace DotnetShop.Admin.Warehouses.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
+            string defaultName = string.Empty;
+            var attributes = Attribute.GetCustomAttributes(typeof(WarehouseModel));
+            foreach (var attribute in attributes)
+            {
+                if (attribute is WarehouseUtilAttribute)
+                {
+                    defaultName = ((WarehouseUtilAttribute)attribute).DefaultName;
+                }
+            }
+
             var model = _context.Warehouses.Select(w => new WarehouseModel
             {
                 WarehouseId = w.WarehouseId,
                 WarehouseName = w.WarehouseName,
                 Address = w.Address,
             });
+
+            ViewBag.DefaultName = defaultName;
 
             return View(model);
         }

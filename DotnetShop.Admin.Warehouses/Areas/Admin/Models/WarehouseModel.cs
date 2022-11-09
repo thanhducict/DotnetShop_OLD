@@ -1,5 +1,8 @@
-﻿namespace DotnetShop.Admin.Warehouses.Areas.Admin.Models
+﻿using DotnetShop.Admin.Warehouses.Attributes;
+
+namespace DotnetShop.Admin.Warehouses.Areas.Admin.Models
 {
+    [WarehouseUtil(DefaultName = "[Name is missing]")]
     public class WarehouseModel
     {
         public int WarehouseId { get; set; }

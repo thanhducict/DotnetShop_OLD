@@ -253,7 +253,7 @@ namespace DotnetShop.Data
                 },
                 new Warehouse
                 {
-                    WarehouseName = "Los Angeles",
+                    WarehouseName = "",
                     Address = "700 W 7th St, Los Angeles, California, United States",
                     Latitude = "34.047913",
                     Longitude = "-118.259088",
@@ -261,7 +261,7 @@ namespace DotnetShop.Data
 
                 new Warehouse
                 {
-                    WarehouseName = "Redmond",
+                    WarehouseName = "",
                     Address = "3720 159th Ave NE, Redmond, WA 98052",
                     Latitude = "47.644649",
                     Longitude = "-122.124576",
