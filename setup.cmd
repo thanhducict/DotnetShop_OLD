@@ -1,8 +1,8 @@
 @echo off
 
-echo ======================================
+echo ===========================================
 echo Execute Db migrations and data seeding
-echo ======================================
+echo ===========================================
 
 echo === Migrations ===
 if exist DotnetShop.WebApp\App_Data\Migrations\ (
