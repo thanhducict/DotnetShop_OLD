@@ -1,0 +1,69 @@
+﻿@model ProductModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create a new product</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="@Model.ProductId" />
+    <div class="mb-3">
+        <label asp-for="@Model.Name" class="form-label"></label>
+        <input asp-for="@Model.Name" class="form-control" />
+        <span class="text-danger" asp-validation-for="@Model.Name"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="@Model.ShortDescription" class="form-label"></label>
+        <input asp-for="@Model.ShortDescription" class="form-control" />
+        <span class="text-danger" asp-validation-for="@Model.ShortDescription"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="@Model.LongDescription" class="form-label"></label>
+        <textarea asp-for="@Model.LongDescription" class="form-control" rows="5"></textarea>
+        <span class="text-danger" asp-validation-for="@Model.LongDescription"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="@Model.Price" class="form-label"></label>
+        <input asp-for="@Model.Price" class="form-control" />
+        <span class="text-danger" asp-validation-for="@Model.Price"></span>
+    </div>
+    <div class="mb-3">
+        <div>
+            <div>Image</div>
+            <img alt="@Model.Name" src="@Model.ImageUrl" height="100" />
+            <input type="hidden" asp-for="@Model.ImageUrl" />
+        </div>
+        <label asp-for="@Model.Image" class="form-label"></label>
+        <input asp-for="@Model.Image" class="form-control" type="file">
+        <span class="text-danger" asp-validation-for="@Model.Image"></span>
+    </div>
+    <div class="mb-3">
+        <div>
+            <div>Image Thumbnail</div>
+            <img alt="@Model.Name" src="@Model.ImageThumbnailUrl" height="50" />
+            <input type="hidden" asp-for="@Model.ImageThumbnailUrl" />
+        </div>
+        <label asp-for="@Model.ImageThumbnail" class="form-label"></label>
+        <input asp-for="@Model.ImageThumbnail" class="form-control" type="file">
+        <span class="text-danger" asp-validation-for="@Model.ImageThumbnail"></span>
+    </div>
+    <div class="mb-3">
+        <input type="checkbox" asp-for="@Model.IsProductOfTheWeek" class="form-check-input" />
+        <label asp-for="@Model.IsProductOfTheWeek" class="form-label"></label>
+        <span class="text-danger" asp-validation-for="@Model.IsProductOfTheWeek"></span>
+    </div>
+    <div class="mb-3">
+        <input type="checkbox" asp-for="@Model.InStock" class="form-check-input" />
+        <label asp-for="@Model.InStock" class="form-label"></label>
+        <span class="text-danger" asp-validation-for="@Model.InStock"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="@Model.CategoryDropdown" class="form-label"></label>
+        <select class="form-control" asp-for="@Model.CategoryId"
+                asp-items="ViewBag.Categories"></select>
+        <span class="text-danger" asp-validation-for="@Model.CategoryDropdown"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

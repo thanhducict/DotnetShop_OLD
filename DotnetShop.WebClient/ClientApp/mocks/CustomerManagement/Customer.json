@@ -1,0 +1,8 @@
+{
+    "customerId": 1,
+    "customerName": "Son Gohan",
+    "gender": true,
+    "address": "West City, Japan",
+    "username": "gohan",
+    "email": "gohan@example.com"
+}

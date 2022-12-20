@@ -1,0 +1,35 @@
+﻿@using DotnetShop.Admin.Warehouses.Areas.Admin.Models
+@model IEnumerable<WarehouseModel>
+
+@{
+    ViewData["Title"] = "All warehouses";
+}
+
+<h2>All warehouses</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Warehouse Name</th>
+            <th scope="col">Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var warehouse in Model)
+        {
+            <tr>
+                <td>@warehouse.WarehouseId</td>
+                <td>
+                    <a class="link-primary" asp-controller="Warehouses"
+                   asp-action="Details" asp-route-id="@warehouse.WarehouseId">
+                        @(string.IsNullOrEmpty(warehouse.WarehouseName) ? ViewBag.DefaultName : warehouse.WarehouseName)
+                    </a>
+                </td>
+                <td>@warehouse.Address</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Map" class="btn btn-primary mt-3">Locations</a>

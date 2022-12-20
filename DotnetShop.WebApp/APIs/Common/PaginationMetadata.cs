@@ -1,0 +1,20 @@
+﻿namespace DotnetShop.WebApp.APIs.Common
+{
+    public class PaginationMetadata
+    {
+        public int TotalItemCount { get; set; }
+        public int TotalPageCount { get; set; }
+        public int PageSize { get; set; }
+        public int PageNumber { get; set; }
+
+        public const int maxCitiesPageSize = 20;
+
+        public PaginationMetadata(int totalItemCount, int pageSize, int pageNumber)
+        {
+            TotalItemCount = totalItemCount;
+            PageSize = pageSize;
+            PageNumber = pageNumber;
+            TotalPageCount = (int)Math.Ceiling(totalItemCount / (double)pageSize);
+        }
+    }
+}

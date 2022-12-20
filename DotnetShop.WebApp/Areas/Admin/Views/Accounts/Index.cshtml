@@ -1,0 +1,44 @@
+﻿@using DotnetShop.Data.Domain
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<ApplicationUser>
+
+@{
+    ViewData["Title"] = "All users";
+}
+
+<h2>All roles</h2>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">UserName</th>
+                <th scope="col">Email</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <th scope="row">@user.Id</th>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>@(user.Customer !=null ? user.Customer.CustomerName : "Not a customer")</td>
+                    <td>
+                        <a class="btn btn-outline-success">Edit</a>
+                        <a class="btn btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h6>No user created yet.</h6>
+    <a class="btn btn-primary" asp-action="Create">Create User</a>
+}

@@ -1,0 +1,32 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    name: Build .NET and NodeJS
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up NodeJS
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Install node_modules
+      run: yarn install --frozen-lockfile
+      working-directory: DotnetShop.WebClient/ClientApp
+    - name: Build WebClient
+      run: yarn build:release
+      working-directory: DotnetShop.WebClient/ClientApp
+    - name: Restore dependencies
+      run: dotnet restore DotnetShop.sln --configfile nuget.config
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal

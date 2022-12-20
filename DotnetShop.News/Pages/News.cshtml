@@ -1,0 +1,35 @@
+﻿@page
+@model DotnetShop.WeatherForecast.Pages.IndexModel
+@{
+    ViewData["Title"] = "News";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.ShowWeatherForecast)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-info" role="alert">
+                <h4>@Model.ForecastSectionTitle</h4>
+                <p>@Model.WeatherDescription</p>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @if (Model.ShowGreeting)
+        {
+            <h3 style="color: @Model.GreetingColour">@Model.Greeting</h3>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Sports News</h3>
+        <h6>@Model.SportsNews</h6>
+    </div>
+</div>

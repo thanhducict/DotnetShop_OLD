@@ -1,0 +1,50 @@
+﻿@using DotnetShop.Data.Domain
+@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "All products";
+}
+
+<h2>All products</h2>
+
+<a asp-controller="Products" asp-action="Create" class="btn btn-outline-primary mb-3 mt-3">Add New</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Image</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <th scope="row">@product.ProductId</th>
+                <td>@product.Name</td>
+                <td>@product.Price</td>
+                <td><img src="@product.ImageThumbnailUrl" height="40" /></td>
+                <td>
+                    <div style="float: left; margin-right: 5px;">
+                        <a class="btn btn-outline-primary" asp-controller="Products"
+                            asp-action="Details" asp-route-id="@product.ProductId">Details</a>
+                    </div>
+                    <div style="float: left; margin-right: 5px;">
+                        <a class="btn btn-outline-success" asp-controller="Products"
+                            asp-action="Edit" asp-route-id="@product.ProductId">Edit</a>
+                    </div>
+                    <div style="float: left; margin-right: 5px;">
+                        <form asp-action="Delete" method="post">
+                            <input type="hidden" name="productId" value="@product.ProductId" />
+                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

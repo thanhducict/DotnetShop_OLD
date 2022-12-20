@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DotnetShop.WebApp</name>
+    </assembly>
+    <members>
+        <member name="T:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDto">
+            <summary>
+            The class to transfer customer data.
+            </summary>
+        </member>
+        <member name="P:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDto.CustomerId">
+            <summary>
+            The customer identifier.
+            </summary>
+        </member>
+        <member name="P:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDto.CustomerName">
+            <summary>
+            The name of customer.
+            </summary>
+        </member>
+        <member name="P:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDto.Gender">
+            <summary>
+            The gender of customer.
+            </summary>
+        </member>
+        <member name="P:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDto.Address">
+            <summary>
+            The address of customer.
+            </summary>
+        </member>
+        <member name="T:DotnetShop.WebApp.APIs.CustomerManagement.CustomerManagementController">
+            <summary>
+            APIs to work with customers.
+            </summary>
+        </member>
+        <member name="M:DotnetShop.WebApp.APIs.CustomerManagement.CustomerManagementController.#ctor(DotnetShop.Data.DotnetShopDbContext,Microsoft.Extensions.Logging.ILogger{DotnetShop.WebApp.APIs.CustomerManagement.CustomerManagementController},Microsoft.AspNetCore.Identity.UserManager{DotnetShop.Data.Domain.ApplicationUser})">
+            <summary>
+            The constructor of controller.
+            </summary>
+            <param name="context">The Db Context.</param>
+            <param name="logger">The logger.</param>
+            <param name="userManager">The user manager.</param>
+        </member>
+        <member name="M:DotnetShop.WebApp.APIs.CustomerManagement.CustomerManagementController.GetCustomers(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Gets customers by name.
+            </summary>
+            <param name="name">The name of customer. Leaves blank to get all customers.</param>
+            <param name="searchQuery">Filters customres by name, address and country.</param>
+            <param name="pageNumber">The page number.</param>
+            <param name="pageSize">The page size.</param>
+            <returns>A list of <see cref="T:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDto"/>.</returns>
+            <response code="200">Returns a list of customers or a customer.</response>
+        </member>
+        <member name="M:DotnetShop.WebApp.APIs.CustomerManagement.CustomerManagementController.GetCustomerById(System.Int32)">
+            <summary>
+            Gets a customer by Id.
+            </summary>
+            <param name="customerId">The customer Id.</param>
+            <returns>A <see cref="T:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDto"/>.</returns>
+        </member>
+        <member name="M:DotnetShop.WebApp.APIs.CustomerManagement.CustomerManagementController.GetCustomerByUsername(System.String)">
+            <summary>
+            Gets a customer by username.
+            </summary>
+            <param name="username">The username.</param>
+            <returns>A <see cref="T:DotnetShop.WebApp.APIs.CustomerManagement.CustomerDetailDto"/>.</returns>
+        </member>
+        <member name="M:DotnetShop.WebApp.APIs.CustomerManagement.CustomerManagementController.AddCustomer(DotnetShop.WebApp.APIs.CustomerManagement.CustomerCreationDto)">
+            <summary>
+            Adds a customer.
+            </summary>
+            <param name="customerCreationDto">The model of a customer.</param>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Mvc.CreatedAtRouteResult"/>.</returns>
+        </member>
+        <member name="M:DotnetShop.WebApp.APIs.CustomerManagement.CustomerManagementController.UpdateCustomer(DotnetShop.WebApp.APIs.CustomerManagement.CustomerDetailDto)">
+            <summary>
+            Updates a customer.
+            </summary>
+            <param name="customerUpdateDto">The model of a customer.</param>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Mvc.NoContentResult"/>.</returns>
+        </member>
+        <member name="M:DotnetShop.WebApp.APIs.CustomerManagement.CustomerManagementController.DeleteCustomer(System.String)">
+            <summary>
+            Deletes a customer.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Mvc.NoContentResult"/>.</returns>
+        </member>
+        <member name="M:DotnetShop.WebApp.Areas.Admin.Helpers.Helpers.UploadFile(Microsoft.AspNetCore.Http.IFormFile,DotnetShop.WebApp.Areas.Admin.Helpers.Helpers.UploadFileType,System.String)">
+            <summary>
+            Executes file uploading.
+            </summary>
+            <param name="file">File uploaded.</param>
+            <param name="fileName">File name without its extension.</param>
+            <returns>File url.</returns>
+        </member>
+    </members>
+</doc>

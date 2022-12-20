@@ -1,0 +1,25 @@
+{
+    "cartLineItemDtos": [
+        {
+            "customerId": 1,
+            "customerName": "Son Gohan",
+            "productId": 9,
+            "productName": ".NET Black White Mug",
+            "quantity": 3
+        },
+        {
+            "customerId": 1,
+            "customerName": "Son Gohan",
+            "productId": 10,
+            "productName": "Cup<T> Badge",
+            "quantity": 1
+        },
+        {
+            "customerId": 1,
+            "customerName": "Son Gohan",
+            "productId": 7,
+            "productName": "Cup<T> T-Shirt",
+            "quantity": 1
+        }
+    ]
+}

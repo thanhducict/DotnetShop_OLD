@@ -1,0 +1,28 @@
+{
+    "orderId": 1,
+    "orderPlaced": "05 October 2022 15:50 UTC",
+    "orderTotal": 40.85,
+    "orderDetailViewModels": [
+        {
+            "orderDetailId": 1,
+            "productName": "Prism White T-Shirt",
+            "productPrice": 18.95,
+            "quantity": 1,
+            "lineItemTotal": 18.95
+        },
+        {
+            "orderDetailId": 2,
+            "productName": "Cup<T> White Mug",
+            "productPrice": 10.95,
+            "quantity": 2,
+            "lineItemTotal": 21.9
+        }
+    ],
+    "customer": {
+        "customerId": 1,
+        "customerName": "Son Gohan",
+        "gender": true,
+        "country": null,
+        "address": "West City, Japan"
+    }
+}

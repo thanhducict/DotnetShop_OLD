@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700");
+
+.web-client-container {
+    position: absolute;
+    inset: 64px 0 0;
+
+    @media screen and (max-width: 768px) {
+        inset: 52px 0 0;
+    }
+
+    @media screen and (max-width: 992px) {
+        padding-top: 24px;
+        padding-bottom: 24px;
+    }
+}

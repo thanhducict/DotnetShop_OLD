@@ -1,0 +1,18 @@
+﻿@using DotnetShop.Admin.Warehouses.Areas.Admin.Models
+@model WarehouseDetailModel
+
+<h1>Locations</h1>
+
+<div class="warehouse-container">
+    <div class="warehouse-container__dropdown">
+        <label for="cars">Choose a product </label>
+        <select name="products" id="products">
+            @foreach (var item in ViewBag.Products)
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        </select>
+    </div>
+    <div class="warehouse-container__warehouse-map">
+    </div>
+</div>

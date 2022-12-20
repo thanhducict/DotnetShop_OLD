@@ -1,0 +1,25 @@
+﻿@using DotnetShop.WebApp.Views.Shared.Components.AdminNavigation
+@model AdminNavigationViewModel
+
+<ul class="navbar-nav flex-grow-1">
+    @foreach (var item in Model.AdminNavigationItems)
+    {
+        if(!string.IsNullOrEmpty(item.AspArea)){
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="@item.AspArea" asp-controller="@item.AspController" asp-action="@item.AspAction">@item.MenuItemText</a>
+            </li>
+        }
+        else if(!string.IsNullOrEmpty(item.AspController))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-controller="@item.AspController" asp-action="@item.AspAction">@item.MenuItemText</a>
+            </li>
+        }
+        else if (!string.IsNullOrEmpty(item.AspPage))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-page="/@item.AspPage">@item.MenuItemText</a>
+            </li>
+        }
+    }
+</ul>

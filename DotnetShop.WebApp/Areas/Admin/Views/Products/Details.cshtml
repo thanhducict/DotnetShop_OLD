@@ -1,0 +1,41 @@
+﻿@using DotnetShop.Data.Domain
+@model Product
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>@Model.Name</h2>
+
+<div>
+    Id: @Model.ProductId
+</div>
+<div>
+    Name: @Model.Name
+</div>
+<div>
+    Short Description: @Model.ShortDescription
+</div>
+<div>
+    Long Description:
+    <p>@Model.LongDescription</p>
+</div>
+<div>
+    Price: @Model.Price
+</div>
+<div>
+    <div>Image</div>
+    <img alt="@Model.Name" src="@Model.ImageUrl" height="500" />
+</div>
+<div>
+    <div>Image Thumbnail</div>
+    <img alt="@Model.Name" src="@Model.ImageThumbnailUrl" height="50" />
+</div>
+<div>
+    Is product of the week: @Model.IsProductOfTheWeek
+</div>
+<div>
+    In stock: @Model.InStock
+</div>
+
+<a asp-action="Index" class="btn btn-outline-primary mt-3">All Products</a>

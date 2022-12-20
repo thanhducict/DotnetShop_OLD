@@ -1,0 +1,18 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    Layout = "_LayoutLandingPage";
+}
+
+<div class="container">
+    <h2 class="text-center display-3 mt-3 mb-3">Products of the week</h2>
+    <h4 class="text-center display-6 mb-5">Our weekly selection - just for you!</h4>
+
+    <div class="row">
+        @foreach (var product in Model.ProductsOfTheWeek)
+        {
+            <partial name="_ProductCard" model="product" />
+        }
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "_MasterLayout";
+}
+
+<div class="container">
+    <main role="main">
+        @RenderBody()
+    </main>
+</div>
+
+@section LayoutScripts {
+    @await RenderSectionAsync("Scripts", required: false)
+}

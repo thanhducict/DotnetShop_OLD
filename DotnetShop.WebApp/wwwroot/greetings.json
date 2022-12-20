@@ -1,0 +1,16 @@
+﻿{
+  "Greetings": [
+    "Hi, let's find your things!",
+    "Welcome to the world of Dotnet things!",
+    "Welcome to the biggest sales of the year!",
+    "Hello there, you are coming to the biggest store in the world!",
+    "Thanks for coming in!"
+  ],
+  "LoginGreetings": [
+    "Welcome back {name}!",
+    "Good to see you again {name}!",
+    "Hi {name}! Ready for shopping?",
+    "It's nice to see you, {name}!",
+    "Hello {name}, it's been a long time.'"
+  ]
+}

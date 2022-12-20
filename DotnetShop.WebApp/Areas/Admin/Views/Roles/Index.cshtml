@@ -1,0 +1,43 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityRole>
+
+@{
+    ViewData["Title"] = "All roles";
+}
+
+<h2>All roles</h2>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">NormalizedName</th>
+                <th scope="col">ConcurrencyStamp</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var role in Model)
+            {
+                <tr>
+                    <th scope="row">@role.Id</th>
+                    <td>@role.Name</td>
+                    <td>@role.NormalizedName</td>
+                    <td>@role.ConcurrencyStamp</td>
+                    <td>
+                        <a class="btn btn-outline-success">Edit</a>
+                        <a class="btn btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h6>No roles created yet.</h6>
+    <a class="btn btn-primary" asp-action="Create">Create Role</a>
+}
