@@ -25,12 +25,9 @@ namespace DotnetShop.WeatherForecast
             {
                 var projectRootFolder = Path.Combine(builder.Environment.ContentRootPath, @"..\");
 
-                builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
-                {
-                    config.AddJsonFile(path: Path.Combine(projectRootFolder, @"DotnetShop.News\weathersettings.json"),
+                builder.Configuration.AddJsonFile(path: Path.Combine(projectRootFolder, @"DotnetShop.News\weathersettings.json"),
                         optional: false,
                         reloadOnChange: true);
-                });
             }
 
             builder.Services.Configure<HomePageConfiguration>(builder.Configuration.GetSection("Features:HomePage"));

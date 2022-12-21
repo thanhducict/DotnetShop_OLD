@@ -18,7 +18,7 @@ namespace DotnetShop.WebClient.Pages
         {
             _tagHelperComponentManager.Components.Add(new WebClientTagHelperComponent());
 
-            BaseApiUrl = $"https://localhost:7025";
+            BaseApiUrl = $"https://localhost:7100";
         }
     }
 }

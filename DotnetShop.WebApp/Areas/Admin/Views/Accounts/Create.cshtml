@@ -1,0 +1,27 @@
+@using DotnetShop.Data.Domain
+@model ApplicationUser
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create a new user</h2>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="@Model.UserName" class="form-label"></label>
+        <input asp-for="@Model.UserName" class="form-control" />
+        <span class="text-danger" asp-validation-for="@Model.UserName"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="@Model.Email" class="form-label"></label>
+        <input asp-for="@Model.Email" class="form-control" />
+        <span class="text-danger" asp-validation-for="@Model.Email"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="@Model.Level" class="form-label"></label>
+        <input asp-for="@Model.Level" class="form-control" rows="5" />
+        <span class="text-danger" asp-validation-for="@Model.Level"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

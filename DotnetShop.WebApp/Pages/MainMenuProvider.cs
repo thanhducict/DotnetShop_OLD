@@ -9,6 +9,7 @@ namespace DotnetShop.WebApp.Pages
             return new List<MainMenuItem>
             {
                 new MainMenuItem { AspPage = "/Contact", MenuItemText = "Contact", Order = 10 },
+                new MainMenuItem { AspPage = "/About", MenuItemText = "About", Order = 11 },
             };
         }
     }

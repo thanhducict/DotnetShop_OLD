@@ -1,4 +1,4 @@
-﻿using DotnetShop.Data.Domain;
+using DotnetShop.Data.Domain;
 using DotnetShop.Data.Repositories;
 using DotnetShop.WebApp.Areas.Admin.Controllers;
 using DotnetShop.WebApp.Areas.Admin.Helpers;
@@ -11,7 +11,7 @@ using Xunit;
 
 namespace DotnetShop.WebApp.Tests
 {
-    public class ProductControllerTests
+    public class ProductsControllerTests
     {
         private readonly ProductsController _productController;
         private readonly Mock<IProductRepository> _productRepositoryMock;
@@ -19,7 +19,7 @@ namespace DotnetShop.WebApp.Tests
         private readonly Mock<IHelpers> _helpersMock;
         private readonly Mock<IFormFile> _formFileMock;
 
-        public ProductControllerTests()
+        public ProductsControllerTests()
         {
             _categoryRepositoryMock = new Mock<ICategoryRepository>();
             _categoryRepositoryMock.Setup(c => c.GetCategories()).Returns(new List<Category>
@@ -149,7 +149,7 @@ namespace DotnetShop.WebApp.Tests
             var result = (RedirectToActionResult)_productController.Create(newProduct);
 
             Assert.Equal("Index", result.ActionName);
-            Assert.Equal("Product", result.ControllerName);
+            Assert.Equal("Products", result.ControllerName);
         }
 
         [Fact]

@@ -3,6 +3,8 @@ using DotnetShop.Data.Domain;
 using DotnetShop.Data.Repositories;
 using DotnetShop.Infrastructure.Initialization;
 using DotnetShop.WebApp.Areas.Admin.Helpers;
+using DotnetShop.WebApp.Middleware;
+using DotnetShop.WebApp.ModelBinding;
 using DotnetShop.WebApp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -60,9 +62,16 @@ services.AddControllers(options =>
     options.ReturnHttpNotAcceptable = true;
 }).AddXmlDataContractSerializerFormatters();
 
+services.AddMvc(options =>
+{
+    options.ModelBinderProviders.Insert(0, new CSVModelBinderProvider());
+});
 services.AddRazorPages();
 services.AddHttpContextAccessor();
-services.AddSession();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromHours(1);
+});
 
 services.AddScoped<IProductRepository, ProductRepository>();
 services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -181,14 +190,13 @@ app.UseRouting();
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseChristmasPage();
+app.UseFeatureSwitch();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-        name: "MyArea",
-        pattern: "{area:exists}/{controller=Products}/{action=Index}/{id?}");
-    endpoints.MapRazorPages();
-});
+app.MapControllerRoute(
+    name: "MyArea",
+    pattern: "{area:exists}/{controller=Products}/{action=Index}/{id?}");
+app.MapRazorPages();
 
 app.Logger.LogInformation("Seeding Database...");
 

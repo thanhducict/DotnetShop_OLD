@@ -35,7 +35,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Externals", "Externals", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore.API", "BookStore.API\BookStore.API.csproj", "{93CD79BE-5FB8-49B6-9B68-0493DBA26260}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetShop.Books", "DotnetShop.Books\DotnetShop.Books.csproj", "{8594E5BB-5FB3-4CD1-AD51-02683858769D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.Books", "DotnetShop.Books\DotnetShop.Books.csproj", "{8594E5BB-5FB3-4CD1-AD51-02683858769D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,4 @@
-﻿using DotnetShop.Data.Domain;
+using DotnetShop.Data.Domain;
 using DotnetShop.Data.Repositories;
 using DotnetShop.WebApp.Areas.Admin.Helpers;
 using DotnetShop.WebApp.Areas.Admin.Models;
@@ -70,7 +70,7 @@ namespace DotnetShop.WebApp.Areas.Admin.Controllers
 
             _productRepository.CreateProduct(product);
 
-            return RedirectToAction("Index", "Product");
+            return RedirectToAction("Index", "Products");
         }
 
         public IActionResult Edit(int id)

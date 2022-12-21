@@ -1,4 +1,4 @@
-﻿@using DotnetShop.Data.Domain
+@using DotnetShop.Data.Domain
 @using Microsoft.AspNetCore.Identity
 @model IEnumerable<ApplicationUser>
 
@@ -7,6 +7,8 @@
 }
 
 <h2>All roles</h2>
+
+<a asp-controller="Accounts" asp-action="Create" class="btn btn-outline-primary mb-3 mt-3">Add New</a>
 
 @if (Model.Any())
 {
