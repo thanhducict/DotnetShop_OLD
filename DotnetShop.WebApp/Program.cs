@@ -101,15 +101,15 @@ switch (provider)
 {
     case "SqlServer":
         dbPath = Path.Combine(environment.ContentRootPath, "App_Data\\DotnetShop.mdf");
-        connectionString = string.Format(configuration.GetConnectionString("SqlServerConnection"), dbPath);
+        connectionString = string.Format(configuration.GetConnectionString("SqlServer"), dbPath);
         services.AddDbContext<DotnetShopDbContext>(options => options.UseSqlServer(
-            connectionString, x => x.MigrationsAssembly("DotnetShop.WebApp")));
+            connectionString, x => x.MigrationsAssembly("DotnetShop.Migrations.SqlServer")));
         break;
     default:
         dbPath = Path.Combine(environment.ContentRootPath, "App_Data\\DotnetShop.db");
-        connectionString = string.Format(configuration.GetConnectionString("SqliteConnection"), dbPath);
+        connectionString = string.Format(configuration.GetConnectionString("Sqlite"), dbPath);
         services.AddDbContext<DotnetShopDbContext>(options => options.UseSqlite(connectionString,
-            x => x.MigrationsAssembly("DotnetShop.WebApp")));
+            x => x.MigrationsAssembly("DotnetShop.Migrations.SqlServer")));
         break;
 }
 

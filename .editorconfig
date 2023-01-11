@@ -11,7 +11,7 @@ end_of_line = crlf
 [{package.json,*.yml,*.xml}]
 indent_style = space
 
-[{package.json,*.yml,*.xml,*.csproj,*.props}]
+[{*.json,*.yml,*.xml,*.csproj,*.props}]
 indent_size = 2
 
 [*.cs]

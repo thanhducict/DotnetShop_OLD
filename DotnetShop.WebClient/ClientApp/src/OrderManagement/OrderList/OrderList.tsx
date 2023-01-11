@@ -52,7 +52,7 @@ const OrderList: React.FC = () => {
                 // check if object is not empty
                 if ((Object.keys(result.data).length === 0 && result.data.constructor === Object) == false) {
                     setOrders(result.data);
-                    setPagination(JSON.parse(result.headers["x-pagination"]));
+                    setPagination(JSON.parse((result as any).headers["x-pagination"]));
                 }
             })
             .catch((error) => {

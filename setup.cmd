@@ -5,10 +5,10 @@ echo Execute Db migrations and data seeding
 echo ======================================
 
 echo === Migrations ===
-if exist DotnetShop.WebApp\App_Data\Migrations\ (
-	rmdir DotnetShop.WebApp\App_Data\Migrations\ /s /q
+if exist DotnetShop.Migrations.Sqlite\Migrations\ (
+	rmdir DotnetShop.Migrations.Sqlite\Migrations\ /s /q
 )
-dotnet ef migrations add InitialCreate -p DotnetShop.WebApp\DotnetShop.WebApp.csproj -s DotnetShop.WebApp\DotnetShop.WebApp.csproj -o App_Data\Migrations
+dotnet ef migrations add InitialCreate -p DotnetShop.Migrations.Sqlite\DotnetShop.Migrations.Sqlite.csproj -s DotnetShop.WebApp\DotnetShop.WebApp.csproj
 
 echo === Generate database ===
 dotnet ef database drop -f -s DotnetShop.WebApp/DotnetShop.WebApp.csproj
