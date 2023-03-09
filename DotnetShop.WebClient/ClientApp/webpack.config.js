@@ -3,12 +3,13 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-module.exports = (env) => {
+module.exports = () => {
     const webpack_server = {
         mode: "development",
         devtool: "cheap-module-source-map",
         plugins: [new HtmlWebpackPlugin({ template: path.resolve(__dirname, "src/index.html") })],
         devServer: {
+            port: 3012,
             historyApiFallback: true,
         },
     };
@@ -17,12 +18,17 @@ module.exports = (env) => {
         devtool: "cheap-module-source-map",
         plugins: [],
     };
-    const webpack_build = {
+    const webpack_prod = {
         mode: "production",
         devtool: false,
         plugins: [],
     };
-    const webpack_config = env.server ? webpack_server : env.development ? webpack_dev : webpack_build;
+    const webpack_config =
+        process.env.NODE_ENV === "server"
+            ? webpack_server
+            : process.env.NODE_ENV === "development"
+            ? webpack_dev
+            : webpack_prod;
 
     return {
         ...webpack_config,
@@ -48,7 +54,7 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.(c|s[ac])ss$/i,
-                    use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+                    use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader", "sass-loader"],
                 },
                 {
                     test: /\.(woff(2)|eot|ttf|otf|svg)$/,

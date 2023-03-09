@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Routes, Route, HashRouter, Navigate } from "react-router-dom";
 import "./global-style.scss";
+import "./global-style.css";
 import CartList from "./CartManagement/CartList/CartList";
 import Authentication from "./Authentication/Authentication";
 import { ButtonLink, LinkList, NavigationBar, Stack, Text, TextLink, ToastRoot } from "@kiwicom/orbit-components";
