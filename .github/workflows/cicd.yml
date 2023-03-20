@@ -1,8 +1,12 @@
-name: Continuous Integration
+name: Deploy to Azure App Service
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ 'master' ]
+
+env:
+  AZURE_WEBAPP_NAME: dotnetshop
+  AZURE_WEBAPP_PACKAGE_PATH: '.'
 
 jobs:
   build:
@@ -30,3 +34,10 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Publish
+      run: dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
+    - name: Deploy
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.DOTNETSHOP_PUBLISH_PROFILE }}
