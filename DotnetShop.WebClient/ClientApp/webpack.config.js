@@ -54,7 +54,7 @@ module.exports = () => {
                 },
                 {
                     test: /\.(c|s[ac])ss$/i,
-                    use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader", "sass-loader"],
+                    use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
                 },
                 {
                     test: /\.(woff(2)|eot|ttf|otf|svg)$/,

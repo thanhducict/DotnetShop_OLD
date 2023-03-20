@@ -25,9 +25,9 @@ jobs:
     - name: Install node_modules
       run: yarn install --frozen-lockfile
       working-directory: DotnetShop.WebClient/ClientApp
-    - name: Build WebClient
-      run: yarn build:release
-      working-directory: DotnetShop.WebClient/ClientApp
+    #- name: Build WebClient
+    #  run: yarn build:release
+    #  working-directory: DotnetShop.WebClient/ClientApp
     - name: Restore dependencies
       run: dotnet restore DotnetShop.sln --configfile nuget.config
     - name: Build
@@ -41,3 +41,7 @@ jobs:
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
         publish-profile: ${{ secrets.DOTNETSHOP_PUBLISH_PROFILE }}
+        package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
+    - name: Setup
+      shell: pwsh
+      run: ./setup.cmd

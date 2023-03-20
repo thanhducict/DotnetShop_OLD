@@ -29,8 +29,6 @@
     <ProjectReference Include="..\DotnetShop.Admin.Warehouses\DotnetShop.Admin.Warehouses.csproj" />
     <ProjectReference Include="..\DotnetShop.Books\DotnetShop.Books.csproj" />
     <ProjectReference Include="..\DotnetShop.Infrastructure\DotnetShop.Infrastructure.csproj" />
-    <ProjectReference Include="..\DotnetShop.Migrations.Sqlite\DotnetShop.Migrations.Sqlite.csproj" />
-    <ProjectReference Include="..\DotnetShop.Migrations.SqlServer\DotnetShop.Migrations.SqlServer.csproj" />
     <ProjectReference Include="..\DotnetShop.News\DotnetShop.News.csproj" />
   </ItemGroup>
 
