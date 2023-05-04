@@ -10,24 +10,14 @@ env:
 
 jobs:
   build:
-    name: Build .NET and NodeJS
+    name: Build .NET
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Set up NodeJS
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
-    - name: Install node_modules
-      run: yarn install --frozen-lockfile
-      working-directory: DotnetShop.WebClient/ClientApp
-    #- name: Build WebClient
-    #  run: yarn build:release
-    #  working-directory: DotnetShop.WebClient/ClientApp
+        dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore DotnetShop.sln --configfile nuget.config
     - name: Build
@@ -42,6 +32,3 @@ jobs:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
         publish-profile: ${{ secrets.DOTNETSHOP_PUBLISH_PROFILE }}
         package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
-    - name: Setup
-      shell: pwsh
-      run: ./setup.cmd

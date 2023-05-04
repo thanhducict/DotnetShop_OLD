@@ -20,16 +20,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="wwwroot\images\Christmas\" />
     <Folder Include="wwwroot\audio\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DotnetShop.Admin.Warehouses\DotnetShop.Admin.Warehouses.csproj" />
-    <ProjectReference Include="..\DotnetShop.Books\DotnetShop.Books.csproj" />
+    <ProjectReference Include="..\DotnetShop.Data\DotnetShop.Data.csproj" />
     <ProjectReference Include="..\DotnetShop.Infrastructure\DotnetShop.Infrastructure.csproj" />
-    <ProjectReference Include="..\DotnetShop.News\DotnetShop.News.csproj" />
   </ItemGroup>
 
 </Project>

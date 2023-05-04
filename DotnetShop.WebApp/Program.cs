@@ -97,6 +97,11 @@ foreach (var item in allModules)
 string dbPath, connectionString;
 var provider = configuration.GetValue<string>("DatabaseProvider");
 
+if (Directory.Exists(Path.Combine(environment.ContentRootPath, "App_Data")) == false)
+{
+    Directory.CreateDirectory(Path.Combine(environment.ContentRootPath, "App_Data"));
+}
+
 switch (provider)
 {
     case "SqlServer":
