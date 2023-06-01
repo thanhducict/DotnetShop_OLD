@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AuthenticationRequestBody } from "./AuthenticationRequestBody";
 import axios from "axios";
-import { BEARER_TOKEN } from "../Constants";
+import { BEARER_TOKEN } from "../../Constants";
 import {
     Button,
     Illustration,

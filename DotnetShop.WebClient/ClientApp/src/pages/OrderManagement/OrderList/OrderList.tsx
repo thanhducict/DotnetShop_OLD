@@ -21,8 +21,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authHeader } from "../../Authentication/AuthenticationService";
-import { PaginationMetadata } from "../../Common/PaginationMetadata";
-import { BEARER_TOKEN } from "../../Constants";
+import { PaginationMetadata } from "../../../common/PaginationMetadata";
+import { BEARER_TOKEN } from "../../../Constants";
 import { DeleteOrderDto } from "../Models/DeleteOrderDto";
 import { OrderDto } from "../Models/OrderDto";
 

@@ -5,6 +5,8 @@ import Customers from "./CustomerManagement/Customers.json";
 import Customer from "./CustomerManagement/Customer.json";
 import Orders from "./OrderManagement/Orders.json";
 import Order from "./OrderManagement/Order.json";
+import Cats from "./ComponentsPage/Cats.json";
+import Columns from "./ComponentsPage/Columns.json";
 
 const token = "ABCXYZ";
 
@@ -79,5 +81,13 @@ export const handlers = [
 
     rest.delete("api/orders", (req, res, ctx) => {
         return res(ctx.status(200));
+    }),
+
+    rest.get("api/sample/cats", (req, res, ctx) => {
+        return res(ctx.json(Cats), ctx.status(200));
+    }),
+
+    rest.get("api/sample/columns", (req, res, ctx) => {
+        return res(ctx.json(Columns), ctx.status(200));
     }),
 ];

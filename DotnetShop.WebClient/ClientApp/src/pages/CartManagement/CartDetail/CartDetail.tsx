@@ -10,33 +10,31 @@ import {
 } from "@kiwicom/orbit-components";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { authHeader } from "../../Authentication/AuthenticationService";
-import { BEARER_TOKEN } from "../../Constants";
+import { useNavigate, useParams } from "react-router-dom";
+import { BEARER_TOKEN } from "../../../Constants";
 import { CartDto } from "../Models/CartDto";
 import { CartLineItemDto } from "../Models/CartLineItemDto";
 
-const CartList: React.FC = () => {
+const CartDetail: React.FC = () => {
+    const params = useParams();
     const navigate = useNavigate();
-    const [carts, setCarts] = useState<CartDto[]>();
+    const [cart, setCart] = useState<CartDto>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
         axios
-            .get<CartDto[]>("api/carts", { headers: authHeader() })
+            .get<CartDto>(`api/carts/customer/${params.customerId}`)
             .then((result) => result.data)
             .then((data) => {
                 // check if object is not empty
                 if ((Object.keys(data).length === 0 && data.constructor === Object) == false) {
-                    setCarts(data);
+                    setCart(data);
                 }
             })
             .catch((error) => {
-                if (error.response.status === 401) {
+                if (error.response.status) {
                     localStorage.removeItem(BEARER_TOKEN);
                     navigate("/TokenExpired");
-                } else {
-                    navigate("/NotFound");
                 }
             })
             .finally(() => {
@@ -50,7 +48,7 @@ const CartList: React.FC = () => {
                 {!isLoading && (
                     <>
                         <Heading type="displaySubtitle" spaceAfter="medium">
-                            All carts
+                            {cart?.cartLineItemDtos[0].customerName}'s Cart
                         </Heading>
                         <Table>
                             <TableHead>
@@ -73,17 +71,15 @@ const CartList: React.FC = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {carts?.map((c: CartDto) =>
-                                    c.cartLineItemDtos.map((l: CartLineItemDto, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell>{l.customerId}</TableCell>
-                                            <TableCell>{l.customerName}</TableCell>
-                                            <TableCell>{l.productId}</TableCell>
-                                            <TableCell>{l.productName}</TableCell>
-                                            <TableCell>{l.quantity}</TableCell>
-                                        </TableRow>
-                                    ))
-                                )}
+                                {cart?.cartLineItemDtos?.map((l: CartLineItemDto, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell>{l.customerId}</TableCell>
+                                        <TableCell>{l.customerName}</TableCell>
+                                        <TableCell>{l.productId}</TableCell>
+                                        <TableCell>{l.productName}</TableCell>
+                                        <TableCell>{l.quantity}</TableCell>
+                                    </TableRow>
+                                ))}
                             </TableBody>
                         </Table>
                     </>
@@ -93,4 +89,4 @@ const CartList: React.FC = () => {
     );
 };
 
-export default CartList;
+export default CartDetail;

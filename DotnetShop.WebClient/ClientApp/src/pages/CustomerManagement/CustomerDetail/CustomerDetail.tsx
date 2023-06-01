@@ -14,7 +14,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { authHeader } from "../../Authentication/AuthenticationService";
-import { BEARER_TOKEN } from "../../Constants";
+import { BEARER_TOKEN } from "../../../Constants";
 import { CustomerDetailDto } from "../Models/CustomerDetailDto";
 
 const CustomerDetail: React.FC = () => {

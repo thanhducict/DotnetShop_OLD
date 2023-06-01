@@ -1,4 +1,4 @@
-import { BEARER_TOKEN } from "../Constants";
+import { BEARER_TOKEN } from "../../Constants";
 
 export const authHeader = () => {
     const token = localStorage.getItem(BEARER_TOKEN);

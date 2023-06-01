@@ -20,7 +20,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authHeader } from "../../Authentication/AuthenticationService";
-import { BEARER_TOKEN } from "../../Constants";
+import { BEARER_TOKEN } from "../../../Constants";
 import AddCustomer from "../AddCustomer/AddCustomer";
 import { CustomerDto } from "../Models/CustomerDto";
 

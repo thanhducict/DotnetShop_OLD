@@ -1,0 +1,15 @@
+[
+    {
+        "key": "name",
+        "header": "Name",
+        "width": 150
+    },
+    {
+        "key": "age",
+        "header": "Age in years"
+    },
+    {
+        "key": "color",
+        "header": "Color"
+    }
+]

@@ -17,7 +17,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { authHeader } from "../../Authentication/AuthenticationService";
-import { BEARER_TOKEN } from "../../Constants";
+import { BEARER_TOKEN } from "../../../Constants";
 import { OrderDetailDto } from "../Models/OrderDetailDto";
 import { OrderWithDetailDto } from "../Models/OrderWithDetailDto";
 

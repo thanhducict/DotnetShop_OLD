@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Button, Heading, Illustration, Layout, LayoutColumn } from "@kiwicom/orbit-components";
 import { isTokenExpired } from "../Authentication/AuthenticationService";
 import { useNavigate } from "react-router-dom";
-import { BEARER_TOKEN } from "../Constants";
+import { BEARER_TOKEN } from "../../Constants";
 import "./TokenExpired.scss";
 
 interface TokenExpiredProps {
